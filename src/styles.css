@@ -110,6 +110,15 @@ header > nav > .user-container > .sign-slider:hover {
     animation: slideIn 0.5s forwards;
 }
 
+@keyframes slideIn {
+    from {
+        left: -6rem;
+    }
+    to {
+        left: -2rem;
+    }
+}
+
 header > nav > .user-container > .user:hover,
 header > nav > .user-container > .user:has(+.sign-slider:hover){
     background-color: var(--tertiary-color);
@@ -130,13 +139,4 @@ header > nav > .user-container > .sign-slider:hover{
 
 header > nav > .user-container > .sign-slider:hover > a{
     color: var(--tertiary-color);
-}
-
-@keyframes slideIn {
-    from {
-        left: -6rem;
-    }
-    to {
-        left: -2rem;
-    }
 }
