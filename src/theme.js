@@ -1,3 +1,5 @@
+export { themeChange, changeTheme };
+
 function themeChange(){
     const iconBtn = document.querySelector('#theme');
     iconBtn.classList.toggle('rotate');
