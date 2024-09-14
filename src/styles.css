@@ -2,11 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 :root{
-    --primary-color: #EBF0F2;
-    --secondary-color: #404040;
-    --tertiary-color: #735646;
-    --quaternary-color: #8C7456;
-    --quinary-color: #A6916A;
+    --primary-color: var(--primary-light-color);
+    --primary-dark-color: #1d1d1d;
+    --primary-light-color: #EBF0F2;
+    --secondary-color: var(--secondary-light-color);
+    --secondary-dark-color: #EBF0F2;
+    --secondary-light-color: #404040;
+    --tertiary-color: var(--tertiary-light-color);
+    --tertiary-light-color: #735646;
+    --tertiary-dark-color: #A6916A;
+    --quaternary-color: var(--quaternary-light-color);
+    --quaternary-light-color: #8C7456;
+    --quaternary-dark-color: #5E4B32;
+    --quinary-color: var(--quinary-light-color);
+    --quinary-light-color: #A6916A;
+    --quinary-dark-color: #735646;
 }
 
 *{
