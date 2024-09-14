@@ -140,3 +140,75 @@ header > nav > .user-container > .sign-slider:hover{
 header > nav > .user-container > .sign-slider:hover > a{
     color: var(--tertiary-color);
 }
+
+header > nav > .settings{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 10rem;
+}
+
+header > nav > .settings > .notification{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+header > nav > .settings > .notification > span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    position: relative;
+    bottom: 0.2rem;
+    right: 0.2rem;
+    font-size: xx-small;
+    background-color: red;
+    color: white;
+}
+
+header > nav > .settings > .notification:hover{
+    background-color: var(--quinary-color);
+    color: var(--primary-color);
+}
+
+header > nav > .settings > .notification:active{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+}
+
+header > nav > .settings > .notification:hover > span{
+    background-color: var(--tertiary-color);
+}
+
+header > nav > .settings > #theme{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+}
+
+header > nav > .settings > #theme:hover{
+    background-color: var(--quaternary-color);
+    color: white;
+}
+
+header > nav > .settings > #theme:active{
+    background-color: var(--tertiary-color);
+    color: white;
+}
+
+.rotate {
+    transform: rotate(90deg);
+    transition: transform 0.3s;
+}

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>iDo</title>
 </head>
 <body>
     <header>
         <nav>
-            <div class="user-container">
+            <div class="user-container" onselectstart="return false">
                 <menu>
                     <button>
                         <i class="fas fa-bars"></i>
@@ -22,14 +22,14 @@
                     <a href="#">Sign in</a>
                 </div>
             </div>
-            <div class="settings">
+            <div class="settings" onselectstart="return false">
                 <div class="notification">
                     <i class="far fa-bell"></i>
                     <span>0</span>
                 </div>
-                <div class="theme">
-                    <i class="fas fa-sun"></i>
-                </div>
+                <button id="theme" onclick="themeChange()">
+                    <i class="theme-icon fas fa-sun"></i>
+                </button>
             </div>
         </nav>
     </header>
