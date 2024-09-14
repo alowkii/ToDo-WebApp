@@ -65,7 +65,7 @@ header > nav > .user-container > .user {
     height: 2.5rem;
     overflow: hidden;
     padding-right: 1rem;
-    cursor: pointer;
+    cursor: pointer
 }
 
 header > nav > .user-container > .user > img{
@@ -103,14 +103,14 @@ header > nav > .user-container > .sign-slider:hover {
 header > nav > .user-container > .user:hover,
 header > nav > .user-container > .user:has(+.sign-slider:hover){
     background-color: var(--tertiary-color);
-    color: var(--quinary-color);
-    font-weight: 500;
+    color: var(--primary-color);
+    font-weight: 300;
 }
 
 header > nav > .user-container > .sign-slider > a{
     color: var(--primary-color);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 300;
 }
 
 header > nav > .user-container > .sign-slider:hover{
