@@ -29,7 +29,7 @@ module.exports = {
                 loader: "html-loader",
             },
             {
-                test: /\.(png|jpg|jpeg)$/i,
+                test: /\.(png|jpg|jpeg|webp)$/i,
                 type: "asset/resource",
                 generator: {
                     filename: "images/[name][ext][query]",

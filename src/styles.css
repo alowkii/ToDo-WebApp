@@ -21,7 +21,7 @@ body{
 }
 
 header{
-    background-color: var(--quaternary-color);
+    background-color: transparent;
     color: var(--secondary-color);
     padding: 0.5rem;
 }
@@ -34,4 +34,99 @@ header > nav{
 
 header > nav > *{
     display: flex;
+    align-items: center;
+}
+
+header > nav > .user-container{
+    width: 40rem;
+}
+
+header > nav > .user-container button{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    margin-left: 1rem;
+    cursor: pointer;
+    font-family: 'Playwrite CU', sans-serif;
+    font-weight: 400;
+    transition: background-color 0.3s;
+    align-items: center;
+}
+
+header > nav > .user-container > .user {
+    display: flex;
+    z-index: 1;
+    padding: 0.2rem;
+    margin-left: 1.5rem;
+    align-items: center;
+    border-radius: 5rem;
+    height: 2.5rem;
+    overflow: hidden;
+    padding-right: 1rem;
+    cursor: pointer;
+}
+
+header > nav > .user-container > .user > img{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    justify-content: center;
+}
+
+header > nav > .user-container > .sign-slider {
+    visibility: hidden;
+    position: relative;
+    display: flex;
+    left: -6rem;
+    padding-left: 1rem;
+    z-index: 0;
+    border-radius: 5rem;
+    width: 7rem;
+    height: 2.5rem;
+    background-color: var(--quaternary-color);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    color: var(--quaternary-color);
+}
+
+header > nav > .user-container > .user:hover + .sign-slider,
+header > nav > .user-container > .sign-slider:hover {
+    visibility: visible;
+    left: -2rem;
+    animation: slideIn 0.5s forwards;
+}
+
+header > nav > .user-container > .user:hover,
+header > nav > .user-container > .user:has(+.sign-slider:hover){
+    background-color: var(--tertiary-color);
+    color: var(--quinary-color);
+    font-weight: 500;
+}
+
+header > nav > .user-container > .sign-slider > a{
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+header > nav > .user-container > .sign-slider:hover{
+    background-color: var(--quinary-color);
+}
+
+
+header > nav > .user-container > .sign-slider:hover > a{
+    color: var(--tertiary-color);
+}
+
+@keyframes slideIn {
+    from {
+        left: -6rem;
+    }
+    to {
+        left: -2rem;
+    }
 }
