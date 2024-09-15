@@ -51,7 +51,7 @@ header > nav > .user-container{
     width: 40rem;
 }
 
-header > nav > .user-container button{
+header > nav > .user-container > menu #menuBtn{
     background-color: var(--tertiary-color);
     color: var(--primary-color);
     border: none;
@@ -211,4 +211,52 @@ header > nav > .settings > #theme:active{
 .rotate {
     transform: rotate(90deg);
     transition: transform 0.3s;
+}
+
+.menu-window{
+    display: none;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 20rem;
+    height: 100%;
+    background-color: var(--secondary-color);
+    transition: transform 0.3s;
+    animation: slideInMenu 0.5s forwards;
+}
+
+@keyframes slideInMenu {
+    from {
+        transform: translateX(-20rem);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutMenu {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-20rem);
+    }
+    
+}
+
+.menu-window > #menuBtn{
+    position: relative;
+    top: 0.5rem;
+    left: 0.5rem;
+    animation: displayMenuBtn 0.8s ease-in-out;
+}
+
+@keyframes displayMenuBtn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
