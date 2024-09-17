@@ -27,6 +27,7 @@
     "webpack-dev-server": "^5.1.0"
   },
   "dependencies": {
+    "gapi-script": "^1.2.0",
     "image-minimizer-webpack-plugin": "^4.1.0",
     "mini-css-extract-plugin": "^2.9.1",
     "terser-webpack-plugin": "^5.3.10"

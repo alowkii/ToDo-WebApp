@@ -38,3 +38,4 @@ function changeTheme(theme) {
 
 
 window.themeChange = themeChange;
+window.changeTheme = changeTheme;
