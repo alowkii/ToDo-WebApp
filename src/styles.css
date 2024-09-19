@@ -148,7 +148,7 @@ header > nav > .settings{
     width: 10rem;
 }
 
-header > nav > .settings > .notification{
+header > nav > .settings .notificationBtn{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -156,9 +156,10 @@ header > nav > .settings > .notification{
     height: 2.5rem;
     cursor: pointer;
     border-radius: 50%;
+    border: none;
 }
 
-header > nav > .settings > .notification > span{
+header > nav > .settings .notificationBtn > span{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -173,17 +174,17 @@ header > nav > .settings > .notification > span{
     color: white;
 }
 
-header > nav > .settings > .notification:hover{
+header > nav > .settings .notificationBtn:hover{
     background-color: var(--quinary-color);
     color: var(--primary-color);
 }
 
-header > nav > .settings > .notification:active{
+header > nav > .settings .notificationBtn:active{
     background-color: var(--tertiary-color);
     color: var(--primary-color);
 }
 
-header > nav > .settings > .notification:hover > span{
+header > nav > .settings .notificationBtn:hover > span{
     background-color: var(--tertiary-color);
 }
 
@@ -259,4 +260,49 @@ header > nav > .settings > #theme:active{
     to {
         opacity: 1;
     }
+}
+
+.notification-window{
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    width: 20rem;
+    height: 100%;
+    background-color: var(--secondary-color);
+    transition: transform 0.3s;
+}
+
+.add{
+    animation: slideInNotification 0.5s forwards;
+}
+
+.remove{
+    animation: slideOutNotification 0.5s forwards;
+}
+
+@keyframes slideInNotification {
+    from {
+        transform: translateX(20rem);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutNotification {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(20rem);
+    }
+}
+
+.notification-window > .notificationClose{
+    position: relative;
+    top: 0.5rem;
+    left: 16rem;
+    background-color: var(--tertiary-color);
+    animation: displayNotificationBtn 0.8s ease-in-out;
 }
