@@ -107,10 +107,10 @@ header > nav > .user-container > .user:hover + .sign-slider,
 header > nav > .user-container > .sign-slider:hover {
     visibility: visible;
     left: -2rem;
-    animation: slideIn 0.5s forwards;
+    animation: slideInSignOption 0.5s forwards;
 }
 
-@keyframes slideIn {
+@keyframes slideInSignOption {
     from {
         left: -6rem;
     }
@@ -219,7 +219,7 @@ header > nav > .settings > #theme:active{
     position: fixed;
     z-index: 3;
     top: 0;
-    left: 0;
+    left: -20rem;
     width: 20rem;
     height: 100%;
     background-color: var(--secondary-color);
@@ -227,21 +227,21 @@ header > nav > .settings > #theme:active{
     animation: slideInMenu 0.5s forwards;
 }
 
-@keyframes slideInMenu {
+@keyframes slideOut {
     from {
-        transform: translateX(-20rem);
+        transform: translateX(20rem);
     }
     to {
         transform: translateX(0);
     }
 }
 
-@keyframes slideOutMenu {
+@keyframes slideIn {
     from {
         transform: translateX(0);
     }
     to {
-        transform: translateX(-20rem);
+        transform: translateX(20rem);
     }
     
 }
@@ -274,29 +274,11 @@ header > nav > .settings > #theme:active{
 }
 
 .add{
-    animation: slideInNotification 0.5s forwards;
+    animation: slideOut 0.5s forwards;
 }
 
 .remove{
-    animation: slideOutNotification 0.5s forwards;
-}
-
-@keyframes slideInNotification {
-    from {
-        transform: translateX(20rem);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideOutNotification {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(20rem);
-    }
+    animation: slideIn 0.5s forwards;
 }
 
 .notification-window > .notificationClose{

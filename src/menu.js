@@ -4,12 +4,12 @@ function showMenu(){
     createMenu();
     const menu = document.querySelector('.menu-window');
     if(menu.style.display == 'block'){
-        menu.style.animation = 'slideOutMenu 0.5s forwards';
+        menu.style.animation = 'slideOut 0.5s forwards';
         setTimeout(() => {
             menu.style.display = 'none';
         }, 500);
     }else{
-        menu.style.animation = 'slideInMenu 0.5s forwards';
+        menu.style.animation = 'slideIn 0.5s forwards';
         menu.style.display = 'block';
     };
 }
