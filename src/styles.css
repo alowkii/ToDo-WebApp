@@ -304,5 +304,6 @@ header > nav > .settings > #theme:active{
     top: 0.5rem;
     left: 16rem;
     background-color: var(--tertiary-color);
+    color: var(--primary-color);
     animation: displayNotificationBtn 0.8s ease-in-out;
 }
