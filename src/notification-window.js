@@ -14,12 +14,6 @@ function toggleNotificationWindow() {
         newNotificationWindow.classList.add('add');
         newNotificationWindow.classList.remove('remove');
     }
-
-    let data = {
-        title: 'Notification',
-        message: 'This is a notification message'
-    };
-    addNotification(data);
 }
 
 function createNotificationWindow() {
