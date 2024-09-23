@@ -35,6 +35,11 @@ function createNotificationWindow() {
     notificationClose.addEventListener('click', toggleNotificationWindow);
 
     notificationWindow.appendChild(notificationClose);
+    
+    
+    const notifications = document.createElement('div');
+    notifications.classList.add('notifications');
+    notificationWindow.appendChild(notifications);
 
     // Append the window to the correct container
     document.querySelector('.notification-container').appendChild(notificationWindow);
@@ -46,7 +51,7 @@ function formatNotification(data){
             <h4>${data.title}</h4>
             <p>${data.message}</p>
         </div>
-        <div class="notification-close">
+        <div class="notification-delete">
             <i class="fas fa-times"></i>
         </div>
     `;
@@ -54,7 +59,7 @@ function formatNotification(data){
 
 function addNotification(data) {
     const counter = document.querySelector('.notification-counter');
-    let counterValue = parseInt(counter.innerHTML);
+    let counterValue = parseInt(document.querySelectorAll('.notification').length);
     counterValue++;
     if(counterValue > 9){
         counter.innerHTML = "9+";
@@ -62,27 +67,34 @@ function addNotification(data) {
         counter.innerHTML = counterValue;
     }
 
-    const notificationWindow = document.querySelector('.notification-window');
-    const notifications = document.createElement('div');
-    notifications.classList.add('notifications');
+    const notifications = document.querySelector('.notifications');
 
-    const notification = document.createElement('div');
+    let notification = document.createElement('div');
     notification.classList.add('notification');
+    notification.classList.add(`n${counterValue}`);
     notification.innerHTML = formatNotification(data);
-
+    
     notifications.appendChild(notification);
-    notificationWindow.appendChild(notifications);
 
-    // Close notification
-    const notificationClose = document.querySelector('.notification-close');
-    notificationClose.addEventListener('click', function() {
+    //delete notification
+    const notificationDelete = notification.querySelector('.notification-delete');
+    notificationDelete.addEventListener('click', function(){
+        notification.remove();
         counterValue--;
         if(counterValue > 9){
             counter.innerHTML = "9+";
         }else{
             counter.innerHTML = counterValue;
         }
+        reiterateNotificationNumber();
+    });
+}
 
-        notification.remove();
+function reiterateNotificationNumber(){
+    const notifications = document.querySelectorAll('.notification');
+    let counterValue = 0;
+    notifications.forEach(notification => {
+        counterValue++;
+        notification.classList = `notification n${counterValue}`;
     });
 }
