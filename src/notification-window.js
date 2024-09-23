@@ -14,6 +14,12 @@ function toggleNotificationWindow() {
         newNotificationWindow.classList.add('add');
         newNotificationWindow.classList.remove('remove');
     }
+
+    let data = {
+        title: 'Notification',
+        message: 'This is a notification message'
+    };
+    addNotification(data);
 }
 
 function createNotificationWindow() {
@@ -31,36 +37,11 @@ function createNotificationWindow() {
     notificationWindow.appendChild(notificationClose);
 
     // Append the window to the correct container
-    document.querySelector('.notification').appendChild(notificationWindow);
+    document.querySelector('.notification-container').appendChild(notificationWindow);
 }
-
-
 
 function formatNotification(data){
     return `
-        <div class="notification">
-            <div class="notification-icon">
-                <i class="fas fa-${data.icon}"></i>
-            </div>
-            <div class="notification-content">
-                <h4>${data.title}</h4>
-                <p>${data.message}</p>
-            </div>
-            <div class="notification-close">
-                <i class="fas fa-times"></i>
-            </div>
-        </div>
-    `;
-}
-
-function addNotification(data){
-    const notification = document.createElement('div');
-    notification.classList.add('notification');
-    notification.classList.add(data.type);
-    notification.innerHTML = `
-        <div class="notification-icon">
-            <i class="fas fa-${data.icon}"></i>
-        </div>
         <div class="notification-content">
             <h4>${data.title}</h4>
             <p>${data.message}</p>
@@ -69,11 +50,13 @@ function addNotification(data){
             <i class="fas fa-times"></i>
         </div>
     `;
+}
 
-    const notificationClose = notification.querySelector('.notification-close');
-    notificationClose.addEventListener('click', () => {
-        notification.remove();
-    });
+function addNotification(data) {
+    const notificationWindow = document.querySelector('.notification-window');
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.innerHTML = formatNotification(data);
 
-    document.body.appendChild(notification);
+    notificationWindow.appendChild(notification);
 }
