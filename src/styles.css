@@ -290,12 +290,27 @@ header > nav > .settings > #theme:active{
     animation: displayNotificationBtn 0.8s ease-in-out;
 }
 
-.notification-window > .notification{
-    color: var(--primary-color);
+.notification-window > .notifications {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    overflow-y: auto;
+    margin-top: 2rem;
     border-top: 1px solid var(--tertiary-color);
-    padding: 0.5rem;
 }
 
-.notification-window > .notification:first-child{
-    margin-top: 1rem;
+.notification-window > .notifications > .notification{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--tertiary-color);
+    padding: 0.5rem;
+    height: 6rem;
+}
+
+.notification-window > .notifications > .notification > .notification-close{
+    align-self: flex-start;
 }

@@ -53,10 +53,36 @@ function formatNotification(data){
 }
 
 function addNotification(data) {
+    const counter = document.querySelector('.notification-counter');
+    let counterValue = parseInt(counter.innerHTML);
+    counterValue++;
+    if(counterValue > 9){
+        counter.innerHTML = "9+";
+    }else{
+        counter.innerHTML = counterValue;
+    }
+
     const notificationWindow = document.querySelector('.notification-window');
+    const notifications = document.createElement('div');
+    notifications.classList.add('notifications');
+
     const notification = document.createElement('div');
     notification.classList.add('notification');
     notification.innerHTML = formatNotification(data);
 
-    notificationWindow.appendChild(notification);
+    notifications.appendChild(notification);
+    notificationWindow.appendChild(notifications);
+
+    // Close notification
+    const notificationClose = document.querySelector('.notification-close');
+    notificationClose.addEventListener('click', function() {
+        counterValue--;
+        if(counterValue > 9){
+            counter.innerHTML = "9+";
+        }else{
+            counter.innerHTML = counterValue;
+        }
+
+        notification.remove();
+    });
 }
