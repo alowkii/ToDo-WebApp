@@ -1,4 +1,4 @@
-export { themeChange, changeTheme };
+export { themeChange, setTheme, getTheme};
 
 function themeChange(){
     const iconBtn = document.querySelector('#theme');
@@ -23,19 +23,30 @@ function themeChange(){
 
     root.setAttribute('data-theme', newTheme);
 
-    changeTheme(newTheme);
+    setTheme(newTheme);
 }
 
-function changeTheme(theme) {
+function setTheme(theme) {
+    if(!theme){
+        theme = localStorage.getItem('theme') || 'light';
+    }
     const root = document.querySelector(':root');
-
+    
+    root.setAttribute('data-theme', theme);
     root.style.setProperty('--primary-color', `var(--primary-${theme}-color)`);
     root.style.setProperty('--secondary-color', `var(--secondary-${theme}-color)`);
     root.style.setProperty('--tertiary-color', `var(--tertiary-${theme}-color)`);
     root.style.setProperty('--quaternary-color', `var(--quaternary-${theme}-color)`);
     root.style.setProperty('--quinary-color', `var(--quinary-${theme}-color)`);
+
+    localStorage.setItem('theme',theme);
 }
 
+function getTheme(){
+    const root = document.querySelector(':root');
+    return root.getAttribute('data-theme');
+}
 
 window.themeChange = themeChange;
-window.changeTheme = changeTheme;
+window.setTheme = setTheme;
+window.getTheme = getTheme;

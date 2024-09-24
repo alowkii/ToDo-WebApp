@@ -2,10 +2,9 @@ import "./styles.css";
 import "./icon.js";
 import "./theme.js";
 import "./menu.js";
+import {populateStorage} from "./localStorage.js";
 import { toggleNotificationWindow, addNotification } from "./notification-window.js";
 
-const root = document.querySelector(":root");
-const theme = root.getAttribute("data-theme");
-changeTheme(theme);
+setTheme(localStorage.getItem("theme"));
 
 window.toggleNotificationWindow = toggleNotificationWindow;

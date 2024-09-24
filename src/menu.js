@@ -24,7 +24,6 @@ function createMenu() {
     menu.appendChild(menuBtnInMenu);
     
     document.querySelector('menu').appendChild(menu);
-
 }
 
 window.showMenu = showMenu;
