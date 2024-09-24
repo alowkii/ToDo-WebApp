@@ -366,6 +366,7 @@ header > nav > .settings > #theme:active{
     background-color: var(--tertiary-color);
     cursor: pointer;
     transition: opacity 0.1s, box-shadow 0.3s;
+    transition: ease-in-out 0.3s;
     opacity: 0.8;
 }
 
@@ -376,4 +377,5 @@ header > nav > .settings > #theme:active{
 
 #empty-window  #add-icon:active{
     opacity: 1;
+    box-shadow: 0 0 0 0.2rem var(--tertiary-color);
 }
