@@ -24,14 +24,13 @@ function addContent() {
     document.body.appendChild(content);
 
     addIcon.addEventListener("mouseup", () => {
-        popUpOption();
+        addToDoList();
         emptyWindowContent.remove();
     });
 }
 
-function popUpOption(){
-    const popUp = document.createElement("div");
-    popUp.id = "pop-up";
-    popUp.innerHTML = "<p>Do you want to add a new item?</p>";
-    document.body.appendChild(popUp);
+function addToDoList(){
+    const popUp = document.getElementById("pop-up");
+    popUp.classList.remove("hidePopUp");
+    popUp.classList.add("showPopUp");
 }
