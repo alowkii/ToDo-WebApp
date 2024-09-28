@@ -454,6 +454,11 @@ header > nav > .settings > #theme:active{
     width: 100%;
 }
 
+#pop-up > div > #priority{
+    position: relative;
+    right: 1rem;
+}
+
 #pop-up #closePopUpBtn{
     position: absolute;
     top: 1rem;
@@ -465,6 +470,7 @@ header > nav > .settings > #theme:active{
     cursor: pointer;
 }
 
+#pop-up > div > #priority,
 #pop-up #chooseProjectBtn,
 #pop-up #addTaskBtn{
     background-color: var(--tertiary-color);
@@ -477,8 +483,10 @@ header > nav > .settings > #theme:active{
     align-self: center;
 }
 
-#pop-up button:hover{
-    background-color: var(--quaternary-color);
+#pop-up > div > #priority:hover,
+#pop-up #chooseProjectBtn:hover,
+#pop-up #addTaskBtn:hover{
+    background-color: var(--quaternary-light-color);
 }
 
 #main-content{
