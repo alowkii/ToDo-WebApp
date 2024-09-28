@@ -1,4 +1,5 @@
 export { themeChange, setTheme, getTheme};
+import { getStorageItem, setStorageItem } from "./local-storage";
 
 function themeChange(){
     const iconBtn = document.querySelector('#theme');
@@ -28,7 +29,7 @@ function themeChange(){
 
 function setTheme(theme) {
     if(!theme){
-        theme = localStorage.getItem('theme') || 'light';
+        theme = getStorageItem('theme') || 'light';
     }
     const root = document.querySelector(':root');
     
@@ -39,7 +40,7 @@ function setTheme(theme) {
     root.style.setProperty('--quaternary-color', `var(--quaternary-${theme}-color)`);
     root.style.setProperty('--quinary-color', `var(--quinary-${theme}-color)`);
 
-    localStorage.setItem('theme',theme);
+    setStorageItem('theme',theme);
 }
 
 function getTheme(){

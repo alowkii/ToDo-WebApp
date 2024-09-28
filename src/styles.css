@@ -441,6 +441,10 @@ header > nav > .settings > #theme:active{
     outline: none;
 }
 
+#pop-up > .date-time{
+    width: 10rem;
+}
+
 #pop-up > button{
     background-color: var(--tertiary-color);
     color: var(--primary-color);
