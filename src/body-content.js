@@ -1,4 +1,5 @@
-export { addContent };
+export { addContent, addTask };
+import {formatDistance, subDays} from 'date-fns';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -49,12 +50,11 @@ function hideEmptyCaseWindow(){
 function callTaskQueryWindow(){
     showPopUp();
 
+    formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true });
+
     const popUpCloseBtn = document.getElementById("closePopUpBtn");
     popUpCloseBtn.addEventListener("click", () => {
         hidePopUp();
-        setTimeout(() => {
-            showEmptyCaseWindow();
-        }, 200);
     });
 }
 
@@ -65,7 +65,16 @@ function showPopUp(){
 }
 
 function hidePopUp(){
+    setTimeout(() => {
+        showEmptyCaseWindow();
+    }, 200);
     const popUp = document.getElementById("pop-up");
     popUp.classList.remove("showPopUp");
     popUp.classList.add("hidePopUp");
+}
+
+function addTask(){
+    hidePopUp();
+    const mainContent = document.getElementById("main-content");
+    const popUp = document.getElementById("pop-up");
 }
