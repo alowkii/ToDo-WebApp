@@ -1,38 +1,71 @@
 export { addContent };
 
 function addContent() {
-    const content = document.createElement("div");
+    const mainContent = document.getElementById("main-content");
+    if (mainContent.innerHTML != "") {
+        return;
+    }
 
     // Add the empty window content
-    const emptyWindowContent = document.createElement("div");
-    emptyWindowContent.id = "empty-window";
-    emptyWindowContent.setAttribute("style", "display: block;");
-    content.appendChild(emptyWindowContent);
+    const emptyCaseWindowContent = document.createElement("div");
+    emptyCaseWindowContent.id = "empty-case-window";
+    emptyCaseWindowContent.setAttribute("style", "display: block;");
+    document.body.appendChild(emptyCaseWindowContent);
 
     // Info text for empty window
     const infoText = document.createElement("p");
     infoText.id = "info-text";
     infoText.textContent = "Press the + icon to start your journey!";
-    emptyWindowContent.appendChild(infoText);
+    emptyCaseWindowContent.appendChild(infoText);
 
     // Icon to add ToDo list items
     const addIcon = document.createElement("div");
     addIcon.id = "add-icon";
     addIcon.innerHTML = "<i class='fas fa-plus'></i>";
-    emptyWindowContent.appendChild(addIcon);
+    emptyCaseWindowContent.appendChild(addIcon);
 
-    document.body.appendChild(content);
+    showEmptyCaseWindow();
 
     addIcon.addEventListener("mouseup", () => {
-        addToDoList();
-        emptyWindowContent.remove();
+        callTaskQueryWindow();
+        hideEmptyCaseWindow();
     });
 }
 
-function addToDoList(){
+function showEmptyCaseWindow(){
+    const content = document.getElementById("main-content");
+    if(content.innerHTML != "") {
+        return;
+    }
+    const emptyCaseWindowContent = document.getElementById("empty-case-window");  
+    emptyCaseWindowContent.style.display = "block";
+}
+
+function hideEmptyCaseWindow(){
+    const emptyCaseWindowContent = document.getElementById("empty-case-window");
+    emptyCaseWindowContent.style.display = "none";
+}
+
+function callTaskQueryWindow(){
+    showPopUp();
+
+    const popUpCloseBtn = document.getElementById("closePopUpBtn");
+    popUpCloseBtn.addEventListener("click", () => {
+        hidePopUp();
+        setTimeout(() => {
+            showEmptyCaseWindow();
+        }, 200);
+    });
+}
+
+function showPopUp(){
     const popUp = document.getElementById("pop-up");
     popUp.classList.remove("hidePopUp");
     popUp.classList.add("showPopUp");
+}
 
-    popUp.innerHTML = popUp.innerHTML + "<button onclick=\"addTask()\">Add Task</button>";
+function hidePopUp(){
+    const popUp = document.getElementById("pop-up");
+    popUp.classList.remove("showPopUp");
+    popUp.classList.add("hidePopUp");
 }

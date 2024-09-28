@@ -1,4 +1,5 @@
 export {toggleNotificationWindow, addNotification};
+import { getStorageItem, setStorageItem } from "./local-storage";
 
 function toggleNotificationWindow() {
     const notificationWindow = document.querySelector('.notification-window');
@@ -42,7 +43,8 @@ function createNotificationWindow() {
 function formatNotification(data){
     return `
         <div class="notification-content">
-            <h4>${data.title}</h4>
+            <h4><b>${data.title}</b></h4>
+            <h6>${data.date}</h6><br>
             <p>${data.message}</p>
         </div>
         <div class="notification-delete">
