@@ -36,20 +36,25 @@
         </nav>
     </header>
     <div id="main-content"></div>
-    <div id="pop-up" class="hidePopUp">
+    <form id="pop-up" class="hidePopUp">
         <h2>Add Task</h2>
         <i id="closePopUpBtn" class="fa-times fas"></i>
-        <input type="text" id="inputTaskName" class="text" placeholder="Task Name">
-        <input type="text" id="inputTaskDescription" class="text" placeholder="Task Description">
-        <div><label for="priority">Priority:</label>
-            <select id="priority" name="priority">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-            </select>
-            <button id="chooseProjectBtn">Project</button>                                        
-            <button id="addTaskBtn" onclick="addTask()">Add</button>
+        <input type="text" id="inputTaskName" class="text" name="title" placeholder="Type your task title here" required>
+        <input type="text" id="inputTaskDescription" class="text" name="details" placeholder="Type additional details for task here">
+        <div class="date-time">
+            <input type="date" name="date">
+            <input type="time" name="time">
         </div>
-    </div>
+        <div>
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <button type="button" id="chooseProjectBtn">Project</button>                                        
+            <button type="submit" id="addTaskBtn">Add</button>
+        </div>
+    </form>
 </body>
 </html>

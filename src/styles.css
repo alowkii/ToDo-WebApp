@@ -387,7 +387,7 @@ header > nav > .settings > #theme:active{
     right: 50%;
     transform: translate(50%, -50%);
     width: 40rem;
-    height: 18rem;
+    height: 22rem;
     padding: 2rem;
     border-radius: 2rem;
     box-shadow: 0 2px 10px var(--tertiary-color);
@@ -418,7 +418,7 @@ header > nav > .settings > #theme:active{
 
 .hidePopUp{
     display: none;
-    animation: popDown 0.5s forwards;
+    animation: popDown 0.2s forwards;
 }
 
 @keyframes popDown {
@@ -465,7 +465,8 @@ header > nav > .settings > #theme:active{
     cursor: pointer;
 }
 
-#pop-up #chooseProjectBtn{
+#pop-up #chooseProjectBtn,
+#pop-up #addTaskBtn{
     background-color: var(--tertiary-color);
     color: var(--primary-color);
     border-radius: 0.5rem;
@@ -476,15 +477,8 @@ header > nav > .settings > #theme:active{
     align-self: center;
 }
 
-#pop-up #addTaskBtn{
-    background-color: var(--tertiary-color);
-    color: var(--primary-color);
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    width: 8rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    align-self: center;
+#pop-up button:hover{
+    background-color: var(--quaternary-color);
 }
 
 #main-content{

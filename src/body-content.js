@@ -1,5 +1,6 @@
-export { addContent, addTask };
+export { addContent };
 import {formatDistance, subDays} from 'date-fns';
+import { setStorageItem} from './local-storage.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -51,6 +52,9 @@ function callTaskQueryWindow(){
     showPopUp();
 
     formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true });
+    
+    const date = new Date();
+    console.log(date);
 
     const popUpCloseBtn = document.getElementById("closePopUpBtn");
     popUpCloseBtn.addEventListener("click", () => {
@@ -67,14 +71,26 @@ function showPopUp(){
 function hidePopUp(){
     setTimeout(() => {
         showEmptyCaseWindow();
-    }, 200);
+    }, 100);
     const popUp = document.getElementById("pop-up");
     popUp.classList.remove("showPopUp");
     popUp.classList.add("hidePopUp");
 }
 
-function addTask(){
+document.getElementById("pop-up").addEventListener("submit", (event) => {
+    event.preventDefault();
     hidePopUp();
-    const mainContent = document.getElementById("main-content");
-    const popUp = document.getElementById("pop-up");
-}
+
+    const taskData = new FormData(event.target);
+
+    const taskName = {};
+    taskData.forEach((value, key) => {
+        taskName[key] = value;
+    });
+
+    const jsonString = JSON.stringify(taskName);
+
+    setStorageItem("task", jsonString);
+
+    console.log(jsonString);
+});
