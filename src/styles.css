@@ -79,7 +79,12 @@ header > nav > .user-container > .user {
     height: 2.5rem;
     overflow: hidden;
     padding-right: 1rem;
-    cursor: pointer
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    background: transparent;
+    color: var(--secondary-color);
 }
 
 header > nav > .user-container > .user > img{
@@ -105,13 +110,16 @@ header > nav > .user-container > .sign-slider {
     align-items: center;
     justify-content: center;
     color: var(--quaternary-color);
+    outline: none;
+    border: none;
+    font-size: 1rem;
 }
 
 header > nav > .user-container > .user:hover + .sign-slider,
 header > nav > .user-container > .sign-slider:hover {
     visibility: visible;
     left: -2rem;
-    animation: slideInSignOption 0.5s forwards;
+    animation: slideInSignOption 0.6s forwards;
 }
 
 @keyframes slideInSignOption {
@@ -298,10 +306,11 @@ header > nav > .settings > #theme:active{
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 2;
     height: 100%;
     overflow-y: auto;
     margin-top: 2rem;
-    border-top: 1px solid var(--tertiary-color);
+    border-top: 1px solid var(--tertiary-color); 
 }
 
 .notification-window > .notifications > .notification{

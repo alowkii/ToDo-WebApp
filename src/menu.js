@@ -39,7 +39,7 @@ function createMenu() {
     menu.style.display = 'none';
     document.querySelector('menu').appendChild(menu);
 
-
+    
 
     // // ********** MENU CLICK BEHAVIOR **********
     // // This shows weird behavior when the menu is clicked.
