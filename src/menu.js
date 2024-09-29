@@ -37,6 +37,17 @@ function createMenu() {
     menu.style.display = 'none';
     
     document.querySelector('menu').appendChild(menu);
+
+    // ********** MENU CLICK BEHAVIOUR **********
+    // This shows weird behavior when the menu is clicked.
+    // Might need to be removed
+    const rest_of_the_content = document;
+    const menu_content = document.querySelector('#menu-window');
+    rest_of_the_content.addEventListener('click', function(event){
+        if(event.target != menu_content && event.target != document.querySelector('#menuBtn') && event.target != document.querySelector('#menuBtn i')){
+            hideMenu();
+        }
+    });
 }
 
 window.toggleMenu = toggleMenu;
