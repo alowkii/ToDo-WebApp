@@ -1,6 +1,6 @@
 export { addContent };
 import {formatDistance, subDays} from 'date-fns';
-import { setStorageItem} from './local-storage.js';
+import { getStorageItem, setStorageItem} from './local-storage.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -90,7 +90,15 @@ document.getElementById("pop-up").addEventListener("submit", (event) => {
 
     const jsonString = JSON.stringify(taskName);
 
-    setStorageItem("task", jsonString);
+    if(getStorageItem("tasks") == null){
+        setStorageItem("tasks", "[]");
+    }
+
+    const tasks = JSON.parse(getStorageItem("tasks"));
+    tasks.push(taskName);
+    setStorageItem("tasks", JSON.stringify(tasks));
 
     console.log(jsonString);
+
+    event.target.reset();
 });
