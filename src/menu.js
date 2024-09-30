@@ -40,6 +40,7 @@ function createMenu() {
     document.querySelector('menu').appendChild(menu);
 
     
+    
 
     // // ********** MENU CLICK BEHAVIOR **********
     // // This shows weird behavior when the menu is clicked.

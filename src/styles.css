@@ -363,7 +363,7 @@ header > nav > .settings > #theme:active{
     font-weight: 300;
 }
 
-#empty-case-window  #add-icon{
+#add-icon{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -383,12 +383,12 @@ header > nav > .settings > #theme:active{
     opacity: 0.8;
 }
 
-#empty-case-window  #add-icon:hover{
+#add-icon:hover{
     opacity: 0.9;
     box-shadow: 0 0 0 0.1rem var(--tertiary-color);
 }
 
-#empty-case-window  #add-icon:active{
+#add-icon:active{
     opacity: 1;
     box-shadow: 0 0 0 0.2rem var(--tertiary-color);
 }
@@ -504,4 +504,17 @@ header > nav > .settings > #theme:active{
 #main-content{
     width: 100%;
     min-height: 100%;
+    color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main-content > .task-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40rem;
+    height: 100%;
+    padding: 1rem;
 }

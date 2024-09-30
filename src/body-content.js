@@ -1,6 +1,7 @@
-export { addContent };
+export { addContent, addToDoIconTo,showEmptyCaseWindow };
 import {formatDistance, subDays} from 'date-fns';
 import { getStorageItem, setStorageItem} from './local-storage.js';
+import { displayTasks } from './task-list.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -21,12 +22,16 @@ function addContent() {
     emptyCaseWindowContent.appendChild(infoText);
 
     // Icon to add ToDo list items
+    addToDoIconTo(emptyCaseWindowContent);
+
+    displayTasks();
+}
+
+function addToDoIconTo(destination){
     const addIcon = document.createElement("div");
     addIcon.id = "add-icon";
     addIcon.innerHTML = "<i class='fas fa-plus'></i>";
-    emptyCaseWindowContent.appendChild(addIcon);
-
-    showEmptyCaseWindow();
+    destination.appendChild(addIcon);
 
     addIcon.addEventListener("mouseup", () => {
         callTaskQueryWindow();
@@ -36,7 +41,8 @@ function addContent() {
 
 function showEmptyCaseWindow(){
     const content = document.getElementById("main-content");
-    if(content.innerHTML != "") {
+    if(content.innerHTML != "" || getStorageItem("tasks") != null){
+        hideEmptyCaseWindow();
         return;
     }
     const emptyCaseWindowContent = document.getElementById("empty-case-window");  
@@ -101,4 +107,5 @@ document.getElementById("pop-up").addEventListener("submit", (event) => {
     console.log(jsonString);
 
     event.target.reset();
+    displayTasks();
 });
