@@ -514,7 +514,7 @@ header > nav > .settings > #theme:active{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 40rem;
+    width: 50rem;
     height: 100%;
     padding: 2rem 20rem;
 }
@@ -560,15 +560,6 @@ header > nav > .settings > #theme:active{
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
-}
-
-#main-content > .task-list > * > .task-priority:hover::after{
-    content: var(--priority-value);
-    background-color: var(--quinary-color);
-    width: 10rem;
-    height: 1.5rem;
-    font-size: 0.8rem;
-    display: block;
 }
 
 #main-content > .task-list > .high-priority > .task-priority{

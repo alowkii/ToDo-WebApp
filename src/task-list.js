@@ -43,6 +43,9 @@ function formatTaskDiv(task){
         <div class="task-date">${task.date}</div>
         <div class="task-time">${task.time}</div>
         <div class="task-priority"></div>
+        <div class="task-edit">
+            <i class="far fa-edit"></i>
+        </div>
         <div class="task-delete">
             <i class="fas fa-trash-alt"></i>
         </div>
