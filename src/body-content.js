@@ -1,4 +1,4 @@
-export { addContent, addToDoIconTo,showEmptyCaseWindow };
+export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow };
 import {formatDistance, subDays} from 'date-fns';
 import { getStorageItem, setStorageItem} from './local-storage.js';
 import { displayTasks } from './task-list.js';
@@ -57,11 +57,6 @@ function hideEmptyCaseWindow(){
 function callTaskQueryWindow(){
     showPopUp();
 
-    formatDistance(subDays(new Date(), 3), new Date(), { addSuffix: true });
-    
-    const date = new Date();
-    console.log(date);
-
     const popUpCloseBtn = document.getElementById("closePopUpBtn");
     popUpCloseBtn.addEventListener("click", () => {
         hidePopUp();
@@ -83,7 +78,7 @@ function hidePopUp(){
     popUp.classList.add("hidePopUp");
 }
 
-document.getElementById("pop-up").addEventListener("submit", (event) => {
+function submitTask(event){
     event.preventDefault();
     hidePopUp();
 
@@ -108,4 +103,8 @@ document.getElementById("pop-up").addEventListener("submit", (event) => {
 
     event.target.reset();
     displayTasks();
+}
+
+document.getElementById("pop-up").addEventListener("submit", (event) => {
+    submitTask(event);
 });

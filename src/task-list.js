@@ -1,6 +1,7 @@
 export { displayTasks };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
-import { addToDoIconTo, showEmptyCaseWindow } from "./body-content.js";
+import { showEmptyCaseWindow, submitTask, callTaskQueryWindow} from "./body-content.js";
+import { add } from "date-fns";
 
 function displayTasks(){
     const taskList = JSON.parse(getStorageItem("tasks"));
@@ -15,6 +16,16 @@ function displayTasks(){
         const task = taskList[i];
         const taskElement = document.createElement("div");
         taskElement.classList.add("task");
+        if(task.details == ""|| task.details == undefined){
+            task.details = "No details";
+        }
+        if(task.priority == "high"){
+            taskElement.classList.add("high-priority");
+        }else if(task.priority == "medium"){
+            taskElement.classList.add("medium-priority");
+        }else{
+            taskElement.classList.add("low-priority");
+        }
         taskElement.innerHTML = formatTaskDiv(task);
         taskListElement.appendChild(taskElement);
     }
@@ -27,11 +38,11 @@ function displayTasks(){
 
 function formatTaskDiv(task){
     return `
-        <div class="task-title">${task.title}</div>
-        <div class="task-description">${task.description}</div>
+        <p class="task-title">${task.title}</p>
+        <p class="task-details">${task.details}</p>
         <div class="task-date">${task.date}</div>
         <div class="task-time">${task.time}</div>
-        <div class="task-priority">${task.priority}</div>
+        <div class="task-priority"></div>
         <div class="task-delete">
             <i class="fas fa-trash-alt"></i>
         </div>
