@@ -567,7 +567,7 @@ header > nav > .settings > #theme:active{
 }
 
 #main-content > .task-list > .medium-priority > .task-priority{
-    background-color: yellow;
+    background-color: rgba(255, 255, 0, 0.938);
 }
 
 #main-content > .task-list > .low-priority > .task-priority{
