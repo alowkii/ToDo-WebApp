@@ -530,7 +530,6 @@ header > nav > .settings > #theme:active{
     border-radius: 0.5rem;
     background-color: var(--tertiary-color);
     color: var(--primary-color);
-    cursor: pointer;
     transition: background-color 0.3s;
 }
 
@@ -560,6 +559,11 @@ header > nav > .settings > #theme:active{
     border-radius: 50%;
     width: 1rem;
     height: 1rem;
+    cursor: pointer;
+}
+
+#main-content > .task-list > * > .task-delete{
+    cursor: pointer;
 }
 
 #main-content > .task-list > .high-priority > .task-priority{

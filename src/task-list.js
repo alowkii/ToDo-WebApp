@@ -4,7 +4,16 @@ import { showEmptyCaseWindow, submitTask, callTaskQueryWindow} from "./body-cont
 import { add } from "date-fns";
 
 function displayTasks(){
-    const taskList = JSON.parse(getStorageItem("tasks"));
+    let taskList = {};
+    try{
+        taskList = JSON.parse(getStorageItem("tasks"));
+    }catch(e){
+        removeStorageItem("tasks");
+        const mainContent = document.getElementById("main-content");
+        mainContent.innerHTML = "";
+        showEmptyCaseWindow();
+    }
+
     if(!taskList || taskList.length == 0){
         return;
     }
@@ -16,6 +25,7 @@ function displayTasks(){
         const task = taskList[i];
         const taskElement = document.createElement("div");
         taskElement.classList.add("task");
+        taskElement.id = "task-" + i;
         if(task.details == ""|| task.details == undefined){
             task.details = "No details";
         }
@@ -28,6 +38,25 @@ function displayTasks(){
         }
         taskElement.innerHTML = formatTaskDiv(task);
         taskListElement.appendChild(taskElement);
+
+        //delete task
+        const taskDelete = taskElement.querySelector(".task-delete");
+        taskDelete.addEventListener('click', function(){
+            taskElement.remove();
+            taskList.splice(i, 1);
+            reiterateTaskNumber();
+            if(taskList.length == 0){
+                removeStorageItem("tasks");
+                const mainContent = document.getElementById("main-content");
+                mainContent.innerHTML = "";
+                showEmptyCaseWindow();
+            }else{
+                setStorageItem("tasks", JSON.stringify(taskList));
+                setTimeout(() => {
+                    reiterateTaskNumber();
+                },0);
+            }
+        });
     }
 
     const mainContent = document.getElementById("main-content");
@@ -36,13 +65,22 @@ function displayTasks(){
     showEmptyCaseWindow();
 }
 
+function reiterateTaskNumber(){
+    const tasks = document.querySelectorAll('.task');
+    let counterValue = 0;
+    tasks.forEach(task => {
+        counterValue++;
+        task.id = `task-${counterValue}`;
+    });
+}
+
 function formatTaskDiv(task){
     return `
         <p class="task-title">${task.title}</p>
         <p class="task-details">${task.details}</p>
         <div class="task-date">${task.date}</div>
         <div class="task-time">${task.time}</div>
-        <div class="task-priority"></div>
+        <div class="task-priority" title="${task.priority} priority"></div>
         <div class="task-edit">
             <i class="far fa-edit"></i>
         </div>
