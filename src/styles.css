@@ -28,7 +28,7 @@
   /* Track */
   ::-webkit-scrollbar-track {
     background: var(--secondary-color);
-    border-radius: 5px;
+    border-radius: 10px;
   }
   
   /* Handle */
@@ -55,7 +55,7 @@
     }
     ::-webkit-scrollbar-track {
         background: var(--secondary-color);
-        border-radius: 5px;
+        border-radius: 10px;
     }
 }
 
