@@ -57,6 +57,24 @@ function hideEmptyCaseWindow(){
 function callTaskQueryWindow(){
     showPopUp();
 
+    const today = new Date();
+
+    // Format the date as YYYY-MM-DD
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+
+    // Set the value of the date input to today's date
+    const formattedDate = `${year}-${month}-${day}`;
+    document.getElementById('dateInput').value = formattedDate;
+
+    const hours = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+
+    // Set the value of the time input to the current time
+    const formattedTime = `${hours}:${minutes}`;
+    document.getElementById('timeInput').value = formattedTime;
+
     const popUpCloseBtn = document.getElementById("closePopUpBtn");
     popUpCloseBtn.addEventListener("click", () => {
         hidePopUp();
