@@ -364,7 +364,7 @@ header > nav > .settings > #theme:active{
     font-weight: 300;
 }
 
-#add-icon{
+.add-icon{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -384,18 +384,19 @@ header > nav > .settings > #theme:active{
     opacity: 0.8;
 }
 
-#add-icon:hover{
+.add-icon:hover{
     opacity: 0.9;
     box-shadow: 0 0 0 0.1rem var(--tertiary-color);
 }
 
-#add-icon:active{
+.add-icon:active{
     opacity: 1;
     box-shadow: 0 0 0 0.2rem var(--tertiary-color);
 }
 
 #pop-up{
-    position: absolute;
+    display: none;
+    position: fixed;
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
@@ -413,11 +414,13 @@ header > nav > .settings > #theme:active{
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 10;
 }
 
 .showPopUp{
     display: flex;
     animation: popUp 0.5s forwards;
+    right: 50%;
 }
 
 @keyframes popUp {
@@ -432,6 +435,7 @@ header > nav > .settings > #theme:active{
 .hidePopUp{
     display: none;
     animation: popDown 0.2s forwards;
+    left: 100rem;
 }
 
 @keyframes popDown {
@@ -576,4 +580,12 @@ header > nav > .settings > #theme:active{
 
 #main-content > .task-list > .low-priority > .task-priority{
     background-color: lightgreen;
+}
+
+#main-content > .task-list > .append-task > #append-icon{
+    position: inherit;
+    margin-top: 3rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
 }

@@ -1,7 +1,39 @@
 export { displayTasks };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
-import { showEmptyCaseWindow, submitTask, callTaskQueryWindow} from "./body-content.js";
+import { showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
 import { add } from "date-fns";
+
+function createTaskListElement(){
+    if(document.querySelector(".task-list")){
+        return;
+    }
+    const taskListElement = document.createElement("div");
+    taskListElement.classList.add("task-list");
+    const mainContent = document.getElementById("main-content");
+    console.log(mainContent);
+    mainContent.appendChild(taskListElement);
+}
+
+function deleteTaskListElement(){
+    const taskListElement = document.querySelector(".task-list");
+    if(taskListElement){
+        while(taskListElement.firstChild){
+            taskListElement.removeChild(taskListElement.firstChild);
+        }
+        taskListElement.remove();
+    }
+}
+
+function addAppendTagElement(destination){
+    if(!document.querySelector(".append-task")){
+        //add task
+        const addTask = document.createElement("div");
+        addTask.classList.add("append-task");
+        destination.appendChild(addTask);
+        //Add the icon to add a new task
+        addToDoIconTo(addTask, "append-icon");
+    }
+}
 
 function displayTasks(){
     let taskList = {};
@@ -18,8 +50,10 @@ function displayTasks(){
         return;
     }
 
-    const taskListElement = document.createElement("div");
-    taskListElement.classList.add("task-list");
+    //delete previous task list to have a fresh start
+    deleteTaskListElement();
+    createTaskListElement();
+    const taskListElement = document.querySelector(".task-list");
 
     for(let i = 0; i < taskList.length; i++){
         const task = taskList[i];
@@ -47,21 +81,24 @@ function displayTasks(){
             reiterateTaskNumber();
             if(taskList.length == 0){
                 removeStorageItem("tasks");
-                const mainContent = document.getElementById("main-content");
-                mainContent.innerHTML = "";
+                deleteTaskListElement();
                 showEmptyCaseWindow();
             }else{
                 setStorageItem("tasks", JSON.stringify(taskList));
+                //concurrently reiterate task numbers
                 setTimeout(() => {
                     reiterateTaskNumber();
                 },0);
             }
+            deleteTaskListElement();
+            displayTasks();
         });
-    }
 
-    const mainContent = document.getElementById("main-content");
-    console.log(mainContent);
-    mainContent.appendChild(taskListElement);
+        //add append Button
+        if(document.querySelectorAll(".task").length == taskList.length){
+            addAppendTagElement(taskListElement);
+        }
+    }
     showEmptyCaseWindow();
 }
 
