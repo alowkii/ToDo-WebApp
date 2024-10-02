@@ -28,6 +28,7 @@
   /* Track */
   ::-webkit-scrollbar-track {
     background: var(--secondary-color);
+    border-radius: 5px;
   }
   
   /* Handle */
@@ -41,6 +42,23 @@
     background: var(--primary-color);
   }
 
+@supports (scrollbar-gutter: stable) {
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-color);
+    }
+    ::-webkit-scrollbar-track {
+        background: var(--secondary-color);
+        border-radius: 5px;
+    }
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -51,6 +69,7 @@
 body{
     background-color: var(--primary-color);
     overflow-x: hidden;
+    scrollbar-gutter: stable auto;
 }
 
 header{
@@ -307,6 +326,7 @@ header > nav > .settings > #theme:active{
     height: 100%;
     background-color: var(--secondary-color);
     transition: transform 0.3s;
+    scrollbar-gutter: stable auto;
 }
 
 .add{
