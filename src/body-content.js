@@ -1,7 +1,7 @@
 export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo };
 import {add, formatDistance, subDays} from 'date-fns';
 import { getStorageItem, setStorageItem} from './local-storage.js';
-import { displayTasks } from './task-list.js';
+import { displayTasks, editTask } from './task-list.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -83,6 +83,8 @@ function callTaskQueryWindow(){
     const popUpCloseBtn = document.getElementById("closePopUpBtn");
     popUpCloseBtn.addEventListener("click", () => {
         hidePopUp();
+        document.getElementById("pop-up").setAttribute("data-edit-index", "-1");
+        document.getElementById("pop-up").reset();
     });
 }
 
@@ -101,24 +103,16 @@ function hidePopUp(){
     popUp.classList.add("hidePopUp");
 }
 
-function editTask(event,taskList){
-    // Remove the task from the list when editing
-    const index = event.target.getAttribute("data-edit-index");
-    taskList.splice(index, 1);
-    setStorageItem("tasks", JSON.stringify(taskList));
-}
 
 function submitTask(event){
     event.preventDefault();
     hidePopUp();
 
     const taskData = new FormData(event.target);
-    const taskName = {};
+    const task = {};
     taskData.forEach((value, key) => {
-        taskName[key] = value;
+        task[key] = value;
     });
-
-    const jsonString = JSON.stringify(taskName);
 
     if(getStorageItem("tasks") == null){
         setStorageItem("tasks", "[]");
@@ -127,14 +121,17 @@ function submitTask(event){
     const tasks = JSON.parse(getStorageItem("tasks"));
     if(event.target.getAttribute("data-edit-index") != "-1"){
         editTask(event,tasks);
+        // Reset the button and header text for adding new tasks
+        document.getElementById('task-popUp-header').innerText = "Add Task";
+        document.getElementById('addTaskBtn').innerText = "Add";
+        //reset the data-edit-index attribute
+        event.target.setAttribute("data-edit-index", "-1");
+        displayTasks();
+        return;
     }
-    tasks.push(taskName);
+    tasks.push(task);
     setStorageItem("tasks", JSON.stringify(tasks));
 
-    // Reset the button and header text for adding new tasks
-    document.getElementById('task-popUp-header').innerText = "Add Task";
-    document.getElementById('addTaskBtn').innerText = "Add";
-    event.target.setAttribute("data-edit-index", "-1");
     event.target.reset();
     displayTasks();
 }

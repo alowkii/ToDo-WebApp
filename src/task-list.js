@@ -1,4 +1,4 @@
-export { displayTasks };
+export { displayTasks, editTask };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
 import { showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
 import { add, set } from "date-fns";
@@ -54,7 +54,7 @@ function displayTasks(){
     deleteTaskListElement();
     createTaskListElement();
     const taskListElement = document.querySelector(".task-list");
-
+    
     for(let i = 0; i < taskList.length; i++){
         const task = taskList[i];
         const taskElement = document.createElement("div");
@@ -76,7 +76,7 @@ function displayTasks(){
         //edit task
         const taskEdit = taskElement.querySelector(".task-edit");
         taskEdit.addEventListener('click', function(){
-            editCallTaskQueryWindow(taskList,i);
+            editCallTaskQueryWindow(task,i);
         });
 
         //delete task
@@ -105,6 +105,7 @@ function displayTasks(){
             addAppendTagElement(taskListElement);
         }
     }
+    reiterateTaskNumber();
     showEmptyCaseWindow();
 }
 
@@ -118,8 +119,7 @@ function sortTasksByDateOrTime(taskList){
     return taskList;
 }
 
-function editCallTaskQueryWindow(taskList,index){
-    const task = taskList[index];
+function editCallTaskQueryWindow(task,index){
     callTaskQueryWindow();
 
     document.getElementById('inputTaskName').value = task.title;
@@ -162,4 +162,21 @@ function formatTaskDiv(task){
             <i class="fas fa-trash-alt"></i>
         </div>
     `;
+}
+
+function editTask(event, taskList){
+    // Retrieve the index of the task to edit
+    const index = event.target.getAttribute("data-edit-index");
+    
+    // Update the task at the given index with new values
+    const taskData = new FormData(event.target);
+    const task = {};
+    taskData.forEach((value, key) => {
+        task[key] = value;
+    });
+    
+    // Update the task at the specific index without removing it
+    taskList[index] = task;
+
+    setStorageItem("tasks", JSON.stringify(taskList));
 }
