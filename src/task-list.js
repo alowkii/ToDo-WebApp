@@ -123,9 +123,6 @@ function editCallTaskQueryWindow(taskList,index){
     const task = taskList[index];
     callTaskQueryWindow();
 
-    taskList.splice(index, 1);
-    setStorageItem("tasks", JSON.stringify(taskList));
-
     document.getElementById('inputTaskName').value = task.title;
     if(task.details == "No details"){
         document.getElementById('inputTaskDescription').value = "";
@@ -140,6 +137,10 @@ function editCallTaskQueryWindow(taskList,index){
     
     //updated values
     document.getElementById('addTaskBtn').addEventListener('click', function(){
+        //It's a submit form, so the default action will automatically add the change.
+        //remove the task from the list
+        taskList.splice(index, 1);
+        setStorageItem("tasks", JSON.stringify(taskList));
         const task = {
             title: document.getElementById('inputTaskName').value,
             details: document.getElementById('inputTaskDescription').value,
