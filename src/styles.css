@@ -627,6 +627,10 @@ header > nav > .settings > #theme:active{
     cursor: pointer;
 }
 
+#main-content > .task-list > * > .task-edit{
+    cursor: pointer;
+}
+
 #main-content > .task-list > .high-priority > .task-priority{
     background-color: red;
 }

@@ -39,6 +39,7 @@ function displayTasks(){
     let taskList = {};
     try{
         taskList = JSON.parse(getStorageItem("tasks"));
+        taskList = sortTasksByDateOrTime(taskList);
     }catch(e){
         removeStorageItem("tasks");
         const mainContent = document.getElementById("main-content");
@@ -73,6 +74,12 @@ function displayTasks(){
         taskElement.innerHTML = formatTaskDiv(task);
         taskListElement.appendChild(taskElement);
 
+        //edit task
+        const taskEdit = taskElement.querySelector(".task-edit");
+        taskEdit.addEventListener('click', function(){
+            editCallTaskQueryWindow(taskList,i);
+        });
+
         //delete task
         const taskDelete = taskElement.querySelector(".task-delete");
         taskDelete.addEventListener('click', function(){
@@ -100,6 +107,50 @@ function displayTasks(){
         }
     }
     showEmptyCaseWindow();
+}
+
+function sortTasksByDateOrTime(taskList){
+    taskList.sort((a,b) => {
+        if(a.date == b.date){
+            return a.time.localeCompare(b.time);
+        }
+        return a.date.localeCompare(b.date);
+    });
+    return taskList;
+}
+
+function editCallTaskQueryWindow(taskList,index){
+    const task = taskList[index];
+    callTaskQueryWindow();
+
+    taskList.splice(index, 1);
+    setStorageItem("tasks", JSON.stringify(taskList));
+
+    document.getElementById('inputTaskName').value = task.title;
+    if(task.details == "No details"){
+        document.getElementById('inputTaskDescription').value = "";
+    }else{
+        document.getElementById('inputTaskDescription').value = task.details;
+    }
+    document.getElementById('dateInput').value = task.date;
+    document.getElementById('timeInput').value = task.time;
+    document.getElementById('priority').value = task.priority;
+
+    document.getElementById('addTaskBtn').innerText = "Edit";
+    
+    //updated values
+    document.getElementById('addTaskBtn').addEventListener('click', function(){
+        const task = {
+            title: document.getElementById('inputTaskName').value,
+            details: document.getElementById('inputTaskDescription').value,
+            date: document.getElementById('dateInput').value,
+            time: document.getElementById('timeInput').value,
+            priority: document.getElementById('priority').value
+        };
+
+        document.getElementById('addTaskBtn').innerText = "Add";
+        displayTasks();
+    });
 }
 
 function reiterateTaskNumber(){
