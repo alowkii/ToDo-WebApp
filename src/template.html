@@ -37,12 +37,12 @@
     </header>
     <div id="main-content" class="shows-task-list"></div>
     <form id="pop-up" class="hidePopUp" method="post">
-        <h2>Add Task</h2>
+        <h2 id="task-popUp-header">Add Task</h2>
         <i id="closePopUpBtn" class="fa-times fas"></i>
         <input type="text" id="inputTaskName" class="text" name="title" placeholder="Type your task title here" required>
         <input type="text" id="inputTaskDescription" class="text" name="details" placeholder="Type additional details for task here">
         <div class="date-time">
-            <input type="date" id="dateInput" name="date" value="` + (new Date()).toISOString().slice(0, 10) + `">
+            <input type="date" id="dateInput" name="date">
             <input type="time" id="timeInput" name="time">
         </div>
         <div class="extra-btns">

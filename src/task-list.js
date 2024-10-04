@@ -1,7 +1,7 @@
 export { displayTasks };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
 import { showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
-import { add } from "date-fns";
+import { add, set } from "date-fns";
 
 function createTaskListElement(){
     if(document.querySelector(".task-list")){
@@ -10,7 +10,6 @@ function createTaskListElement(){
     const taskListElement = document.createElement("div");
     taskListElement.classList.add("task-list");
     const mainContent = document.getElementById("main-content");
-    console.log(mainContent);
     mainContent.appendChild(taskListElement);
 }
 
@@ -133,25 +132,11 @@ function editCallTaskQueryWindow(taskList,index){
     document.getElementById('timeInput').value = task.time;
     document.getElementById('priority').value = task.priority;
 
+    // Update button and header when editing a task
     document.getElementById('addTaskBtn').innerText = "Edit";
-    
-    //updated values
-    document.getElementById('addTaskBtn').addEventListener('click', function(){
-        //It's a submit form, so the default action will automatically add the change.
-        //remove the task from the list
-        taskList.splice(index, 1);
-        setStorageItem("tasks", JSON.stringify(taskList));
-        const task = {
-            title: document.getElementById('inputTaskName').value,
-            details: document.getElementById('inputTaskDescription').value,
-            date: document.getElementById('dateInput').value,
-            time: document.getElementById('timeInput').value,
-            priority: document.getElementById('priority').value
-        };
+    document.getElementById('task-popUp-header').innerText = "Edit Task";
 
-        document.getElementById('addTaskBtn').innerText = "Add";
-        displayTasks();
-    });
+    document.getElementById("pop-up").setAttribute("data-edit-index", index);
 }
 
 function reiterateTaskNumber(){

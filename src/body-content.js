@@ -59,6 +59,8 @@ function hideEmptyCaseWindow(){
 
 function callTaskQueryWindow(){
     showPopUp();
+    document.getElementById("pop-up").reset();
+    document.getElementById("pop-up").setAttribute("data-edit-index", "-1");
 
     const today = new Date();
 
@@ -99,12 +101,18 @@ function hidePopUp(){
     popUp.classList.add("hidePopUp");
 }
 
+function editTask(event,taskList){
+    // Remove the task from the list when editing
+    const index = event.target.getAttribute("data-edit-index");
+    taskList.splice(index, 1);
+    setStorageItem("tasks", JSON.stringify(taskList));
+}
+
 function submitTask(event){
     event.preventDefault();
     hidePopUp();
 
     const taskData = new FormData(event.target);
-
     const taskName = {};
     taskData.forEach((value, key) => {
         taskName[key] = value;
@@ -117,11 +125,15 @@ function submitTask(event){
     }
 
     const tasks = JSON.parse(getStorageItem("tasks"));
+    if(event.target.getAttribute("data-edit-index") != "-1"){
+        editTask(event,tasks);
+    }
     tasks.push(taskName);
     setStorageItem("tasks", JSON.stringify(tasks));
 
-    console.log(jsonString);
-
+    // Reset the button and header text for adding new tasks
+    document.getElementById('task-popUp-header').innerText = "Add Task";
+    document.getElementById('addTaskBtn').innerText = "Add";
     event.target.reset();
     displayTasks();
 }
