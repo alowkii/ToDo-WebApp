@@ -38,7 +38,7 @@ function displayTasks(){
     let taskList = {};
     try{
         taskList = JSON.parse(getStorageItem("tasks"));
-        taskList = sortTasksByDateOrTime(taskList);
+        taskList = sortTaskList(taskList);
     }catch(e){
         removeStorageItem("tasks");
         const mainContent = document.getElementById("main-content");
@@ -84,7 +84,10 @@ function displayTasks(){
         taskDelete.addEventListener('click', function(){
             taskElement.remove();
             taskList.splice(i, 1);
-            reiterateTaskNumber();
+            taskList = sortTaskList(taskList);
+            setTimeout(() => {
+                reiterateTaskNumber();
+            },0);
             if(taskList.length == 0){
                 removeStorageItem("tasks");
                 deleteTaskListElement();
@@ -105,8 +108,15 @@ function displayTasks(){
             addAppendTagElement(taskListElement);
         }
     }
-    reiterateTaskNumber();
+    setTimeout(() => {
+        reiterateTaskNumber();
+    },0);
     showEmptyCaseWindow();
+}
+
+function sortTaskList(taskList){
+    taskList = sortTasksByDateOrTime(taskList);
+    return taskList;
 }
 
 function sortTasksByDateOrTime(taskList){
@@ -175,8 +185,9 @@ function editTask(event, taskList){
         task[key] = value;
     });
     
-    // Update the task at the specific index without removing it
+    // // Update the task at the specific index without removing it
     taskList[index] = task;
-
+    
+    taskList = sortTaskList(taskList);
     setStorageItem("tasks", JSON.stringify(taskList));
 }
