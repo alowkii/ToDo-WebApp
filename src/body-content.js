@@ -134,6 +134,7 @@ function submitTask(event){
     // Reset the button and header text for adding new tasks
     document.getElementById('task-popUp-header').innerText = "Add Task";
     document.getElementById('addTaskBtn').innerText = "Add";
+    event.target.setAttribute("data-edit-index", "-1");
     event.target.reset();
     displayTasks();
 }
