@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
 
 :root{
     --primary-color: var(--primary-light-color);
@@ -611,22 +612,41 @@ header > nav > .settings > #theme:active{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1rem;
-    height: 1rem;
+    position: relative;
+    left: -0.5rem;
+    appearance: none;
+    --webkit-appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
     border-radius: 50%;
     border: none;
     outline: none;
 }
 
-#main-content > .task-list > * > .task-complete:hover{
-    background-color: var(--quaternary-color);
-    border: none;
-    outline: none;
+#main-content > .task-list > * > .task-complete:after{
+    content: "\f00c";
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1rem;
+    color: var(--tertiary-color);
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.4;
 }
 
-#main-content > .task-list > * > .task-complete:checked{
-    background-color: var(--quaternary-color);
+#main-content > .task-list > * > .task-complete:hover{
+    background-color: lightgreen;
+    opacity: 1;
+}
+
+#main-content > .task-list > * > .task-complete:checked::after{
+    opacity: 1;
 }
 
 #main-content > .task-list > * > .task-title{
