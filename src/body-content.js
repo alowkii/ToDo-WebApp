@@ -109,7 +109,7 @@ function submitTask(event){
     hidePopUp();
 
     const taskData = new FormData(event.target);
-    const task = {};
+    const task = {complete: false};
     taskData.forEach((value, key) => {
         task[key] = value;
     });

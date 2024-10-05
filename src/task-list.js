@@ -107,6 +107,14 @@ function displayTasks(){
         if(document.querySelectorAll(".task").length == taskList.length){
             addAppendTagElement(taskListElement);
         }
+
+        //check if task is complete
+        const taskComplete = taskElement.querySelector(".task-complete");
+        taskComplete.addEventListener('click', function(){
+            task.complete = !task.complete;
+            taskList[i] = task;
+            setStorageItem("tasks", JSON.stringify(taskList));
+        });
     }
     setTimeout(() => {
         reiterateTaskNumber();
@@ -160,6 +168,7 @@ function reiterateTaskNumber(){
 
 function formatTaskDiv(task){
     return `
+        <input type="checkbox" class="task-complete" ${task.complete ? "checked" : ""}>
         <p class="task-title">${task.title}</p>
         <p class="task-details">${task.details}</p>
         <div class="task-date">${task.date}</div>
@@ -180,7 +189,7 @@ function editTask(event, taskList){
     
     // Update the task at the given index with new values
     const taskData = new FormData(event.target);
-    const task = {};
+    const task = {complete: false};
     taskData.forEach((value, key) => {
         task[key] = value;
     });
