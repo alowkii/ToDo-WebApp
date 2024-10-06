@@ -4,7 +4,7 @@ function toggleMenu(){
     createMenu();
 
     const menu = document.querySelector('#menu-window');
-    if(menu.style.display == 'block'){
+    if(menu.style.display == 'flex'){
         hideMenu();
     }else{
         showMenu();
@@ -26,7 +26,7 @@ function hideMenu(){
 function showMenu(){
     const menu = document.querySelector('#menu-window');
     menu.style.animation = 'slideIn 0.5s forwards';
-    menu.style.display = 'block';
+    menu.style.display = 'flex';
 
     const menuBtn = document.getElementById('menuBtn');
     menuBtn.style.transition = '0.5s';
@@ -39,8 +39,15 @@ function createMenu() {
     menu.style.display = 'none';
     document.querySelector('menu').appendChild(menu);
 
+    const logo = document.createElement('div');
+    logo.id = 'logo-container';
+    menu.appendChild(logo);
+
+    addMenuItems(menu);
+    addProjectWindow(menu);
     
-    
+    const footer = document.createElement('footer');
+    menu.appendChild(footer);
 
     // // ********** MENU CLICK BEHAVIOR **********
     // // This shows weird behavior when the menu is clicked.
@@ -52,6 +59,31 @@ function createMenu() {
     //         hideMenu();
     //     }
     // });
+}
+
+function addMenuItems(menu){
+    const menuContent = document.createElement('div');
+    menuContent.id = 'menu-content';
+    menu.appendChild(menuContent);
+
+    const menuItems = [
+        {name: 'All', id: 'all-task-page'},
+        {name: 'About', id: 'about-page'},
+        {name: 'Contact', id: 'contact-page'},
+    ];
+
+    menuItems.forEach(item => {
+        const menuItem = document.createElement('button');
+        menuItem.id = item.id;
+        menuItem.innerText = item.name;
+        menuContent.appendChild(menuItem);
+    });
+}
+
+function addProjectWindow(menu){
+    const projectWindow = document.createElement('div');
+    projectWindow.id = 'project-window';
+    menu.appendChild(projectWindow);
 }
 
 window.toggleMenu = toggleMenu;

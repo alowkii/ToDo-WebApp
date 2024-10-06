@@ -271,7 +271,8 @@ header > nav > .settings > #theme:active{
 }
 
 #menu-window{
-    display: none;
+    display: flex;
+    flex-direction: column;
     position: fixed;
     z-index: 3;
     top: 0;
@@ -301,21 +302,59 @@ header > nav > .settings > #theme:active{
     }
     
 }
-
-#menu-window > #menuBtn{
-    position: relative;
-    top: 0.5rem;
-    left: 0.5rem;
-    animation: displayMenuBtn 0.8s ease-in-out;
+#menu-window > #logo-container{
+    width: 100%;
+    height: 4rem;
 }
 
-@keyframes displayMenuBtn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+#menu-window > #menu-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: transparent;
+}
+
+#menu-window button{
+    outline: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    margin: 0.2rem 0.5rem;
+    color: var(--primary-color);
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 100ms;
+    border-radius: 0.5rem;
+}
+
+#menu-window > #menu-content > .selected{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+#menu-window button:hover{
+    background-color: var(--tertiary-color);
+}
+
+#menu-window button:active{
+    background-color: var(--tertiary-color);
+    opacity: 0.9;
+}
+
+#menu-window > #project-window{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: transparent;
+    flex: 1 1 auto;
+    flex-basis: 10rem;
+    overflow-y: scroll;
+}
+
+#menu-window > footer{
+    height: 4rem;
 }
 
 .notification-window{
