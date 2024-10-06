@@ -592,6 +592,7 @@ header > nav > .settings > #theme:active{
     background-color: var(--tertiary-color);
     color: var(--primary-color);
     transition: background-color 0.3s;
+    /* For scroll taskList animation*/
     animation: appear linear;
     animation-timeline: view();
     animation-range: entry 5% cover 10%;
