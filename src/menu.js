@@ -1,5 +1,8 @@
 export {toggleMenu};
 
+    import { add } from 'date-fns';
+import {addToDoIconTo, callTaskQueryWindow} from './body-content.js';
+
 function toggleMenu(){
     createMenu();
 
@@ -43,7 +46,10 @@ function createMenu() {
     logo.id = 'logo-container';
     menu.appendChild(logo);
 
+    addTaskBtn(menu);
+
     addMenuItems(menu);
+    menu.appendChild(document.createElement('hr'));
     addProjectWindow(menu);
     
     addFooterItems(menu);
@@ -60,6 +66,15 @@ function createMenu() {
     // });
 }
 
+function addTaskBtn(menu){
+    const addTaskWindow = document.createElement('div');
+    addTaskWindow.id = 'add-task-window';
+    
+    addToDoIconTo(addTaskWindow, 'add-task-icon');
+
+    menu.appendChild(addTaskWindow);
+}
+
 function addMenuItems(menu){
     const menuContent = document.createElement('div');
     menuContent.id = 'menu-content';
@@ -67,8 +82,9 @@ function addMenuItems(menu){
 
     const menuItems = [
         {name: 'All', id: 'all-task-page'},
-        {name: 'About', id: 'about-page'},
-        {name: 'Contact', id: 'contact-page'},
+        {name: 'Today', id: 'today-task-page'},
+        {name: 'Search', id: 'search-tasks'},
+        {name: 'Progress', id: 'progress-page'},
     ];
 
     menuItems.forEach(item => {
@@ -80,9 +96,16 @@ function addMenuItems(menu){
 }
 
 function addProjectWindow(menu){
-    const projectWindow = document.createElement('div');
-    projectWindow.id = 'project-window';
-    menu.appendChild(projectWindow);
+    const projectContainer = document.createElement('div');
+    projectContainer.id = 'project-container';
+    menu.appendChild(projectContainer);
+
+    const projectBtn = document.createElement('div');
+    projectBtn.id = 'project-btn';
+    projectBtn.innerHTML = `<p>Projects</p>
+                            <button><i class="fas fa-plus"></i></button>`;
+    projectContainer.appendChild(projectBtn);
+    
 }
 
 function addFooterItems(menu){

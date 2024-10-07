@@ -273,6 +273,8 @@ header > nav > .settings > #theme:active{
 #menu-window{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     z-index: 3;
     top: 0;
@@ -312,6 +314,7 @@ header > nav > .settings > #theme:active{
     flex-direction: column;
     width: 100%;
     background-color: transparent;
+    margin-bottom: 0.5rem;
 }
 
 #menu-window button{
@@ -320,7 +323,7 @@ header > nav > .settings > #theme:active{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3rem;
+    height: 2.5rem;
     margin: 0.2rem 0.5rem;
     color: var(--primary-color);
     background-color: transparent;
@@ -343,7 +346,38 @@ header > nav > .settings > #theme:active{
     opacity: 0.9;
 }
 
-#menu-window > #project-window{
+#menu-window > hr{
+    width: 85%;
+    height: 0.1rem;
+    background-color: var(--tertiary-color);
+}
+
+#menu-window > #add-task-window{
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    padding: 0.5rem;
+}
+
+#menu-window > #add-task-window > #add-task-icon{
+    display: flex;
+    position: static;
+    width: 100%;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    transform: none;
+}
+
+#menu-window > #add-task-window > #add-task-icon:hover{
+    box-shadow: none;
+}
+
+#menu-window > #add-task-window > #add-task-icon:active{
+    box-shadow: none;
+}
+
+#menu-window > #project-container{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -353,11 +387,34 @@ header > nav > .settings > #theme:active{
     overflow-y: scroll;
 }
 
+#menu-window > #project-container > #project-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+}
+
+#menu-window > #project-container > #project-btn > p{
+    color: var(--primary-color);
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-left: 2rem;
+}
+
+#menu-window > #project-container > #project-btn > button{
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
 #menu-window > footer{
     display: flex;
     align-items: center;
     justify-content: space-around;
     height: 4rem;
+    width: 100%;
 }
 
 #menu-window > footer a{
