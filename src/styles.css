@@ -354,7 +354,47 @@ header > nav > .settings > #theme:active{
 }
 
 #menu-window > footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     height: 4rem;
+}
+
+#menu-window > footer a{
+    color: var(--primary-color);
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 100ms;
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+#menu-window > footer button{
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1.5rem;
+    background-color: transparent;
+    border-radius: 50%;
+    color: var(--primary-color);
+    transition: transform 0.3s;
+}
+
+#menu-window > footer button:hover{
+    background-color: var(--tertiary-color);
+    color: var(--secondary-color);
+    transform: rotate(60deg);
+}
+
+#menu-window > footer button:active{
+    background-color: var(--quaternary-color);
+    color: var(--secondary-color);
+    transform: rotate(90deg);
 }
 
 .notification-window{

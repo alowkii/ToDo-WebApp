@@ -46,8 +46,7 @@ function createMenu() {
     addMenuItems(menu);
     addProjectWindow(menu);
     
-    const footer = document.createElement('footer');
-    menu.appendChild(footer);
+    addFooterItems(menu);
 
     // // ********** MENU CLICK BEHAVIOR **********
     // // This shows weird behavior when the menu is clicked.
@@ -84,6 +83,29 @@ function addProjectWindow(menu){
     const projectWindow = document.createElement('div');
     projectWindow.id = 'project-window';
     menu.appendChild(projectWindow);
+}
+
+function addFooterItems(menu){
+    const footer = document.createElement('footer');
+    menu.appendChild(footer);
+
+    const footerItems = [
+        {name: 'Github', url: 'https://github.com/alowkii/ToDo-WebApp'},
+        {name: 'LinkedIn', url: 'https://www.linkedin.com/in/alexander-low/'},
+        {name: 'Twitter', url: 'https://twitter.com/alowkii'},
+    ];
+
+    footerItems.forEach(item => {
+        const footerItem = document.createElement('a');
+        footerItem.href = item.url;
+        footerItem.innerHTML = `<i class="fab fa-${item.name.toLowerCase()}"></i>`;
+        footer.appendChild(footerItem);
+    });
+
+    const settings = document.createElement('button');
+    settings.id = 'settings';
+    settings.innerHTML = '<i class="fas fa-cog"></i>';
+    footer.appendChild(settings);
 }
 
 window.toggleMenu = toggleMenu;
