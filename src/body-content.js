@@ -44,6 +44,8 @@ function addToDoIconTo(destination, idForIcon){
 
 function showEmptyCaseWindow(){
     const content = document.getElementById("main-content");
+    const taskList = document.querySelector("#task-list");
+
     if(content.innerHTML != "" || getStorageItem("tasks") != null){
         hideEmptyCaseWindow();
         return;

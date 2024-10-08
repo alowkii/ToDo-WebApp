@@ -750,6 +750,14 @@ header > nav > .settings > #theme:active{
     padding: 2rem 20rem;
 }
 
+#main-content > .task-list > p{
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    font-weight: 300;
+    width: 20rem;
+    text-align: center;
+}
+
 #main-content > .task-list > .task{
     display: flex;
     justify-content: space-between;
@@ -869,9 +877,16 @@ header > nav > .settings > #theme:active{
     background-color: lightgreen;
 }
 
-#main-content > .task-list > .append-task > #append-icon{
+#main-content > .task-list > .append-task{
     position: inherit;
     margin-top: 3rem;
+    width: 2rem;
+    font-size: 1.5rem;
+}
+
+#main-content > .task-list > .append-task > #append-icon{
+    position: inherit;
+    transform: translate(0, 0);
     width: 2rem;
     height: 2rem;
     font-size: 1.5rem;

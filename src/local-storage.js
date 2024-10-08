@@ -1,6 +1,11 @@
+import { set } from "date-fns";
+
 export { getStorageItem, setStorageItem, removeStorageItem };
 
 function getStorageItem(key) {
+  if(localStorage.getItem(key) == null){
+    setStorageItem(key, JSON.stringify([]));
+  }
   return localStorage.getItem(key);
 }
 

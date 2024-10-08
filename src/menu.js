@@ -1,6 +1,6 @@
 export {toggleMenu};
 import { add } from 'date-fns';
-import { callTaskQueryWindow } from './body-content.js';
+import { callTaskQueryWindow, showEmptyCaseWindow } from './body-content.js';
 import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
 import { displayTasks } from './task-list.js';
 
@@ -52,7 +52,6 @@ function createMenu() {
     addMenuItems(menu);
     menu.appendChild(document.createElement('hr'));
     addProjectWindow(menu);
-    
     addFooterItems(menu);
 
     // // ********** MENU CLICK BEHAVIOR **********
@@ -65,6 +64,28 @@ function createMenu() {
     //         hideMenu();
     //     }
     // });
+
+    document.querySelector("#project-window").addEventListener('click', function(event){
+        if(event.target.tagName != 'BUTTON'){
+            return;
+        }
+        displayTasks("all");
+
+        const tasks  = document.querySelectorAll('#task-list .task');
+        let count = 0;
+        tasks.forEach(task => {
+            if(task.getAttribute('project') != event.target.innerText){
+                task.remove();
+                count++;
+            }
+        });
+        count = tasks.length - count;
+        const taskList = document.querySelector('#task-list');
+        taskList.setAttribute("project-list", event.target.innerText);
+        if(count == 0){
+            taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
+        }
+    });
 }
 
 function addTaskBtn(menu){
@@ -111,7 +132,7 @@ function addProjectWindow(menu){
 
     const projectBtn = document.createElement('div');
     projectBtn.id = 'project-btn';
-    projectBtn.innerHTML = `<p>Projects List</p>
+    projectBtn.innerHTML = `<p>Project List</p>
                             <button><i class="fas fa-plus"></i></button>`;
     projectContainer.appendChild(projectBtn);
     
@@ -119,29 +140,31 @@ function addProjectWindow(menu){
     projectWindow.id = 'project-window';
     projectContainer.appendChild(projectWindow);
 
+    updateProjectItems();
     let projectItems = JSON.parse(getStorageItem('projects'));
-
-    if(!projectItems){
-        projectItems = [];
-        const tasks = JSON.parse(getStorageItem('tasks'));
-        if(tasks){
-            const projects = tasks.filter(task => task.project != undefined).map(task => task.project);
-            projects.forEach(project => {
-                if(!projectItems.includes(project)){
-                    projectItems.push(project);
-                }
-            });
-        }else{
-            projectItems.push('Default');
-        }
-        setStorageItem('projects', JSON.stringify(projectItems));
-    }
     projectItems.forEach(project => {
         const projectItem = document.createElement('button');
         projectItem.id = `${project}-project-item`;
+        projectItem.classList.add('project-item');
         projectItem.innerText = project;
         projectWindow.appendChild(projectItem);
     });
+}
+
+function updateProjectItems(){
+    const projectItems = JSON.parse(getStorageItem('projects')) || [];
+    const tasks = JSON.parse(getStorageItem('tasks'));
+    const projects = tasks.filter(task => task.project != undefined).map(task => task.project);
+    projects.forEach(project => {
+        if(!projectItems.includes(project)){
+            projectItems.push(project);
+        }
+    });
+    if(!projectItems.includes('Default')){
+        projectItems.push('Default');
+    }
+    projectItems.sort();
+    setStorageItem('projects', JSON.stringify(projectItems));
 }
 
 function addFooterItems(menu){

@@ -9,6 +9,7 @@ function createTaskListElement(){
     }
     const taskListElement = document.createElement("div");
     taskListElement.classList.add("task-list");
+    taskListElement.id = "task-list";
     const mainContent = document.getElementById("main-content");
     mainContent.appendChild(taskListElement);
 }
@@ -35,6 +36,9 @@ function addAppendTagElement(destination){
 }
 
 function displayTasks(project="all"){
+    const mainContent = document.getElementById("main-content");
+    mainContent.innerHTML = "";
+
     let taskList = {};
     try{
         taskList = JSON.parse(getStorageItem("tasks"));
