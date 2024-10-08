@@ -1,7 +1,8 @@
 export {toggleMenu};
-
-    import { add } from 'date-fns';
-import {addToDoIconTo, callTaskQueryWindow} from './body-content.js';
+import { add } from 'date-fns';
+import { callTaskQueryWindow } from './body-content.js';
+import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
+import { displayTasks } from './task-list.js';
 
 function toggleMenu(){
     createMenu();
@@ -114,6 +115,33 @@ function addProjectWindow(menu){
                             <button><i class="fas fa-plus"></i></button>`;
     projectContainer.appendChild(projectBtn);
     
+    const projectWindow = document.createElement('div');
+    projectWindow.id = 'project-window';
+    projectContainer.appendChild(projectWindow);
+
+    let projectItems = JSON.parse(getStorageItem('projects'));
+
+    if(!projectItems){
+        projectItems = [];
+        const tasks = JSON.parse(getStorageItem('tasks'));
+        if(tasks){
+            const projects = tasks.filter(task => task.project != undefined).map(task => task.project);
+            projects.forEach(project => {
+                if(!projectItems.includes(project)){
+                    projectItems.push(project);
+                }
+            });
+        }else{
+            projectItems.push('Default');
+        }
+        setStorageItem('projects', JSON.stringify(projectItems));
+    }
+    projectItems.forEach(project => {
+        const projectItem = document.createElement('button');
+        projectItem.id = `${project}-project-item`;
+        projectItem.innerText = project;
+        projectWindow.appendChild(projectItem);
+    });
 }
 
 function addFooterItems(menu){
@@ -122,8 +150,8 @@ function addFooterItems(menu){
 
     const footerItems = [
         {name: 'Github', url: 'https://github.com/alowkii/ToDo-WebApp'},
-        {name: 'LinkedIn', url: 'https://www.linkedin.com/in/alexander-low/'},
-        {name: 'Twitter', url: 'https://twitter.com/alowkii'},
+        {name: 'LinkedIn', url: 'https://www.linkedin.com/in/alowkii/'},
+        {name: 'x-twitter', url: 'https://twitter.com/alowkiii'},
     ];
 
     footerItems.forEach(item => {

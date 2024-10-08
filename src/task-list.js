@@ -34,7 +34,7 @@ function addAppendTagElement(destination){
     }
 }
 
-function displayTasks(){
+function displayTasks(project="all"){
     let taskList = {};
     try{
         taskList = JSON.parse(getStorageItem("tasks"));
@@ -70,8 +70,12 @@ function displayTasks(){
         }else{
             taskElement.classList.add("low-priority");
         }
-        taskElement.innerHTML = formatTaskDiv(task);
-        taskListElement.appendChild(taskElement);
+        
+        if(task.project == project || project == "all"){
+            taskElement.setAttribute("project", task.project);
+            taskElement.innerHTML = formatTaskDiv(task);
+            taskListElement.appendChild(taskElement);
+        }
 
         //edit task
         const taskEdit = taskElement.querySelector(".task-edit");
@@ -119,6 +123,7 @@ function displayTasks(){
     setTimeout(() => {
         reiterateTaskNumber();
     },0);
+
     showEmptyCaseWindow();
 }
 
@@ -149,6 +154,7 @@ function editCallTaskQueryWindow(task,index){
     document.getElementById('dateInput').value = task.date;
     document.getElementById('timeInput').value = task.time;
     document.getElementById('priority').value = task.priority;
+    document.getElementById('chooseProjectBtn').setAttribute("project", task.project);
 
     // Update button and header when editing a task
     document.getElementById('addTaskBtn').innerText = "Edit";

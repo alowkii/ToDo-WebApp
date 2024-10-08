@@ -41,6 +41,7 @@
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-color);
+    cursor: pointer;
   }
 
 @supports (scrollbar-gutter: stable) {
@@ -337,17 +338,12 @@ header > nav > .settings > #theme:active{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
-#menu-window > #project-container{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+#menu-window > #add-task-window > #add-task-btn:hover > div{
+    font-size: 1.5rem;
     background-color: transparent;
-    flex: 1 1 auto;
-    flex-basis: 10rem;
-    overflow-y: scroll;
 }
 
 #menu-window > #menu-content{
@@ -401,12 +397,22 @@ header > nav > .settings > #theme:active{
     padding: 0.5rem;
 }
 
+#menu-window > #project-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: transparent;
+    flex: 1 1 auto;
+    flex-basis: 10rem;
+    overflow: hidden;
+}
+
 #menu-window > #project-container > #project-btn{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0.2rem;
+    margin: 0.2rem 0.5rem 0 0;
 }
 
 #menu-window > #project-container > #project-btn > p{
@@ -421,6 +427,20 @@ header > nav > .settings > #theme:active{
     font-size: 1.5rem;
     width: 2.5rem;
     height: 2.5rem;
+}
+
+#menu-window > #project-container > #project-window{
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    margin-left: 2rem;
+}
+
+#menu-window > #project-container > #project-window button{
+    padding: 1rem;
+    width: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
 }
 
 #menu-window > footer{

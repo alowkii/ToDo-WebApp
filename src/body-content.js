@@ -113,6 +113,9 @@ function submitTask(event){
     taskData.forEach((value, key) => {
         task[key] = value;
     });
+    if(task.project == ""){
+        task.project = "Default";
+    }
 
     if(getStorageItem("tasks") == null){
         setStorageItem("tasks", "[]");
