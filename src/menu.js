@@ -69,8 +69,16 @@ function createMenu() {
 function addTaskBtn(menu){
     const addTaskWindow = document.createElement('div');
     addTaskWindow.id = 'add-task-window';
-    
-    addToDoIconTo(addTaskWindow, 'add-task-icon');
+
+    const addTaskBtn = document.createElement('button');
+    addTaskBtn.id = 'add-task-btn';
+    addTaskBtn.innerHTML = `<div><i class="fas fa-plus"></i></div>
+                            <p>Add Task</p>`;
+    addTaskBtn.addEventListener('click', () => {
+        callTaskQueryWindow();
+    });
+
+    addTaskWindow.appendChild(addTaskBtn);
 
     menu.appendChild(addTaskWindow);
 }
@@ -102,7 +110,7 @@ function addProjectWindow(menu){
 
     const projectBtn = document.createElement('div');
     projectBtn.id = 'project-btn';
-    projectBtn.innerHTML = `<p>Projects</p>
+    projectBtn.innerHTML = `<p>Projects List</p>
                             <button><i class="fas fa-plus"></i></button>`;
     projectContainer.appendChild(projectBtn);
     

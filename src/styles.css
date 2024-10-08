@@ -309,6 +309,47 @@ header > nav > .settings > #theme:active{
     height: 4rem;
 }
 
+#menu-window > #add-task-window > #add-task-btn{
+    display: flex;
+    position: static;
+    width: 100%;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    transform: none;
+    justify-content: start;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 0 2rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 100ms;
+}
+
+#menu-window > #add-task-window > #add-task-btn > div{
+    font-size: 1.5rem;
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    transition: all 100ms;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+#menu-window > #project-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: transparent;
+    flex: 1 1 auto;
+    flex-basis: 10rem;
+    overflow-y: scroll;
+}
+
 #menu-window > #menu-content{
     display: flex;
     flex-direction: column;
@@ -330,6 +371,7 @@ header > nav > .settings > #theme:active{
     cursor: pointer;
     transition: all 100ms;
     border-radius: 0.5rem;
+    font-size: 1rem;
 }
 
 #menu-window > #menu-content > .selected{
@@ -357,34 +399,6 @@ header > nav > .settings > #theme:active{
     width: 100%;
     background-color: transparent;
     padding: 0.5rem;
-}
-
-#menu-window > #add-task-window > #add-task-icon{
-    display: flex;
-    position: static;
-    width: 100%;
-    height: 2.5rem;
-    font-size: 1.5rem;
-    border-radius: 0.5rem;
-    transform: none;
-}
-
-#menu-window > #add-task-window > #add-task-icon:hover{
-    box-shadow: none;
-}
-
-#menu-window > #add-task-window > #add-task-icon:active{
-    box-shadow: none;
-}
-
-#menu-window > #project-container{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color: transparent;
-    flex: 1 1 auto;
-    flex-basis: 10rem;
-    overflow-y: scroll;
 }
 
 #menu-window > #project-container > #project-btn{
