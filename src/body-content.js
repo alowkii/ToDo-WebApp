@@ -2,6 +2,7 @@ export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow, addTo
 import {add, formatDistance, subDays} from 'date-fns';
 import { getStorageItem, setStorageItem} from './local-storage.js';
 import { displayTasks, editTask } from './task-list.js';
+import { addProjectWindow } from './menu.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -88,6 +89,51 @@ function callTaskQueryWindow(){
         document.getElementById("pop-up").setAttribute("data-edit-index", "-1");
         document.getElementById("pop-up").reset();
     });
+
+    const projectAddBtn = document.getElementById("chooseProjectBtn");
+    const projectList = document.getElementById("task-list");
+    if(projectList.getAttribute("project-list") != "all"){
+        const project_attribute = projectList.getAttribute("project-list");
+        projectAddBtn.setAttribute("project", project_attribute);
+    }
+    projectAddBtn.addEventListener("click", () => {
+        setProject();
+    });
+}
+
+function setProject(){
+    while(document.getElementById("project-window") != null){
+        hideProjectList();
+    }
+    const projectListForm = document.createElement("form");
+    projectListForm.id = "project-window";
+
+    const projectItems = JSON.parse(getStorageItem("projects"));
+    const projectListTitle = document.createElement("p");
+    projectListTitle.textContent = "Choose a project";
+    projectListForm.appendChild(projectListTitle);
+
+    const projectList = document.createElement("div");
+    projectList.id = "project-list";
+    projectListForm.appendChild(projectList);
+
+    projectItems.forEach(project => {
+        const projectItem = document.createElement("div");
+        projectItem.classList.add("project-item");
+        projectItem.textContent = project;
+        projectItem.addEventListener("click", () => {
+            document.getElementById("chooseProjectBtn").setAttribute("project", project);
+            hideProjectList();
+        });
+        projectList.appendChild(projectItem);
+    });
+
+    document.body.appendChild(projectListForm);
+}
+
+function hideProjectList(){
+    const projectWindow = document.getElementById("project-window");
+    projectWindow.remove();
 }
 
 function showPopUp(){
@@ -107,6 +153,7 @@ function hidePopUp(){
 
 
 function submitTask(event){
+    let project_attribute = document.getElementById("chooseProjectBtn").getAttribute("project");
     event.preventDefault();
     hidePopUp();
 
@@ -115,7 +162,8 @@ function submitTask(event){
     taskData.forEach((value, key) => {
         task[key] = value;
     });
-    if(task.project == ""){
+    task.project = `${project_attribute}`;
+    if(task.project == "" || task.project == undefined){
         task.project = "Default";
     }
 
@@ -125,7 +173,11 @@ function submitTask(event){
 
     const tasks = JSON.parse(getStorageItem("tasks"));
     if(event.target.getAttribute("data-edit-index") != "-1"){
-        editTask(event,tasks);
+        const projectOption = document.querySelector(".main-content #task-list").getAttribute("project-list");
+        if(project_attribute == undefined || project_attribute == "" || projectOption != "all"){
+            project_attribute = projectOption;
+        }
+        editTask(event,tasks,project_attribute);
         // Reset the button and header text for adding new tasks
         document.getElementById('task-popUp-header').innerText = "Add Task";
         document.getElementById('addTaskBtn').innerText = "Add";

@@ -58,6 +58,7 @@ function displayTasks(project="all"){
     deleteTaskListElement();
     createTaskListElement();
     const taskListElement = document.querySelector(".task-list");
+    taskListElement.setAttribute("project-list", "all");
     
     for(let i = 0; i < taskList.length; i++){
         const task = taskList[i];
@@ -193,7 +194,7 @@ function formatTaskDiv(task){
     `;
 }
 
-function editTask(event, taskList){
+function editTask(event, taskList, project){
     // Retrieve the index of the task to edit
     const index = event.target.getAttribute("data-edit-index");
     
@@ -203,6 +204,7 @@ function editTask(event, taskList){
     taskData.forEach((value, key) => {
         task[key] = value;
     });
+    task.project = `${project}`;
     
     // // Update the task at the specific index without removing it
     taskList[index] = task;

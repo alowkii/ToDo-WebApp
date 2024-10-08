@@ -1,4 +1,4 @@
-export {toggleMenu};
+export { toggleMenu, addProjectWindow };
 import { add } from 'date-fns';
 import { callTaskQueryWindow, showEmptyCaseWindow } from './body-content.js';
 import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
@@ -85,6 +85,10 @@ function createMenu() {
         if(count == 0){
             taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
         }
+    });
+
+    document.getElementById("all-task-page").addEventListener('click', function(){
+        displayTasks("all");
     });
 }
 
