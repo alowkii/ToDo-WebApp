@@ -2,7 +2,7 @@ export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow, addTo
 import {add, formatDistance, subDays} from 'date-fns';
 import { getStorageItem, setStorageItem} from './local-storage.js';
 import { displayTasks, editTask } from './task-list.js';
-import { addProjectWindow } from './menu.js';
+import { addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems } from './menu.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -64,6 +64,7 @@ function callTaskQueryWindow(){
     showPopUp();
     document.getElementById("pop-up").reset();
     document.getElementById("pop-up").setAttribute("data-edit-index", "-1");
+    document.getElementById("chooseProjectBtn").setAttribute("project", "Default");
 
     const today = new Date();
 
@@ -102,7 +103,7 @@ function callTaskQueryWindow(){
 }
 
 function setProject(){
-    while(document.getElementById("project-window") != null){
+    if(document.getElementById("project-window") != null){
         hideProjectList();
     }
     const projectListForm = document.createElement("form");
@@ -112,6 +113,15 @@ function setProject(){
     const projectListTitle = document.createElement("p");
     projectListTitle.textContent = "Choose a project";
     projectListForm.appendChild(projectListTitle);
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.innerHTML = "<i class='fas fa-times'></i>";
+    cancelBtn.id = "cancelProjectBtn";
+    cancelBtn.addEventListener("click", () => {
+        document.getElementById("chooseProjectBtn").setAttribute("project", "Default");
+        hideProjectList();
+    });
+    projectListForm.appendChild(cancelBtn);
 
     const projectList = document.createElement("div");
     projectList.id = "project-list";
@@ -123,6 +133,10 @@ function setProject(){
         projectItem.textContent = project;
         projectItem.addEventListener("click", () => {
             document.getElementById("chooseProjectBtn").setAttribute("project", project);
+            createMenu();
+            const projectWindow = document.getElementById("project-window");
+            updateProjectItems();
+            addProjectWindowItems(projectWindow);
             hideProjectList();
         });
         projectList.appendChild(projectItem);
@@ -132,7 +146,10 @@ function setProject(){
 }
 
 function hideProjectList(){
-    const projectWindow = document.getElementById("project-window");
+    if(document.querySelector("body > #project-window") == null){
+        return;
+    }
+    const projectWindow = document.querySelector("body > #project-window");
     projectWindow.remove();
 }
 
@@ -153,8 +170,10 @@ function hidePopUp(){
 
 
 function submitTask(event){
-    let project_attribute = document.getElementById("chooseProjectBtn").getAttribute("project");
     event.preventDefault();
+    const chooseProjectBtn = document.getElementById("chooseProjectBtn");
+    let project_attribute = chooseProjectBtn ? chooseProjectBtn.getAttribute("project") : "Default";
+
     hidePopUp();
 
     const taskData = new FormData(event.target);
@@ -172,9 +191,12 @@ function submitTask(event){
     }
 
     const tasks = JSON.parse(getStorageItem("tasks"));
-    if(event.target.getAttribute("data-edit-index") != "-1"){
-        const projectOption = document.querySelector(".main-content #task-list").getAttribute("project-list");
-        if(project_attribute == undefined || project_attribute == "" || projectOption != "all"){
+
+    if(event.target != null && event.target.getAttribute("data-edit-index") != "-1"){
+        const taskList = document.querySelector(".main-content #task-list");
+        const projectOption = taskList.getAttribute("project-list");
+        console.log(projectOption);
+        if(project_attribute == undefined || project_attribute == "" || projectOption == "all"){
             project_attribute = projectOption;
         }
         editTask(event,tasks,project_attribute);

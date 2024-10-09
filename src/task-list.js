@@ -130,6 +130,12 @@ function displayTasks(project="all"){
     },0);
 
     showEmptyCaseWindow();
+
+    //If Edit task is clicked before appending a task, sure the content of the pop-up is at context.
+    document.querySelector(".append-task").addEventListener("click", () => {
+        document.getElementById("task-popUp-header").innerText = "Add Task";
+        document.getElementById("addTaskBtn").innerText = "Add";
+    });
 }
 
 function sortTaskList(taskList){
@@ -197,6 +203,7 @@ function formatTaskDiv(task){
 function editTask(event, taskList, project){
     // Retrieve the index of the task to edit
     const index = event.target.getAttribute("data-edit-index");
+    console.log(index);
     
     // Update the task at the given index with new values
     const taskData = new FormData(event.target);

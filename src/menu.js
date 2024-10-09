@@ -1,4 +1,4 @@
-export { toggleMenu, addProjectWindow };
+export { toggleMenu, addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems };
 import { add } from 'date-fns';
 import { callTaskQueryWindow, showEmptyCaseWindow } from './body-content.js';
 import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
@@ -38,6 +38,9 @@ function showMenu(){
 }
 
 function createMenu() {
+    if(document.querySelector('#menu-window')){
+        return;
+    }
     const menu = document.createElement('div');
     menu.id ='menu-window';
     menu.style.display = 'none';
@@ -130,6 +133,11 @@ function addMenuItems(menu){
 }
 
 function addProjectWindow(menu){
+    if(document.getElementById("project-window")){
+        const projectWindow = document.getElementById("project-window");
+        updateProjectItems();
+        addProjectWindowItems(projectWindow);
+    }
     const projectContainer = document.createElement('div');
     projectContainer.id = 'project-container';
     menu.appendChild(projectContainer);
@@ -145,7 +153,18 @@ function addProjectWindow(menu){
     projectContainer.appendChild(projectWindow);
 
     updateProjectItems();
-    let projectItems = JSON.parse(getStorageItem('projects'));
+    addProjectWindowItems(projectWindow);
+}
+
+function addProjectWindowItems(projectWindow){
+    const projectItems = JSON.parse(getStorageItem('projects')) || [];
+    if(!projectWindow){
+        const projectContainer = document.getElementById("project-container");
+        projectWindow = document.createElement("div");
+        projectWindow.id = "project-window";
+        projectContainer.appendChild(projectWindow);
+    }
+    projectWindow.innerHTML = '';
     projectItems.forEach(project => {
         const projectItem = document.createElement('button');
         projectItem.id = `${project}-project-item`;

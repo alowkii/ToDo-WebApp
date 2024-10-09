@@ -713,6 +713,7 @@ header > nav > .settings > #theme:active{
     display: flex;
     cursor: pointer;
     transition: background-color 0.3s;
+    justify-content: center;
     align-self: center;
 }
 
@@ -727,11 +728,10 @@ header > nav > .settings > #theme:active{
     font-size: 0.9rem;
     width: auto;
     height: 1rem;
-    position: relative;
+    position: absolute;
     white-space: nowrap;
     text-overflow: ellipsis;
-    bottom: 2rem;
-    right: 5rem;
+    top: 15rem;
 }
 
 #pop-up > .date-time::before{
@@ -958,8 +958,28 @@ body > #project-window{
     cursor: pointer;
 }
 
-#project-window > #project-list > .selected{
+#project-window > #project-list .selected{
     background-color: var(--quinary-color);
     color: white;
     border: var(--primary-color) 0.1rem solid;
+}
+
+body > #project-window > #cancelProjectBtn{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    padding: 1rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
 }
