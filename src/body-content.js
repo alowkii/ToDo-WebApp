@@ -140,6 +140,10 @@ function setProject(){
             hideProjectList();
         });
         projectList.appendChild(projectItem);
+
+        if(document.getElementById("chooseProjectBtn").getAttribute("project") == project){
+            projectItem.classList.add("selected");
+        }
     });
 
     document.body.appendChild(projectListForm);
