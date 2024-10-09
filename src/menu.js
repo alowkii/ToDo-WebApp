@@ -3,6 +3,7 @@ import { add } from 'date-fns';
 import { callTaskQueryWindow, showEmptyCaseWindow } from './body-content.js';
 import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
 import { displayTasks } from './task-list.js';
+import { displayViewPortInfo } from './viewport-info.js';
 
 function toggleMenu(){
     createMenu();
@@ -88,6 +89,8 @@ function createMenu() {
         if(count == 0){
             taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
         }
+
+        displayViewPortInfo();
     });
 
     document.getElementById("all-task-page").addEventListener('click', function(){

@@ -959,9 +959,9 @@ body > #project-window{
 }
 
 #project-window > #project-list .selected{
-    background-color: var(--quinary-color);
+    background-color: var(--quaternary-color);
     color: white;
-    border: var(--primary-color) 0.1rem solid;
+    border: var(--primary-color) 1px solid;
 }
 
 body > #project-window > #cancelProjectBtn{
