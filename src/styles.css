@@ -709,6 +709,8 @@ header > nav > .settings > #theme:active{
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
     width: 8rem;
+    height: 2.5rem;
+    display: flex;
     cursor: pointer;
     transition: background-color 0.3s;
     align-self: center;
@@ -718,6 +720,18 @@ header > nav > .settings > #theme:active{
 #pop-up #chooseProjectBtn:hover,
 #pop-up #addTaskBtn:hover{
     background-color: var(--quaternary-light-color);
+}
+
+#pop-up #chooseProjectBtn::after{
+    content: 'Project: ' attr(project);
+    font-size: 0.9rem;
+    width: auto;
+    height: 1rem;
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    bottom: 2rem;
+    right: 5rem;
 }
 
 #pop-up > .date-time::before{
