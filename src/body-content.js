@@ -174,14 +174,13 @@ function submitTask(event){
     const chooseProjectBtn = document.getElementById("chooseProjectBtn");
     let project_attribute = chooseProjectBtn ? chooseProjectBtn.getAttribute("project") : "Default";
 
-    hidePopUp();
 
     const taskData = new FormData(event.target);
     const task = {complete: false};
     taskData.forEach((value, key) => {
         task[key] = value;
     });
-    task.project = `${project_attribute}`;
+    task.project = project_attribute || "Default";
     if(task.project == "" || task.project == undefined){
         task.project = "Default";
     }
@@ -194,7 +193,8 @@ function submitTask(event){
 
     if(event.target != null && event.target.getAttribute("data-edit-index") != "-1"){
         const taskList = document.querySelector(".main-content #task-list");
-        const projectOption = taskList.getAttribute("project-list");
+    const projectOption = taskList ? taskList.getAttribute("project-list") : "Default";
+
         console.log(projectOption);
         if(project_attribute == undefined || project_attribute == "" || projectOption == "all"){
             project_attribute = projectOption;
@@ -205,6 +205,7 @@ function submitTask(event){
         document.getElementById('addTaskBtn').innerText = "Add";
         //reset the data-edit-index attribute
         event.target.setAttribute("data-edit-index", "-1");
+        hidePopUp();
         displayTasks();
         return;
     }
@@ -212,6 +213,7 @@ function submitTask(event){
     setStorageItem("tasks", JSON.stringify(tasks));
 
     event.target.reset();
+    hidePopUp();
     displayTasks();
 }
 
