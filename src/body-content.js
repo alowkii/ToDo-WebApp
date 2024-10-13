@@ -102,6 +102,7 @@ function callTaskQueryWindow(){
     });
 }
 
+//Sets project list while adding a task
 function setProject(){
     if(document.getElementById("project-window") != null){
         hideProjectList();
@@ -148,7 +149,7 @@ function setProject(){
 
     const addProjectBtn = document.createElement('div');
     addProjectBtn.classList.add('project-item');
-    addProjectBtn.id = 'add-project-btn';
+    addProjectBtn.id = 'append-project-btn';
     addProjectBtn.style.backgroundColor = 'var(--primary-color)';
     addProjectBtn.style.color = 'var(--secondary-color)';
     addProjectBtn.innerHTML = `<i class='fas fa-plus'></i>`;
@@ -156,7 +157,7 @@ function setProject(){
 
     document.body.appendChild(projectListForm);
 
-    document.getElementById("add-project-btn").addEventListener("click", () => {
+    document.getElementById("append-project-btn").addEventListener("click", () => {
         callProjectPrompt();
         hideProjectList();
     });
