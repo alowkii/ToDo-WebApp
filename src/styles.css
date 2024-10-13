@@ -417,7 +417,8 @@ header > nav > .settings > #theme:active{
 
 #menu-window > #project-container > #project-btn > p{
     color: var(--primary-color);
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
     padding: 0.5rem;
     margin-left: 2rem;
 }
