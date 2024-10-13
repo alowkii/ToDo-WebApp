@@ -26,7 +26,7 @@ function deleteTaskListElement(){
 
 function addAppendTagElement(destination){
     if(!document.querySelector(".append-task")){
-        //add task
+        //add task button just once
         const addTask = document.createElement("div");
         addTask.classList.add("append-task");
         destination.appendChild(addTask);
