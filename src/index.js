@@ -7,9 +7,16 @@ import { userSignInPrompt, userInfoPrompt } from "./user.js";
 import { addContent } from "./body-content.js";
 import { toggleNotificationWindow, addNotification } from "./notification-window.js";
 import { getStorageItem } from "./local-storage.js";
+import { getNotificationTime, setNotificationTime } from "./settings.js";
 
 setTheme(getStorageItem('theme'));
 addContent();
+
+let notificationTime = getNotificationTime();
+if(!notificationTime || notificationTime == ""){
+    setNotificationTime("12:00");
+    addNotification();
+}
 
 window.toggleNotificationWindow = toggleNotificationWindow;
 window.addNotification = addNotification;

@@ -1,7 +1,6 @@
 export { displayTasks, editTask };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
 import { showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
-import { add, set } from "date-fns";
 
 function createTaskListElement(){
     if(document.querySelector(".task-list")){

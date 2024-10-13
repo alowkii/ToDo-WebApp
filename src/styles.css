@@ -523,26 +523,43 @@ header > nav > .settings > #theme:active{
     flex-direction: column;
     align-items: center;
     z-index: 2;
-    height: 100%;
-    overflow-y: auto;
+    height: calc(100% - 4.5rem);
+    overflow-y: scroll;
+    scrollbar-gutter: stable auto;
     margin-top: 2rem;
     border-top: 1px solid var(--tertiary-color); 
 }
 
 .notification-window > .notifications > .notification{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 1rem;
     color: var(--primary-color);
     border-bottom: 1px solid var(--tertiary-color);
     padding: 0.5rem;
-    height: 6rem;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 15fr 1fr;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.notification-window > .notifications > .notification:hover{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+}
+
+.notification-window > .notifications > .notification > .notification-delete{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
 }
 
 .notification-window > .notifications > .notification > .notification-close{
     align-self: flex-start;
     padding: 0.1rem 0.2rem;
+    cursor: pointer;
 }
 
 .notification-window > .notifications > .notification > .notification-close:hover{
