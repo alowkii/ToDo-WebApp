@@ -1,9 +1,9 @@
-export { toggleMenu, addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems, callProjectPrompt, displayFilteredTasks };
-import { add } from 'date-fns';
+export { toggleMenu, addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems, callProjectPrompt };
 import { callTaskQueryWindow, showEmptyCaseWindow } from './body-content.js';
 import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
 import { displayTasks } from './task-list.js';
 import { displayViewPortInfo } from './viewport-info.js';
+import { displayFilteredTasks, displayTasksToday } from './filter-methods.js';
 
 function toggleMenu(){
     createMenu();
@@ -80,6 +80,11 @@ function createMenu() {
 
     document.getElementById("all-task-page").addEventListener('click', function(){
         displayTasks("all");
+        displayViewPortInfo();
+    });
+
+    document.getElementById("today-task-page").addEventListener('click', function(){
+        displayTasksToday();
     });
 
     document.getElementById('add-project-btn').addEventListener('click', function(){
@@ -135,30 +140,6 @@ function updateProjectWindowItems(){
         projectItem.innerText = project;
         projectWindow.appendChild(projectItem);
     });
-}
-
-function displayFilteredTasks(project){
-    displayTasks("all");
-
-    const tasks  = document.querySelectorAll('#task-list .task');
-    let count = 0;
-    tasks.forEach(task => {
-        if(task.getAttribute('project') != project){
-            task.remove();
-            count++;
-        }
-    });
-    count = tasks.length - count;
-    const taskList = document.querySelector('#task-list');
-    taskList.setAttribute("project-list", project);
-    if(count == 0){
-        taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
-    }
-    
-    document.querySelector("#append-icon").addEventListener('click', () => {
-        callTaskQueryWindow();
-    });
-    displayViewPortInfo();
 }
 
 function addTaskBtn(menu){

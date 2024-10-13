@@ -1,5 +1,4 @@
 export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo };
-import {add, formatDistance, subDays} from 'date-fns';
 import { getStorageItem, setStorageItem} from './local-storage.js';
 import { displayTasks, editTask } from './task-list.js';
 import { callProjectPrompt, createMenu, updateProjectItems, addProjectWindowItems } from './menu.js';
