@@ -154,6 +154,10 @@ function displayFilteredTasks(project){
     if(count == 0){
         taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
     }
+    
+    document.querySelector("#append-icon").addEventListener('click', () => {
+        callTaskQueryWindow();
+    });
     displayViewPortInfo();
 }
 
