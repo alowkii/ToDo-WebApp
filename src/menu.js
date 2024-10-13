@@ -1,4 +1,4 @@
-export { toggleMenu, addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems };
+export { toggleMenu, addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems, callProjectPrompt, displayFilteredTasks };
 import { add } from 'date-fns';
 import { callTaskQueryWindow, showEmptyCaseWindow } from './body-content.js';
 import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
@@ -39,7 +39,7 @@ function showMenu(){
 }
 
 function createMenu() {
-    if(document.querySelector('#menu-window')){
+    if(document.getElementById('menu-window')){
         return;
     }
     const menu = document.createElement('div');
@@ -73,29 +73,88 @@ function createMenu() {
         if(event.target.tagName != 'BUTTON'){
             return;
         }
-        displayTasks("all");
-
-        const tasks  = document.querySelectorAll('#task-list .task');
-        let count = 0;
-        tasks.forEach(task => {
-            if(task.getAttribute('project') != event.target.innerText){
-                task.remove();
-                count++;
-            }
-        });
-        count = tasks.length - count;
-        const taskList = document.querySelector('#task-list');
-        taskList.setAttribute("project-list", event.target.innerText);
-        if(count == 0){
-            taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
-        }
-
+        
+        displayFilteredTasks(event.target.innerText);
         displayViewPortInfo();
     });
 
     document.getElementById("all-task-page").addEventListener('click', function(){
         displayTasks("all");
     });
+
+    document.getElementById('add-project-btn').addEventListener('click', function(){
+        //Adds project to the project list
+        if(document.getElementById('project-prompt')){
+            return;
+        }
+        let project = callProjectPrompt();
+        console.log(project);
+    });
+}
+
+function callProjectPrompt(){
+    const projectPrompt = document.createElement('div');
+    projectPrompt.id = 'project-prompt';
+    projectPrompt.innerHTML = ` <p>Add New Project</p>
+                                <button id="close-project-prompt"><i class="fas fa-times"></i></button>
+                                <input type="text" id="project-input" placeholder="Project Name" maxlength="25">
+                                <button type="submit" id="project-submit">Add Project</button>`;
+    document.body.appendChild(projectPrompt);
+
+    document.getElementById('project-submit').addEventListener('click', () => {
+        const project = document.getElementById('project-input').value;
+        
+        if(project == null || project == ""){
+            return;
+        }
+        updateProjectItems(project);
+        updateProjectWindowItems();
+        displayFilteredTasks(project);
+        if(document.getElementById("chooseProjectBtn")){
+            document.getElementById("chooseProjectBtn").setAttribute("project", project);
+        }
+        document.getElementById('project-prompt').remove();
+    });
+
+    document.getElementById('close-project-prompt').addEventListener('click', function(){
+        document.getElementById('project-prompt').remove();
+    });
+}
+
+function updateProjectWindowItems(){
+    const projectItems = JSON.parse(getStorageItem('projects')) || [];
+    const projectWindow = document.getElementById("project-window");
+    if(!projectWindow){
+        return;
+    }
+    projectWindow.innerHTML = '';
+    projectItems.forEach(project => {
+        const projectItem = document.createElement('button');
+        projectItem.id = `${project}-project-item`;
+        projectItem.classList.add('project-item');
+        projectItem.innerText = project;
+        projectWindow.appendChild(projectItem);
+    });
+}
+
+function displayFilteredTasks(project){
+    displayTasks("all");
+
+    const tasks  = document.querySelectorAll('#task-list .task');
+    let count = 0;
+    tasks.forEach(task => {
+        if(task.getAttribute('project') != project){
+            task.remove();
+            count++;
+        }
+    });
+    count = tasks.length - count;
+    const taskList = document.querySelector('#task-list');
+    taskList.setAttribute("project-list", project);
+    if(count == 0){
+        taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
+    }
+    displayViewPortInfo();
 }
 
 function addTaskBtn(menu){
@@ -148,7 +207,7 @@ function addProjectWindow(menu){
     const projectBtn = document.createElement('div');
     projectBtn.id = 'project-btn';
     projectBtn.innerHTML = `<p>Project List</p>
-                            <button><i class="fas fa-plus"></i></button>`;
+                            <button id="add-project-btn"><i class="fas fa-plus"></i></button>`;
     projectContainer.appendChild(projectBtn);
     
     const projectWindow = document.createElement('div');
@@ -177,8 +236,11 @@ function addProjectWindowItems(projectWindow){
     });
 }
 
-function updateProjectItems(){
+function updateProjectItems(project=""){
     const projectItems = JSON.parse(getStorageItem('projects')) || [];
+    if(!projectItems.includes(project) && !(project == "")){
+        projectItems.push(project);
+    }
     const tasks = JSON.parse(getStorageItem('tasks'));
     const projects = tasks.filter(task => task.project != undefined).map(task => task.project);
     projects.forEach(project => {

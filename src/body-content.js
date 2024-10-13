@@ -2,7 +2,7 @@ export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow, addTo
 import {add, formatDistance, subDays} from 'date-fns';
 import { getStorageItem, setStorageItem} from './local-storage.js';
 import { displayTasks, editTask } from './task-list.js';
-import { addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems } from './menu.js';
+import { callProjectPrompt, createMenu, updateProjectItems, addProjectWindowItems } from './menu.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -146,7 +146,20 @@ function setProject(){
         }
     });
 
+    const addProjectBtn = document.createElement('div');
+    addProjectBtn.classList.add('project-item');
+    addProjectBtn.id = 'add-project-btn';
+    addProjectBtn.style.backgroundColor = 'var(--primary-color)';
+    addProjectBtn.style.color = 'var(--secondary-color)';
+    addProjectBtn.innerHTML = `<i class='fas fa-plus'></i>`;
+    projectList.appendChild(addProjectBtn);
+
     document.body.appendChild(projectListForm);
+
+    document.getElementById("add-project-btn").addEventListener("click", () => {
+        callProjectPrompt();
+        hideProjectList();
+    });
 }
 
 function hideProjectList(){
