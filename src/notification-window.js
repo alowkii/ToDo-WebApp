@@ -1,4 +1,4 @@
-export {toggleNotificationWindow, addNotification };
+export {toggleNotificationWindow, addNotification, createNotificationWindow };
 import { getStorageItem, setStorageItem } from "./local-storage";
 import { getNotificationTime, setNotificationTime } from "./settings";
 import {add, formatDistance, isToday, subDays, parse, isAfter, isBefore} from 'date-fns';
@@ -44,28 +44,29 @@ function createNotificationWindow() {
     // Add notifications
     const notificationData = JSON.parse(getStorageItem('tasks'));
     if(notificationData){
-        notificationData.forEach(data => {
-
-        // Combine date and time from data to create the task date
-        let taskNotificationDate = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
-
-        // Get the current time and create a notification time using getNotificationTime()
+        // Get the current time
         let currentDate = new Date();
-        let notificationTime = parse(
-        `${currentDate.toISOString().split('T')[0]} ${currentDate.toISOString().split('T')[1]}`,
-        'yyyy-MM-dd HH:mm:ss.SSS',
-        new Date()
-        );
-
-        let limit = getNotificationTime().split(':');
-        // Calculate given limit hours from the current time
-        let upcomingTimeLimit = add(currentDate, { hours: limit[0] });
-
-        // Add notification if the task is within the next 12 hours and is after the notification time
-        if (isAfter(taskNotificationDate, notificationTime) && isBefore(taskNotificationDate, upcomingTimeLimit)) {
-            addNotification(data);
-        }
+        notificationData.forEach(data => {
+            // Combine date and time from data to create the task date
+            let taskNotificationDate = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
+            
+            // Parse the current date and time as a combined string to create a notification time
+            let notificationTime = parse(
+                `${currentDate.toISOString().split('T')[0]} ${currentDate.toISOString().split('T')[1].slice(0, 5)}`, 
+                'yyyy-MM-dd HH:mm', 
+                new Date()
+            );
+        
+            let limit = getNotificationTime().split(':');
+            // Calculate the limit as the given hours from the current time
+            let upcomingTimeLimit = add(currentDate, { hours: parseInt(limit[0], 10) });
+        
+            // Add notification if the task is within the upcoming time limit and is after the notification time
+            if (isAfter(taskNotificationDate, notificationTime) && isBefore(taskNotificationDate, upcomingTimeLimit) && !data.complete) {
+                addNotification(data);
+            }
         });
+        
     }
 }
 
