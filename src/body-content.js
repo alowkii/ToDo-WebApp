@@ -2,6 +2,7 @@ export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow, addTo
 import { getStorageItem, setStorageItem} from './local-storage.js';
 import { displayTasks, editTask } from './task-list.js';
 import { callProjectPrompt, createMenu, updateProjectItems, addProjectWindowItems } from './menu.js';
+import { loadNotificationWindow } from './notification-window.js';
 
 function addContent() {
     const mainContent = document.getElementById("main-content");
@@ -232,6 +233,7 @@ function submitTask(event){
     event.target.reset();
     hidePopUp();
     displayTasks();
+    loadNotificationWindow();
 }
 
 document.getElementById("pop-up").addEventListener("submit", (event) => {
