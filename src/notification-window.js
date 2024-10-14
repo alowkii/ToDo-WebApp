@@ -1,7 +1,14 @@
-export {toggleNotificationWindow, addNotification, createNotificationWindow };
+export {toggleNotificationWindow, addNotification, loadNotificationWindow };
 import { getStorageItem } from "./local-storage";
 import { getNotificationTime } from "./settings";
 import { add, parse, isAfter, isBefore } from 'date-fns';
+
+function loadNotificationWindow() {
+    createNotificationWindow();
+    const NotificationWindow = document.querySelector('.notification-window');
+    NotificationWindow.style.display = 'none';
+    NotificationWindow.classList.add('remove');
+}
 
 function toggleNotificationWindow() {
     const notificationWindow = document.querySelector('.notification-window');
@@ -10,15 +17,12 @@ function toggleNotificationWindow() {
         notificationWindow.classList.remove('add');
         notificationWindow.classList.add('remove');
         setTimeout(() => {
-            notificationWindow.remove();
-            document.querySelector('.notification-counter').setAttribute('count', 0);  
-        },500);
+            notificationWindow.style.display = 'none';
+        }, 500);
     } else {
-        if (!notificationWindow) {
-            createNotificationWindow();
-        }
         const newNotificationWindow = document.querySelector('.notification-window');
         newNotificationWindow.classList.add('add');
+        newNotificationWindow.style.display = 'block';
         newNotificationWindow.classList.remove('remove');
     }
 }
@@ -83,13 +87,18 @@ function createNotificationWindow() {
 function formatNotification(data){
     return `
         <div class="notification-content">
-            <h4><b>${data.title}</b></h4>
-            <h6>${data.time}</h6><br>
+            <h3><b>${data.title}</b></h3>
+            <p class="notification-meta">
+                <span>${data.time}</span> | <span>${data.date}</span>
+            </p>
             <p>${data.details}</p>
         </div>
         <div class="notification-delete">
-            <i class="fas fa-times"></i>
+            <button">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+
     `;
 }
 
@@ -125,6 +134,8 @@ function addNotification(data, fragment) {
 
         // Recalculate the counter after deletion
         let updatedCounterValue =document.querySelector('.notification-counter').getAttribute('count');
+        updatedCounterValue = parseInt(updatedCounterValue, 10);
+        updatedCounterValue--;
         if (updatedCounterValue > 9) {
             counter.innerHTML = "9+";
         } else {

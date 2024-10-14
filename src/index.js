@@ -5,7 +5,7 @@ import "./menu.js";
 import "./local-storage.js";
 import { userSignInPrompt, userInfoPrompt } from "./user.js";
 import { addContent } from "./body-content.js";
-import { toggleNotificationWindow, addNotification, createNotificationWindow } from "./notification-window.js";
+import { toggleNotificationWindow, addNotification, loadNotificationWindow } from "./notification-window.js";
 import { getStorageItem } from "./local-storage.js";
 import { getNotificationTime, setNotificationTime } from "./settings.js";
 
@@ -18,13 +18,11 @@ if(!notificationTime || notificationTime == ""){
     addNotification();
 }
 
-toggleNotificationWindow();
-toggleNotificationWindow();
+loadNotificationWindow();
 
 setInterval(() => {
-    toggleNotificationWindow();
-    toggleNotificationWindow();
-}, 1000 * 60);
+    loadNotificationWindow();
+}, 1000 * 60 * 60);
 
 window.toggleNotificationWindow = toggleNotificationWindow;
 window.addNotification = addNotification;

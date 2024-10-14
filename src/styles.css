@@ -503,6 +503,7 @@ header > nav > .settings > #theme:active{
 
 .add{
     animation: slideOut 0.5s forwards;
+    display: block;
 }
 
 .remove{
@@ -541,11 +542,13 @@ header > nav > .settings > #theme:active{
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    margin: 0.2rem 0;
 }
 
 .notification-window > .notifications > .notification:hover{
     background-color: var(--tertiary-color);
     color: var(--primary-color);
+    cursor: default;
 }
 
 .notification-window > .notifications > .notification > .notification-delete{
