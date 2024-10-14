@@ -5,6 +5,14 @@ import { add, parse, isAfter, isBefore } from 'date-fns';
 
 //initialize the notification window
 function loadNotificationWindow() {
+    const notificationWindow = document.querySelector('.notification-window');
+    if (notificationWindow) {
+        notificationWindow.remove();
+        const counter = document.querySelector('.notification-counter');
+        counter.innerHTML = "0";
+        counter.setAttribute('count', 0);
+    }
+
     createNotificationWindow();
     const NotificationWindow = document.querySelector('.notification-window');
     NotificationWindow.style.display = 'none';

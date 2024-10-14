@@ -1,6 +1,7 @@
 export { displayTasks, editTask };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
 import { showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
+import { loadNotificationWindow } from "./notification-window.js";
 
 function createTaskListElement(){
     if(document.querySelector(".task-list")){
@@ -109,6 +110,7 @@ function displayTasks(project="all"){
             }
             deleteTaskListElement();
             displayTasks();
+            loadNotificationWindow();
         });
 
         //add append Button
@@ -122,6 +124,7 @@ function displayTasks(project="all"){
             task.complete = !task.complete;
             taskList[i] = task;
             setStorageItem("tasks", JSON.stringify(taskList));
+            loadNotificationWindow();
         });
     }
     setTimeout(() => {
