@@ -18,8 +18,13 @@ if(!notificationTime || notificationTime == ""){
     addNotification();
 }
 
-createNotificationWindow();
+toggleNotificationWindow();
+toggleNotificationWindow();
 
+setInterval(() => {
+    toggleNotificationWindow();
+    toggleNotificationWindow();
+}, 1000 * 60);
 
 window.toggleNotificationWindow = toggleNotificationWindow;
 window.addNotification = addNotification;

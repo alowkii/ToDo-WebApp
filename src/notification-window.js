@@ -9,6 +9,10 @@ function toggleNotificationWindow() {
     if (notificationWindow && notificationWindow.classList.contains('add')) {
         notificationWindow.classList.remove('add');
         notificationWindow.classList.add('remove');
+        setTimeout(() => {
+            notificationWindow.remove();
+            document.querySelector('.notification-counter').setAttribute('count', 0);  
+        },500);
     } else {
         if (!notificationWindow) {
             createNotificationWindow();
@@ -93,7 +97,7 @@ function addNotification(data, fragment) {
     const counter = document.querySelector('.notification-counter');
     
     // Calculate the current number of notifications dynamically, before adding a new one
-    let currentCount = document.querySelector('.notification-counter').textContent;
+    let currentCount = document.querySelector('.notification-counter').getAttribute('count');
     currentCount = parseInt(currentCount, 10);
     console.log(currentCount);
 
@@ -107,6 +111,7 @@ function addNotification(data, fragment) {
     } else {
         counter.innerHTML = counterValue;
     }
+    counter.setAttribute('count', counterValue);
 
     // Create the notification
     let notification = document.createElement('div');
@@ -119,13 +124,13 @@ function addNotification(data, fragment) {
         notification.remove();
 
         // Recalculate the counter after deletion
-        let updatedCounterValue = document.querySelectorAll('.notification').length;
+        let updatedCounterValue =document.querySelector('.notification-counter').getAttribute('count');
         if (updatedCounterValue > 9) {
             counter.innerHTML = "9+";
         } else {
             counter.innerHTML = updatedCounterValue;
         }
-
+        counter.setAttribute('count', updatedCounterValue);
         reiterateNotificationNumber();
     });
 
