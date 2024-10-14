@@ -1,7 +1,7 @@
 export {toggleNotificationWindow, addNotification, createNotificationWindow };
-import { getStorageItem, setStorageItem } from "./local-storage";
-import { getNotificationTime, setNotificationTime } from "./settings";
-import {add, formatDistance, isToday, subDays, parse, isAfter, isBefore} from 'date-fns';
+import { getStorageItem } from "./local-storage";
+import { getNotificationTime } from "./settings";
+import { add, parse, isAfter, isBefore } from 'date-fns';
 
 function toggleNotificationWindow() {
     const notificationWindow = document.querySelector('.notification-window');
@@ -43,30 +43,36 @@ function createNotificationWindow() {
 
     // Add notifications
     const notificationData = JSON.parse(getStorageItem('tasks'));
-    if(notificationData){
-        // Get the current time
+    if (notificationData) {
+        // Cache the current date and time
         let currentDate = new Date();
-        notificationData.forEach(data => {
-            // Combine date and time from data to create the task date
-            let taskNotificationDate = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
-            
-            // Parse the current date and time as a combined string to create a notification time
-            let notificationTime = parse(
-                `${currentDate.toISOString().split('T')[0]} ${currentDate.toISOString().split('T')[1].slice(0, 5)}`, 
-                'yyyy-MM-dd HH:mm', 
-                new Date()
-            );
+        let isoString = currentDate.toISOString();
+        let currentDateString = isoString.split('T')[0];
+        let currentTimeString = isoString.split('T')[1].slice(0, 5);
         
-            let limit = getNotificationTime().split(':');
-            // Calculate the limit as the given hours from the current time
-            let upcomingTimeLimit = add(currentDate, { hours: parseInt(limit[0], 10) });
-        
-            // Add notification if the task is within the upcoming time limit and is after the notification time
-            if (isAfter(taskNotificationDate, notificationTime) && isBefore(taskNotificationDate, upcomingTimeLimit) && !data.complete) {
-                addNotification(data);
-            }
-        });
-        
+        let notificationTime = parse(`${currentDateString} ${currentTimeString}`, 'yyyy-MM-dd HH:mm', new Date());
+
+        // Cache the notification limit time
+        let limit = getNotificationTime().split(':');
+        let upcomingTimeLimit = add(currentDate, { hours: parseInt(limit[0], 10) });
+
+        // Use DocumentFragment to batch DOM updates
+        let fragment = document.createDocumentFragment();
+
+        notificationData
+            .filter(data => {
+                let taskNotificationDate = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
+                return isAfter(taskNotificationDate, notificationTime) && 
+                       isBefore(taskNotificationDate, upcomingTimeLimit) && 
+                       !data.complete;
+            })
+            .forEach(data => {
+                // Add notifications to the fragment
+                addNotification(data, fragment);
+            });
+
+    // Append the fragment to the notifications container
+    notifications.appendChild(fragment);
     }
 }
 
@@ -74,7 +80,7 @@ function formatNotification(data){
     return `
         <div class="notification-content">
             <h4><b>${data.title}</b></h4>
-            <h6>${data.date}</h6><br>
+            <h6>${data.time}</h6><br>
             <p>${data.details}</p>
         </div>
         <div class="notification-delete">
@@ -83,38 +89,50 @@ function formatNotification(data){
     `;
 }
 
-function addNotification(data) {
+function addNotification(data, fragment) {
     const counter = document.querySelector('.notification-counter');
-    let counterValue = parseInt(document.querySelectorAll('.notification').length);
-    counterValue++;
-    if(counterValue > 9){
+    
+    // Calculate the current number of notifications dynamically, before adding a new one
+    let currentCount = document.querySelector('.notification-counter').textContent;
+    currentCount = parseInt(currentCount, 10);
+    console.log(currentCount);
+
+    // Increment the counter value for the new notification
+    let counterValue = 1;
+    counterValue += currentCount;
+
+    // Update the counter display
+    if (counterValue > 9) {
         counter.innerHTML = "9+";
-    }else{
+    } else {
         counter.innerHTML = counterValue;
     }
 
-    const notifications = document.querySelector('.notifications');
-
+    // Create the notification
     let notification = document.createElement('div');
-    notification.classList.add('notification');
-    notification.classList.add(`n${counterValue}`);
+    notification.classList.add('notification', `n${counterValue}`);
     notification.innerHTML = formatNotification(data);
-    
-    notifications.appendChild(notification);
 
-    //delete notification
+    // Add the delete functionality
     const notificationDelete = notification.querySelector('.notification-delete');
-    notificationDelete.addEventListener('click', function(){
+    notificationDelete.addEventListener('click', function () {
         notification.remove();
-        counterValue--;
-        if(counterValue > 9){
+
+        // Recalculate the counter after deletion
+        let updatedCounterValue = document.querySelectorAll('.notification').length;
+        if (updatedCounterValue > 9) {
             counter.innerHTML = "9+";
-        }else{
-            counter.innerHTML = counterValue;
+        } else {
+            counter.innerHTML = updatedCounterValue;
         }
+
         reiterateNotificationNumber();
     });
+
+    // Append the notification to the fragment
+    fragment.appendChild(notification);
 }
+
 
 function reiterateNotificationNumber(){
     const notifications = document.querySelectorAll('.notification');
