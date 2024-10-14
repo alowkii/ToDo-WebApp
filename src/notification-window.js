@@ -3,6 +3,7 @@ import { getStorageItem } from "./local-storage";
 import { getNotificationTime } from "./settings";
 import { add, parse, isAfter, isBefore } from 'date-fns';
 
+//initialize the notification window
 function loadNotificationWindow() {
     createNotificationWindow();
     const NotificationWindow = document.querySelector('.notification-window');
@@ -10,6 +11,7 @@ function loadNotificationWindow() {
     NotificationWindow.classList.add('remove');
 }
 
+//toggle the notification window
 function toggleNotificationWindow() {
     const notificationWindow = document.querySelector('.notification-window');
 
@@ -27,6 +29,7 @@ function toggleNotificationWindow() {
     }
 }
 
+//create the notification window
 function createNotificationWindow() {
     const notificationWindow = document.createElement('div');
     notificationWindow.classList.add('notification-window');
@@ -84,6 +87,7 @@ function createNotificationWindow() {
     }
 }
 
+//format the notification
 function formatNotification(data){
     return `
         <div class="notification-content">
@@ -102,6 +106,7 @@ function formatNotification(data){
     `;
 }
 
+//add the formatted notification to the window
 function addNotification(data, fragment) {
     const counter = document.querySelector('.notification-counter');
     
@@ -149,7 +154,7 @@ function addNotification(data, fragment) {
     fragment.appendChild(notification);
 }
 
-
+//reiterate the notification number
 function reiterateNotificationNumber(){
     const notifications = document.querySelectorAll('.notification');
     let counterValue = 0;
