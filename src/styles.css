@@ -649,7 +649,7 @@ header > nav > .settings > #theme:active{
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 10;
+    z-index: 100;
 }
 
 .showPopUp{
@@ -942,7 +942,7 @@ body > #project-window{
     transform: translate(-50%, -50%);
     box-shadow: 0px 1px 5px var(--primary-dark-color);
     border-radius: 2rem;
-    z-index: 11;
+    z-index: 110;
 }
 
 #project-window > #project-list{
@@ -1020,7 +1020,7 @@ body > #project-window > #cancelProjectBtn{
     color: var(--primary-color);
     border-radius: 1rem;
     box-shadow: 0 2px 10px var(--tertiary-color);
-    z-index: 12;
+    z-index: 120;
 }
 
 #project-prompt > p{
@@ -1073,4 +1073,16 @@ body > #project-window > #cancelProjectBtn{
 
 #project-prompt > #close-project-prompt:hover{
     opacity: 0.9;
+}
+
+#blur-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-2%, -2%);
+    width: calc(100vw + 5rem);
+    height: calc(100vh + 5rem);
+    backdrop-filter: blur(4px);
+    z-index: 99;
 }

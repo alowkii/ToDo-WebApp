@@ -173,6 +173,10 @@ function hideProjectList(){
 
 function showPopUp(){
     const popUp = document.getElementById("pop-up");
+    const blurOverlay = document.getElementById("blur-overlay");
+
+    blurOverlay.style.display = "block";
+    popUp.style.filter = "none";
     popUp.classList.remove("hidePopUp");
     popUp.classList.add("showPopUp");
 }
@@ -181,7 +185,9 @@ function hidePopUp(){
     setTimeout(() => {
         showEmptyCaseWindow();
     }, 100);
-    const popUp = document.getElementById("pop-up");
+    const popUp = document.getElementById("pop-up");const blurOverlay = document.getElementById("blur-overlay");
+
+    blurOverlay.style.display = "none";
     popUp.classList.remove("showPopUp");
     popUp.classList.add("hidePopUp");
 }

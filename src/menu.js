@@ -119,11 +119,29 @@ function callProjectPrompt(){
             document.getElementById("chooseProjectBtn").setAttribute("project", project);
         }
         document.getElementById('project-prompt').remove();
+
+        //Unblur the background
+        const popUp = document.getElementById("pop-up");
+        if(!popUp.classList.contains("showPopUp")){
+            const blurOverlay = document.getElementById("blur-overlay");
+            blurOverlay.style.display = "none";
+        }
     });
 
     document.getElementById('close-project-prompt').addEventListener('click', function(){
         document.getElementById('project-prompt').remove();
+        
+        //Unblur the background
+        const popUp = document.getElementById("pop-up");
+        if(!popUp.classList.contains("showPopUp")){
+            const blurOverlay = document.getElementById("blur-overlay");
+            blurOverlay.style.display = "none";
+        }
     });
+
+    //Blur the background
+    const blurOverlay = document.getElementById("blur-overlay");
+    blurOverlay.style.display = "block";
 }
 
 function updateProjectWindowItems(){
