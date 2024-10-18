@@ -127,7 +127,6 @@ function addNotification(data, fragment) {
     // Calculate the current number of notifications dynamically, before adding a new one
     let currentCount = document.querySelector('.notification-counter').getAttribute('count');
     currentCount = parseInt(currentCount, 10);
-    console.log(currentCount);
 
     // Increment the counter value for the new notification
     let counterValue = 1;

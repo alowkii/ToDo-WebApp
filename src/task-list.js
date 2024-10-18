@@ -205,7 +205,6 @@ function formatTaskDiv(task){
 function editTask(event, taskList, project){
     // Retrieve the index of the task to edit
     const index = event.target.getAttribute("data-edit-index");
-    console.log(index);
     
     // Update the task at the given index with new values
     const taskData = new FormData(event.target);
