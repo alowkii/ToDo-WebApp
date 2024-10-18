@@ -466,6 +466,11 @@ header > nav > .settings > #theme:active{
     justify-content: start;
 }
 
+#menu-window > #project-container > #project-window > .selected{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
 #menu-window > footer{
     display: flex;
     align-items: center;

@@ -94,7 +94,10 @@ function callTaskQueryWindow(){
     const projectAddBtn = document.getElementById("chooseProjectBtn");
     const projectList = document.getElementById("task-list");
     if(projectList.getAttribute("project-list") != "all"){
-        const project_attribute = projectList.getAttribute("project-list");
+        let project_attribute = projectList.getAttribute("project-list");
+        if(project_attribute == "Today" && project_attribute != "Default"){
+            project_attribute = "Default";
+        }
         projectAddBtn.setAttribute("project", project_attribute);
     }
     projectAddBtn.addEventListener("click", () => {
@@ -205,7 +208,7 @@ function submitTask(event){
         task[key] = value;
     });
     task.project = project_attribute || "Default";
-    if(task.project == "" || task.project == undefined){
+    if(task.project == "" || task.project == undefined || task.project == "Today"){
         task.project = "Default";
     }
 

@@ -73,6 +73,10 @@ function createMenu() {
         if(event.target.tagName != 'BUTTON'){
             return;
         }
+        unselectProjectButton();
+        if (event.target.tagName === 'BUTTON') {
+            event.target.classList.add('selected');
+        }
         
         displayFilteredTasks(event.target.innerText);
         displayViewPortInfo();
@@ -81,6 +85,7 @@ function createMenu() {
 
     document.getElementById("all-task-page").addEventListener('click', function(){
         displayTasks("all");
+        unselectProjectButton();
         displayViewPortInfo();
         unselectMenuButton();
         document.getElementById("all-task-page").classList.add("selected");
@@ -88,6 +93,7 @@ function createMenu() {
 
     document.getElementById("today-task-page").addEventListener('click', function(){
         displayTasksToday();
+        unselectProjectButton();
         unselectMenuButton();
         document.getElementById("today-task-page").classList.add("selected");
     });
@@ -99,6 +105,13 @@ function createMenu() {
         }
         let project = callProjectPrompt();
         console.log(project);
+    });
+}
+
+function unselectProjectButton(){
+    const projectItems = document.querySelectorAll('.project-item');
+    projectItems.forEach(projectItem => {
+        projectItem.classList.remove('selected');
     });
 }
 
