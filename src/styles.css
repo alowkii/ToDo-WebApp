@@ -388,6 +388,11 @@ header > nav > .settings > #theme:active{
     color: var(--secondary-color);
 }
 
+#menu-window > #menu-content > .selected > p{
+    padding: 0 1rem;
+    font-weight: 600;
+}
+
 #menu-window > #menu-content > button > p{
     padding-left: 0.5rem;
 }
@@ -1115,4 +1120,5 @@ body > #project-window > #cancelProjectBtn{
     height: calc(100vh + 5rem);
     backdrop-filter: blur(4px);
     z-index: 99;
+    transition: all 0.5s ease-in-out;
 }

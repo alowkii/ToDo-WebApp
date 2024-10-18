@@ -76,6 +76,7 @@ function createMenu() {
         
         displayFilteredTasks(event.target.innerText);
         displayViewPortInfo();
+        unselectMenuButton();
     });
 
     document.getElementById("all-task-page").addEventListener('click', function(){
