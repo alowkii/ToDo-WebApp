@@ -52,6 +52,12 @@ function createNotificationWindow() {
 
     notificationWindow.appendChild(notificationClose);
     
+    // Notification title
+    const notificationTitle = document.createElement('div');
+    notificationTitle.classList.add('notification-title');
+    notificationTitle.innerHTML = `<p>Notifications</p>`;
+
+    notificationWindow.appendChild(notificationTitle);
     
     const notifications = document.createElement('div');
     notifications.classList.add('notifications');

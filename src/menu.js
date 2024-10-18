@@ -81,10 +81,14 @@ function createMenu() {
     document.getElementById("all-task-page").addEventListener('click', function(){
         displayTasks("all");
         displayViewPortInfo();
+        unselectMenuButton();
+        document.getElementById("all-task-page").classList.add("selected");
     });
 
     document.getElementById("today-task-page").addEventListener('click', function(){
         displayTasksToday();
+        unselectMenuButton();
+        document.getElementById("today-task-page").classList.add("selected");
     });
 
     document.getElementById('add-project-btn').addEventListener('click', function(){
@@ -95,6 +99,13 @@ function createMenu() {
         let project = callProjectPrompt();
         console.log(project);
     });
+}
+
+function unselectMenuButton(){
+    document.getElementById("all-task-page").classList.remove("selected");
+    document.getElementById("today-task-page").classList.remove("selected");
+    document.getElementById("search-tasks").classList.remove("selected");
+    document.getElementById("progress-page").classList.remove("selected");
 }
 
 function callProjectPrompt(){
@@ -183,16 +194,16 @@ function addMenuItems(menu){
     menu.appendChild(menuContent);
 
     const menuItems = [
-        {name: 'All', id: 'all-task-page'},
-        {name: 'Today', id: 'today-task-page'},
-        {name: 'Search', id: 'search-tasks'},
-        {name: 'Progress', id: 'progress-page'},
+        {name: 'Home', id: 'all-task-page', icon: '<i class="fas fa-home"></i>'},
+        {name: 'Today', id: 'today-task-page', icon: '<i class="fas fa-calendar-week"></i>'},
+        {name: 'Search', id: 'search-tasks', icon: '<i class="fas fa-magnifying-glass"></i>'},
+        {name: 'Progress', id: 'progress-page', icon: '<i class="fas fa-chart-bar"></i>'},
     ];
 
     menuItems.forEach(item => {
         const menuItem = document.createElement('button');
         menuItem.id = item.id;
-        menuItem.innerText = item.name;
+        menuItem.innerHTML = item.icon + `<p>${item.name}</p>`;
         menuContent.appendChild(menuItem);
     });
 }
