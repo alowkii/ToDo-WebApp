@@ -39,6 +39,9 @@ function displayTasks(project="all"){
     const mainContent = document.getElementById("main-content");
     mainContent.innerHTML = "";
 
+    document.getElementById('main-content').classList.remove("progress-page");
+    document.getElementById('main-content').classList.add('shows-task-list');
+
     let taskList = {};
     try{
         taskList = JSON.parse(getStorageItem("tasks"));

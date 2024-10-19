@@ -4,6 +4,7 @@ import { getStorageItem, removeStorageItem, setStorageItem } from './local-stora
 import { displayTasks } from './task-list.js';
 import { displayViewPortInfo } from './viewport-info.js';
 import { displayFilteredTasks, displayTasksToday } from './filter-methods.js';
+import { displayProgress } from './progress-page.js';
 
 function toggleMenu(){
     createMenu();
@@ -105,6 +106,14 @@ function createMenu() {
         }
         let project = callProjectPrompt();
         console.log(project);
+    });
+
+    document.getElementById('progress-page').addEventListener('click', function(){
+        displayProgress();
+        displayViewPortInfo();
+        unselectProjectButton();
+        unselectMenuButton();
+        document.getElementById("progress-page").classList.add("selected");
     });
 }
 

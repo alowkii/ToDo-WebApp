@@ -3,6 +3,7 @@ import "./icon.js";
 import "./theme.js";
 import "./menu.js";
 import "./local-storage.js";
+import "./progress-page.js";
 import { userSignInPrompt, userInfoPrompt } from "./user.js";
 import { addContent } from "./body-content.js";
 import { toggleNotificationWindow, addNotification, loadNotificationWindow } from "./notification-window.js";
