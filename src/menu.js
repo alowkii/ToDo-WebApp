@@ -220,6 +220,7 @@ function addMenuItems(menu){
         menuItem.innerHTML = item.icon + `<p>${item.name}</p>`;
         menuContent.appendChild(menuItem);
     });
+    document.getElementById("all-task-page").classList.add("selected");
 }
 
 function addProjectWindow(menu){

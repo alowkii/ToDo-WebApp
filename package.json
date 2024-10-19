@@ -18,6 +18,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "css-loader": "^7.1.2",
+    "d3": "^7.9.0",
+    "d3.js": "^0.0.2-security",
     "date-fns": "^4.1.0",
     "file-loader": "^6.2.0",
     "html-loader": "^5.1.0",
