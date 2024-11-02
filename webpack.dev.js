@@ -37,6 +37,13 @@ module.exports = {
                     filename: "images/[name][ext][query]",
                 },
             },
+            {
+                test: /\.js$/, // Check for .js files
+                exclude: /node_modules/, // Exclude node_modules
+                use: {
+                  loader: 'babel-loader', // Use Babel to transpile
+                },
+            },
         ],
     },
 };
