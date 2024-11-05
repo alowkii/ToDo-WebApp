@@ -204,6 +204,9 @@ function addTaskBtn(menu){
                             <p>Add Task</p>`;
     addTaskBtn.addEventListener('click', () => {
         callTaskQueryWindow();
+        // Change header from edit to add
+        document.getElementById("task-popUp-header").innerText = "Add Task";
+        document.getElementById("addTaskBtn").innerHTML = "Add";
     });
 
     addTaskWindow.appendChild(addTaskBtn);
