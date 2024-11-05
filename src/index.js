@@ -21,9 +21,10 @@ if(!notificationTime || notificationTime == ""){
 
 loadNotificationWindow();
 
+//Refresh the page every 1 minute
 setInterval(() => {
     loadNotificationWindow();
-}, 1000 * 60 * 60);
+}, 1000 * 60);
 
 window.toggleNotificationWindow = toggleNotificationWindow;
 window.addNotification = addNotification;
