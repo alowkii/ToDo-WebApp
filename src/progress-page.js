@@ -29,4 +29,3 @@ function prepareData(){
     ];
     return data;
 }
-displayProgress();

@@ -731,6 +731,35 @@ header > nav > .settings > #theme:active{
     margin: 0.5rem;
 }
 
+#pop-up > #notifyBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 2rem;
+    right: 4.8rem;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+#pop-up > #notifyBtn::after {
+    content: "\f1f6"; /* Default: bell-slash icon */
+}
+
+#pop-up > #notifyBtn:checked::after {
+    content: "\f0f3"; /* Active: bell icon */
+}
+
+
 #pop-up *:focus{
     outline: none;
 }

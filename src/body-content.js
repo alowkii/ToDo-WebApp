@@ -201,12 +201,14 @@ function submitTask(event){
     const chooseProjectBtn = document.getElementById("chooseProjectBtn");
     let project_attribute = chooseProjectBtn ? chooseProjectBtn.getAttribute("project") : "Default";
 
-
     const taskData = new FormData(event.target);
     const task = {complete: false};
     taskData.forEach((value, key) => {
         task[key] = value;
     });
+
+    task.notify = document.getElementById("notifyBtn").checked;
+
     task.project = project_attribute || "Default";
     if(task.project == "" || task.project == undefined || task.project == "Today"){
         task.project = "Default";
@@ -222,7 +224,6 @@ function submitTask(event){
         const taskList = document.querySelector(".main-content #task-list");
     const projectOption = taskList ? taskList.getAttribute("project-list") : "Default";
 
-        console.log(projectOption);
         if(project_attribute == undefined || project_attribute == "" || projectOption == "all"){
             project_attribute = projectOption;
         }

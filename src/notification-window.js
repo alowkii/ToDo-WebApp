@@ -89,7 +89,7 @@ function createNotificationWindow() {
                 let taskNotificationDate = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
                 return isAfter(taskNotificationDate, notificationTime) && 
                        isBefore(taskNotificationDate, upcomingTimeLimit) && 
-                       !data.complete;
+                       !data.complete && data.notify;
             })
             .forEach(data => {
                 // Add notifications to the fragment

@@ -1,6 +1,6 @@
 export { displayTasks, editTask };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
-import { showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
+import { showEmptyCaseWindow, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
 import { loadNotificationWindow } from "./notification-window.js";
 
 function createTaskListElement(){
@@ -125,6 +125,21 @@ function displayTasks(project="all"){
         const taskComplete = taskElement.querySelector(".task-complete");
         taskComplete.addEventListener('click', function(){
             task.complete = !task.complete;
+
+            const  today = new Date();
+            // Format the date as YYYY-MM-DD
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+            const day = String(today.getDate()).padStart(2, '0');
+
+            // Set the value of the date input to today's date
+            const formattedDate = `${year}-${month}-${day}`;
+
+            //if task is complete, set the completion date
+            if(task.complete){
+                task.completionDate = formattedDate;
+            }
+
             taskList[i] = task;
             setStorageItem("tasks", JSON.stringify(taskList));
             loadNotificationWindow();
@@ -171,6 +186,7 @@ function editCallTaskQueryWindow(task,index){
     document.getElementById('timeInput').value = task.time;
     document.getElementById('priority').value = task.priority;
     document.getElementById('chooseProjectBtn').setAttribute("project", task.project);
+    document.getElementById('notifyBtn').checked = task.notify;
 
     // Update button and header when editing a task
     document.getElementById('addTaskBtn').innerText = "Edit";
