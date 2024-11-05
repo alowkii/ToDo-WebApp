@@ -201,14 +201,19 @@ function submitTask(event){
     const chooseProjectBtn = document.getElementById("chooseProjectBtn");
     let project_attribute = chooseProjectBtn ? chooseProjectBtn.getAttribute("project") : "Default";
 
+    // Create a new task object from the form data
     const taskData = new FormData(event.target);
+    // Initialize the task object with the complete attribute set to false
     const task = {complete: false};
+    // Iterate over the form data and set the task object attributes
     taskData.forEach((value, key) => {
         task[key] = value;
     });
 
+    // Set the notify attribute to true if the checkbox is checked
     task.notify = document.getElementById("notifyBtn").checked;
 
+    // Set the project attribute to the selected project or "Default" if no project is selected
     task.project = project_attribute || "Default";
     if(task.project == "" || task.project == undefined || task.project == "Today"){
         task.project = "Default";
