@@ -1156,3 +1156,63 @@ body > #project-window > #cancelProjectBtn{
     z-index: 99;
     transition: all 0.5s ease-in-out;
 }
+
+#progress-container{
+    background-color: var(--secondary-color);
+    border-radius: 4rem;
+    margin: 2rem;
+    padding: 2rem;
+}
+
+#progress-container > svg > g > path{
+    fill: none;
+    stroke: var(--quaternary-color);
+    stroke-width: 2;
+}
+
+#progress-container > svg > g > .axis{
+    stroke: var(--primary-color);
+    stroke-width: 1;
+}
+
+#progress-container > svg > g > .axis > text{
+    stroke: var(--primary-color);
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+
+#progress-container > svg > g > .axis line{
+    stroke: var(--primary-color);
+    stroke-width: 0.5;
+}
+
+#progress-container > svg > g > .axis > path{
+    stroke: var(--primary-color);
+    stroke-width: 1;
+    
+}
+
+#progress-container > .tooltip{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    z-index: 100;
+    transition: all 0.3s;
+    top: 0;
+    left: 0;
+}
+
+#progress-container > svg > g > .data-point{
+    fill: var(--primary-color);
+    stroke: var(--primary-color);
+    stroke-width: 1;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+#progress-container > svg > g > .data-point:hover{
+    opacity: 1;
+}

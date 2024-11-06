@@ -16,7 +16,7 @@ function displayProgress(){
     drawGraph(graphData);
 }
 
-function prepareGraphData(){
+function prepareGraphData(numOfDataPoints = 30){
     let data = JSON.parse(getStorageItem('tasks'));
     let completionDateCountMap = new Map();
     let parseDate = d3.timeParse("%Y-%m-%d");
@@ -33,6 +33,13 @@ function prepareGraphData(){
     let graphData = Array.from(completionDateCountMap).map(([key, value]) => {
         return {date: key, count: value};
     });
+
+    let today = new Date();
+    //Add data for today if it is not in the data
+    let todayString = d3.timeFormat("%Y-%m-%d")(today);
+    if (!completionDateCountMap.has(todayString)) {
+        graphData.push({date: todayString, count: 0});
+    }
 
     graphData.sort((a, b) => {
         return new Date(a.date) - new Date(b.date);
@@ -53,8 +60,7 @@ function prepareGraphData(){
         };
     });
 
-    console.log(fullData);
-    console.log(graphData);
+    fullData = fullData.slice(-numOfDataPoints);
     return fullData;
 
 }
@@ -75,8 +81,9 @@ function drawGraph(data) {
         .domain(d3.extent(data, function(d) { return parseDate(d.date); }))
         .range([0, width]);
 
+    const maxCount = d3.max(data, function(d) { return d.count; });
     let y = d3.scaleLinear()
-        .domain([0, d3.max(data, function(d) { return d.count; })])
+        .domain([0, maxCount > 4 ? maxCount : 4])
         .nice()  // To make axis end on round numbers
         .range([height, 0]);
 
@@ -84,7 +91,7 @@ function drawGraph(data) {
                     .tickFormat(d3.timeFormat("%m/%d"))
                     .tickPadding(10);
     let yAxis = d3.axisLeft(y)
-                    .ticks(d3.max(data, function(d) { return d.count; }));
+                    .ticks(maxCount > 4 ? maxCount : 4);
 
     let line = d3.line()
         .x(function(d) { return x(parseDate(d.date)); })
@@ -94,50 +101,47 @@ function drawGraph(data) {
     let chartGroup = svg.append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    // Draw line path
-    chartGroup.append("path")
-        .datum(data)
-        .attr("d", line)
-        .attr("fill", "none")
-        .attr("stroke", "blue")
-        .attr("stroke-width", 2);
-
-    // var tooltip = d3.select("#progress-container")
-    //     .append("div")
-    //     .attr("class", "tooltip")
-    //     .style("opacity", 0)
-    //     .style("position", "absolute");
-
-    // // Draw data points
-    // chartGroup.selectAll("circle")
-    //     .data(data)
-    //     .enter().append("circle")
-    //     .attr("cx", function(d) { return x(parseDate(d.date)); })
-    //     .attr("cy", function(d) { return y(d.count); })
-    //     .attr("r", 1)
-    //     .on("mouseover", function(d) {
-    //         d3.select(this)
-    //             .attr("r", 5)
-    //             .attr("fill", "black");
-    //         tooltip.style("opacity", .9)
-    //             .style("left", 100 + "px")
-    //             .style("top", 100 + "px");
-    //         tooltip.html(`Tasks completed on ${d.date}: ${d.count}`);
-    //     })
-    //     .on("mouseout", function(d) {
-    //         d3.select(this)
-    //             .attr("r", 1);
-    //         tooltip.style("opacity", 0);
-    //     });
-
     // Draw x-axis
     chartGroup.append("g")
+        .attr("class", "x axis")
         .attr("transform", `translate(0, ${height})`)
         .call(xAxis);
 
     // Draw y-axis
     chartGroup.append("g")
+        .attr("class", "y axis")
         .call(yAxis);
+
+    // Draw line path
+    chartGroup.append("path")
+        .datum(data)
+        .attr("d", line);
+
+
+    var tooltip = d3.select("#progress-container")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position", "absolute");
+
+    // Draw data points
+    chartGroup.selectAll("circle")
+        .data(data)
+        .enter().append("circle")
+        .attr("class", "data-point")
+        .attr("cx", function(d) { return x(parseDate(d.date)); })
+        .attr("cy", function(d) { return y(d.count); })
+        .attr("r", 5)
+        .on("mouseover", function(event, d) {
+            d3.select(this)
+            tooltip.style("opacity", .9)
+                .style("left", d3.pointer(event)[0] + margin.left + margin.right + 120 + "px")
+                .style("top", d3.pointer(event)[1] + margin.top + margin.bottom + 20 + "px");
+            tooltip.html(`Date: ${d.date} <br> Count: ${d.count}`);
+        })
+        .on("mouseout", function(d) {
+            tooltip.style("opacity", 0);
+        });
 }
 
 
