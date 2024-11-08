@@ -59,6 +59,15 @@ function prepareGraphData(numOfDataPoints = 30) {
         return { date: key, count: value };
     });
 
+    // Date exactly numOfDataPoints days ago
+    let firstDate = new Date();
+    firstDate.setDate(firstDate.getDate() - numOfDataPoints);
+    let firstDateString = d3.timeFormat("%Y-%m-%d")(firstDate);
+    if(!completionDateCountMap.has(firstDateString)) {
+        graphData.push({ date: firstDateString, count: 0 });
+    }
+
+    // Add today's date if it's not in the data
     let today = new Date();
     let todayString = d3.timeFormat("%Y-%m-%d")(today);
     if (!completionDateCountMap.has(todayString)) {
