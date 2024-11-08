@@ -1272,3 +1272,28 @@ body > #project-window > #cancelProjectBtn{
 #graph-data-point-selector > #full-year::after {
     content: '1 year';
 }
+
+#quote-container{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    width: 50rem;
+}
+
+#quote-container > #quote{
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+#quote-container > #quote > #author{
+    color: var(--secondary-color);
+    opacity: 0.8;
+    font-size: 1.4rem;
+    font-weight: 100;
+    margin: 0.5rem 0 0 4rem;
+    text-align: start;
+    display: block;
+    font-style: italic;
+}

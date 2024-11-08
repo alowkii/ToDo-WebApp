@@ -8,6 +8,16 @@ function displayProgress(){
     mainContent.classList.add('progress-page');
     mainContent.classList.remove('shows-task-list');
 
+    let quoteContainer = document.createElement("div");
+    quoteContainer.id = "quote-container";
+    mainContent.appendChild(quoteContainer);
+
+    let quote = document.createElement("p");
+    quote.id = "quote";
+    quoteContainer.appendChild(quote);
+
+    quote.innerHTML = "“Small daily improvements are the key to staggering long-term results.”  <span id='author'>- Robin Sharma</span>";
+
     let graphNoOfDataPointSelector = document.createElement("div");
     graphNoOfDataPointSelector.id = "graph-data-point-selector";
     mainContent.appendChild(graphNoOfDataPointSelector);
@@ -15,6 +25,8 @@ function displayProgress(){
     let progressContainer = document.createElement("div");
     progressContainer.id = "progress-container";
     mainContent.appendChild(progressContainer);
+
+    
 
     // Number of data points to display on the graph
     graphNoOfDataPointSelector.innerHTML = `
