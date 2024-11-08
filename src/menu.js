@@ -5,6 +5,7 @@ import { displayTasks } from './task-list.js';
 import { displayViewPortInfo } from './viewport-info.js';
 import { displayFilteredTasks, displayTasksToday } from './filter-methods.js';
 import { displayProgress } from './progress-page.js';
+import { displaySearchPage } from './search-page.js';
 
 function toggleMenu(){
     createMenu();
@@ -115,6 +116,14 @@ function createMenu() {
         unselectMenuButton();
         document.getElementById("progress-page").classList.add("selected");
     });
+
+    document.getElementById('search-page').addEventListener('click', function(){
+        displaySearchPage();
+        displayViewPortInfo();
+        unselectProjectButton();
+        unselectMenuButton();
+        document.getElementById("search-page").classList.add("selected");
+    });
 }
 
 function unselectProjectButton(){
@@ -127,7 +136,7 @@ function unselectProjectButton(){
 function unselectMenuButton(){
     document.getElementById("all-task-page").classList.remove("selected");
     document.getElementById("today-task-page").classList.remove("selected");
-    document.getElementById("search-tasks").classList.remove("selected");
+    document.getElementById("search-page").classList.remove("selected");
     document.getElementById("progress-page").classList.remove("selected");
 }
 
@@ -203,11 +212,22 @@ function addTaskBtn(menu){
     addTaskBtn.innerHTML = `<div><i class="fas fa-plus"></i></div>
                             <p>Add Task</p>`;
     addTaskBtn.addEventListener('click', () => {
+        // Add task to the today list during the progress page
         if(document.getElementById("main-content").classList.contains("progress-page")){
             displayTasksToday();
             unselectProjectButton();
+            displayViewPortInfo();
             unselectMenuButton();
             document.getElementById("today-task-page").classList.add("selected");
+        }
+
+        // Add task to the all list during the search page
+        if(document.getElementById("main-content").classList.contains("search-content")){
+            displayTasks("all");
+            unselectProjectButton();
+            displayViewPortInfo();
+            unselectMenuButton();
+            document.getElementById("all-task-page").classList.add("selected");
         }
 
         callTaskQueryWindow();
@@ -229,7 +249,7 @@ function addMenuItems(menu){
     const menuItems = [
         {name: 'Home', id: 'all-task-page', icon: '<i class="fas fa-home"></i>'},
         {name: 'Today', id: 'today-task-page', icon: '<i class="fas fa-calendar-week"></i>'},
-        {name: 'Search', id: 'search-tasks', icon: '<i class="fas fa-magnifying-glass"></i>'},
+        {name: 'Search', id: 'search-page', icon: '<i class="fas fa-magnifying-glass"></i>'},
         {name: 'Progress', id: 'progress-page', icon: '<i class="fas fa-chart-bar"></i>'},
     ];
 

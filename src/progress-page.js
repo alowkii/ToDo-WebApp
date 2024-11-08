@@ -6,7 +6,8 @@ function displayProgress(){
     const mainContent = document.getElementById('main-content');
     mainContent.innerHTML = "";
     mainContent.classList.add('progress-page');
-    mainContent.classList.remove('shows-task-list');
+    mainContent.classList.remove('shows-task-list')
+    mainContent.classList.remove('search-content');
 
     let quoteContainer = document.createElement("div");
     quoteContainer.id = "quote-container";

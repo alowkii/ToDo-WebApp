@@ -39,6 +39,10 @@ function displayTasks(project="all"){
     const mainContent = document.getElementById("main-content");
     mainContent.innerHTML = "";
 
+    mainContent.classList.remove('progress-page');
+    mainContent.classList.add('shows-task-list');
+    mainContent.classList.remove('search-content');
+
     document.getElementById('main-content').classList.remove("progress-page");
     document.getElementById('main-content').classList.add('shows-task-list');
 
