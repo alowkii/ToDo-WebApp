@@ -285,6 +285,7 @@ header > nav > .settings > #theme:active{
     background-color: var(--secondary-color);
     transition: transform 0.3s;
     animation: slideInMenu 0.5s forwards;
+    border-right: var(--primary-color) 1px solid;
 }
 
 @keyframes slideOut {
@@ -526,6 +527,7 @@ header > nav > .settings > #theme:active{
     background-color: var(--secondary-color);
     transition: transform 0.3s;
     scrollbar-gutter: stable auto;
+    border-left: var(--primary-color) 1px solid;
 }
 
 .add{
@@ -1215,4 +1217,58 @@ body > #project-window > #cancelProjectBtn{
 
 #progress-container > svg > g > .data-point:hover{
     opacity: 1;
+}
+
+#graph-data-point-selector{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 1rem 0 0 0;
+    width: 1000px;
+    height: 2rem;
+}
+
+#graph-data-point-selector > input {
+    width: 0;
+    height: 0;
+    margin: 0 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+#graph-data-point-selector > input::after {
+    background-color: var(--tertiary-color);
+    color: var(--quinary-color);
+    width: 4rem;
+    padding: 0.5rem;
+    transform: translate(-2rem, -1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: background-color 0.3s;
+    position: relative;
+    z-index: 0;
+}
+
+#graph-data-point-selector > input:checked::after {
+    background-color: var(--quaternary-color);
+    color: var(--secondary-dark-color);
+    opacity: 1;
+    font-weight: 300;
+}
+
+#graph-data-point-selector > #seven-days::after {
+    content: '7 days';
+}
+
+#graph-data-point-selector > #thirty-days::after {
+    content: '30 days';
+}
+
+#graph-data-point-selector > #full-year::after {
+    content: '1 year';
 }

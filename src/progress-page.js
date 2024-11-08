@@ -8,15 +8,40 @@ function displayProgress(){
     mainContent.classList.add('progress-page');
     mainContent.classList.remove('shows-task-list');
 
+    let graphNoOfDataPointSelector = document.createElement("div");
+    graphNoOfDataPointSelector.id = "graph-data-point-selector";
+    mainContent.appendChild(graphNoOfDataPointSelector);
+
     let progressContainer = document.createElement("div");
     progressContainer.id = "progress-container";
     mainContent.appendChild(progressContainer);
+
+    // Number of data points to display on the graph
+    graphNoOfDataPointSelector.innerHTML = `
+        <input type="radio" id="seven-days" name="data-points" value="7">
+        <input type="radio" id="thirty-days" name="data-points" value="30" checked>
+        <input type="radio" id="full-year" name="data-points" value="365">
+    `;
+
+    let sevenDaysButton = document.getElementById("seven-days");
+    sevenDaysButton.addEventListener("click", () => updateGraph(7));
+    let thirtyDaysButton = document.getElementById("thirty-days");
+    thirtyDaysButton.addEventListener("click", () => updateGraph(30));
+    let fullYearButton = document.getElementById("full-year");
+    fullYearButton.addEventListener("click", () => updateGraph(365));
 
     const graphData = prepareGraphData();
     drawGraph(graphData);
 }
 
-function prepareGraphData(numOfDataPoints = 30){
+function updateGraph(numOfDataPoints) {
+    let svg = d3.select("#progress-container").select("svg");
+    svg.remove();
+    let graphData = prepareGraphData(numOfDataPoints);
+    drawGraph(graphData);
+}
+
+function prepareGraphData(numOfDataPoints = 30) {
     let data = JSON.parse(getStorageItem('tasks'));
     let completionDateCountMap = new Map();
     let parseDate = d3.timeParse("%Y-%m-%d");
@@ -31,23 +56,20 @@ function prepareGraphData(numOfDataPoints = 30){
 
     // Convert the map into an array of objects and sort by date
     let graphData = Array.from(completionDateCountMap).map(([key, value]) => {
-        return {date: key, count: value};
+        return { date: key, count: value };
     });
 
     let today = new Date();
-    //Add data for today if it is not in the data
     let todayString = d3.timeFormat("%Y-%m-%d")(today);
     if (!completionDateCountMap.has(todayString)) {
-        graphData.push({date: todayString, count: 0});
+        graphData.push({ date: todayString, count: 0 });
     }
 
-    graphData.sort((a, b) => {
-        return new Date(a.date) - new Date(b.date);
-    });
+    graphData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     // Generate the complete date range based on task dates
     let dateRange = d3.timeDays(
-        d3.min(data, d => parseDate(d.completionDate)), 
+        d3.min(graphData, d => parseDate(d.date)), 
         d3.timeDay.offset(d3.max(graphData, d => parseDate(d.date)), 1)
     );
 
@@ -56,13 +78,32 @@ function prepareGraphData(numOfDataPoints = 30){
         const dateString = d3.timeFormat("%Y-%m-%d")(date);
         return {
             date: dateString,
-            count: completionDateCountMap.get(dateString) || 0 // Set count to 0 if date is missing
+            count: completionDateCountMap.get(dateString) || 0
         };
     });
-
     fullData = fullData.slice(-numOfDataPoints);
-    return fullData;
 
+    // Aggregate monthly data if numOfDataPoints is 365
+    if (numOfDataPoints === 365) {
+        let monthlyData = [];
+        let currentMonth = new Date(fullData[0].date).getMonth();
+        let monthlyCount = 0;
+
+        fullData.forEach((data, index) => {
+            let date = new Date(data.date);
+            if (date.getMonth() === currentMonth) {
+                monthlyCount += data.count;
+            } else {
+                monthlyData.push({ date: d3.timeFormat("%Y-%m")(new Date(fullData[index - 1].date)), count: monthlyCount });
+                currentMonth = date.getMonth();
+                monthlyCount = data.count;
+            }
+        });
+        // Push the last month's data
+        monthlyData.push({ date: d3.timeFormat("%Y-%m")(new Date(fullData[fullData.length - 1].date)), count: monthlyCount });
+        return monthlyData;
+    }
+    return fullData;
 }
 
 function drawGraph(data) {
@@ -75,27 +116,30 @@ function drawGraph(data) {
         .attr("height", height + margin.top + margin.bottom)
         .attr("width", width + margin.left + margin.right);
 
-    let parseDate = d3.timeParse("%Y-%m-%d");
+    // Detect date format (daily or monthly)
+    let isMonthly = data.length > 0 && data[0].date.length === 7; // e.g., "YYYY-MM" for monthly
+    let parseDate = isMonthly ? d3.timeParse("%Y-%m") : d3.timeParse("%Y-%m-%d");
 
     let x = d3.scaleTime()
-        .domain(d3.extent(data, function(d) { return parseDate(d.date); }))
+        .domain(d3.extent(data, d => parseDate(d.date)))
         .range([0, width]);
 
-    const maxCount = d3.max(data, function(d) { return d.count; });
+    const maxCount = d3.max(data, d => d.count);
     let y = d3.scaleLinear()
         .domain([0, maxCount > 4 ? maxCount : 4])
-        .nice()  // To make axis end on round numbers
+        .nice()
         .range([height, 0]);
 
-    let xAxis = d3.axisBottom(x).ticks(data.length)
-                    .tickFormat(d3.timeFormat("%m/%d"))
-                    .tickPadding(10);
-    let yAxis = d3.axisLeft(y)
-                    .ticks(maxCount > 4 ? maxCount : 4);
+    let xAxis = d3.axisBottom(x)
+        .ticks(isMonthly ? d3.timeMonth.every(1) : data.length)
+        .tickFormat(isMonthly ? d3.timeFormat("%Y-%m") : d3.timeFormat("%m/%d"))
+        .tickPadding(10);
+
+    let yAxis = d3.axisLeft(y).ticks(4).tickPadding(10);
 
     let line = d3.line()
-        .x(function(d) { return x(parseDate(d.date)); })
-        .y(function(d) { return y(d.count); })
+        .x(d => x(parseDate(d.date)))
+        .y(d => y(d.count))
         .curve(d3.curveLinear);
 
     let chartGroup = svg.append("g")
@@ -115,9 +159,12 @@ function drawGraph(data) {
     // Draw line path
     chartGroup.append("path")
         .datum(data)
-        .attr("d", line);
+        .attr("d", line)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 2);
 
-
+    // Tooltip
     var tooltip = d3.select("#progress-container")
         .append("div")
         .attr("class", "tooltip")
@@ -129,20 +176,16 @@ function drawGraph(data) {
         .data(data)
         .enter().append("circle")
         .attr("class", "data-point")
-        .attr("cx", function(d) { return x(parseDate(d.date)); })
-        .attr("cy", function(d) { return y(d.count); })
+        .attr("cx", d => x(parseDate(d.date)))
+        .attr("cy", d => y(d.count))
         .attr("r", 5)
         .on("mouseover", function(event, d) {
-            d3.select(this)
-            tooltip.style("opacity", .9)
-                .style("left", d3.pointer(event)[0] + margin.left + margin.right + 120 + "px")
-                .style("top", d3.pointer(event)[1] + margin.top + margin.bottom + 20 + "px");
-            tooltip.html(`Date: ${d.date} <br> Count: ${d.count}`);
+            tooltip.transition().duration(200).style("opacity", .9);
+            tooltip.html(`Date: ${d.date} <br> Count: ${d.count}`)
+                .style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY - 28) + "px");
         })
-        .on("mouseout", function(d) {
-            tooltip.style("opacity", 0);
+        .on("mouseout", function() {
+            tooltip.transition().duration(200).style("opacity", 0);
         });
 }
-
-
-displayProgress();
