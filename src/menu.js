@@ -203,6 +203,13 @@ function addTaskBtn(menu){
     addTaskBtn.innerHTML = `<div><i class="fas fa-plus"></i></div>
                             <p>Add Task</p>`;
     addTaskBtn.addEventListener('click', () => {
+        if(document.getElementById("main-content").classList.contains("progress-page")){
+            displayTasksToday();
+            unselectProjectButton();
+            unselectMenuButton();
+            document.getElementById("today-task-page").classList.add("selected");
+        }
+
         callTaskQueryWindow();
         // Change header from edit to add
         document.getElementById("task-popUp-header").innerText = "Add Task";
