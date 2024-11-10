@@ -11,4 +11,4 @@ iDo WebApp
 Light theme:
 <img src="https://github.com/user-attachments/assets/e7aeece7-e2b2-44d8-8cfd-e5dc6891d8e6">
 
-'''More to come!!! Stay Updated'''
+# More to come!!! Stay Updated
