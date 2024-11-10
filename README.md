@@ -12,7 +12,7 @@
 Light theme:
 <img src="https://github.com/user-attachments/assets/e7aeece7-e2b2-44d8-8cfd-e5dc6891d8e6">
 
-[View Slideshow](https://alowkii.github.io/ToDoAppSlideShow/)
+[View Slideshow](https://alowkii.github.io/ToDoAppSlideShow/){:target="_blank"}
 
 # More to come!!! Stay Updated
 Trust me, it's feet tickling good! ;)
