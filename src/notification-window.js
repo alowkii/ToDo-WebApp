@@ -109,7 +109,6 @@ function formatNotification(data){
             <p class="notification-meta">
                 <span>${data.time}</span> | <span>${data.date}</span>
             </p>
-            <p>${data.details}</p>
         </div>
         <div class="notification-delete">
             <button">

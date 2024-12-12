@@ -599,6 +599,14 @@ header > nav > .settings > #theme:active{
     justify-content: center;
     position: relative;
     cursor: pointer;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.notification-window > .notifications > .notification > .notification-delete:hover{
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 .notification-window > .notifications > .notification > .notification-close{
