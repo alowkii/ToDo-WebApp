@@ -2,7 +2,7 @@ export {toggleNotificationWindow, addNotification, loadNotificationWindow };
 import { getStorageItem, setStorageItem } from "./local-storage";
 import { getNotificationTime } from "./settings";
 import { add, parse, isAfter, isBefore } from 'date-fns';
-import { displayTasks } from "./task-list";
+import { displayTasks, editCallTaskQueryWindow } from "./task-list";
 
 //initialize the notification window
 function loadNotificationWindow() {
@@ -146,6 +146,12 @@ function addNotification(data, fragment) {
     let notification = document.createElement('div');
     notification.classList.add('notification', `n${counterValue}`);
     notification.innerHTML = formatNotification(data);
+
+    // Add the click functionality
+    notification.addEventListener('click', function () {
+        editCallTaskQueryWindow(data, data.index, false);
+        toggleNotificationWindow();
+    });
 
     // Add the delete functionality
     const notificationDelete = notification.querySelector('.notification-delete');

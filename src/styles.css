@@ -569,8 +569,9 @@ header > nav > .settings > #theme:active{
     z-index: 2;
     height: calc(100% - 4.5rem);
     overflow-y: scroll;
+    overflow-x: hidden;
     scrollbar-gutter: stable auto;
-    border-top: 1px solid var(--tertiary-color); 
+    border-top: 1px solid var(--tertiary-color);
 }
 
 .notification-window > .notifications > .notification{
@@ -584,7 +585,9 @@ header > nav > .settings > #theme:active{
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    margin: 0.2rem 0;
+    margin: 0.2rem 0 0.2rem 0.1rem;
+    border-radius: 1rem;
+    transition: background-color 0.3s;
 }
 
 .notification-window > .notifications > .notification:hover{

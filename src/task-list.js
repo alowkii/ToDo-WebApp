@@ -1,4 +1,4 @@
-export { displayTasks, editTask };
+export { displayTasks, editTask, editCallTaskQueryWindow };
 import { setStorageItem, getStorageItem, removeStorageItem} from "./local-storage.js";
 import { showEmptyCaseWindow, callTaskQueryWindow, addToDoIconTo} from "./body-content.js";
 import { loadNotificationWindow } from "./notification-window.js";
@@ -177,7 +177,7 @@ function sortTasksByDateOrTime(taskList){
     return taskList;
 }
 
-function editCallTaskQueryWindow(task,index){
+function editCallTaskQueryWindow(task,index, editable = true){
     callTaskQueryWindow();
 
     document.getElementById('inputTaskName').value = task.title;
@@ -195,6 +195,19 @@ function editCallTaskQueryWindow(task,index){
     // Update button and header when editing a task
     document.getElementById('addTaskBtn').innerText = "Edit";
     document.getElementById('task-popUp-header').innerText = "Edit Task";
+
+    if(!editable){
+        document.getElementById('inputTaskName').disabled = true;
+        document.getElementById('inputTaskDescription').disabled = true;
+        document.getElementById('dateInput').disabled = true;
+        document.getElementById('timeInput').disabled = true;
+        document.getElementById('priority').disabled = true;
+        document.getElementById('chooseProjectBtn').disabled = true;
+        document.getElementById('notifyBtn').disabled = true;
+        document.getElementById('addTaskBtn').disabled = true;
+        document.getElementById('addTaskBtn').style.cursor = "not-allowed";
+        document.getElementById('chooseProjectBtn').style.cursor = "not-allowed";
+    }
 
     document.getElementById("pop-up").setAttribute("data-edit-index", index);
 }
