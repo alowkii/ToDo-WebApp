@@ -1244,7 +1244,7 @@ body > #project-window > #cancelProjectBtn{
     height: 0;
     margin: 0 3rem;
     position: relative;
-    z-index: 2;
+    z-index: -1;
 }
 
 #graph-data-point-selector > input::after {
