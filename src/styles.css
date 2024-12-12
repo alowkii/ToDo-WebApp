@@ -528,6 +528,7 @@ header > nav > .settings > #theme:active{
     transition: transform 0.3s;
     scrollbar-gutter: stable auto;
     border-left: var(--primary-color) 1px solid;
+    border-radius: 1rem 0 0 1rem;
 }
 
 .add{
@@ -586,7 +587,7 @@ header > nav > .settings > #theme:active{
     justify-content: space-between;
     gap: 1rem;
     margin: 0.2rem 0 0.2rem 0.1rem;
-    border-radius: 1rem;
+    border-radius: 0 0 1.5rem 0;
     transition: background-color 0.3s;
 }
 
