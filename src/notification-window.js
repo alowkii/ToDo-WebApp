@@ -1,7 +1,8 @@
 export {toggleNotificationWindow, addNotification, loadNotificationWindow };
-import { getStorageItem } from "./local-storage";
+import { getStorageItem, setStorageItem } from "./local-storage";
 import { getNotificationTime } from "./settings";
 import { add, parse, isAfter, isBefore } from 'date-fns';
+import { displayTasks } from "./task-list";
 
 //initialize the notification window
 function loadNotificationWindow() {
@@ -92,6 +93,8 @@ function createNotificationWindow() {
                        !data.complete && data.notify;
             })
             .forEach(data => {
+                // Add notification index to the data
+                data["index"] = notificationData.indexOf(data);
                 // Add notifications to the fragment
                 addNotification(data, fragment);
             });
@@ -110,7 +113,7 @@ function formatNotification(data){
                 <span>${data.time}</span> | <span>${data.date}</span>
             </p>
         </div>
-        <div class="notification-delete">
+        <div class="notification-delete" index=${data.index}>
             <button">
                 <i class="fas fa-times"></i>
             </button>
@@ -147,6 +150,10 @@ function addNotification(data, fragment) {
     // Add the delete functionality
     const notificationDelete = notification.querySelector('.notification-delete');
     notificationDelete.addEventListener('click', function () {
+        let index = notificationDelete.getAttribute('index');
+        let notificationData = JSON.parse(getStorageItem('tasks'));
+        notificationData[index].notify = false;
+        setStorageItem('tasks', JSON.stringify(notificationData));
         notification.remove();
 
         // Recalculate the counter after deletion
@@ -160,6 +167,7 @@ function addNotification(data, fragment) {
         }
         counter.setAttribute('count', updatedCounterValue);
         reiterateNotificationNumber();
+        displayTasks();
     });
 
     // Append the notification to the fragment

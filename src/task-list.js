@@ -242,4 +242,5 @@ function editTask(event, taskList, project){
     
     taskList = sortTaskList(taskList);
     setStorageItem("tasks", JSON.stringify(taskList));
+    loadNotificationWindow();
 }
