@@ -88,8 +88,7 @@ function createNotificationWindow() {
         notificationData
             .filter(data => {
                 let taskNotificationDate = parse(`${data.date} ${data.time}`, 'yyyy-MM-dd HH:mm', new Date());
-                return isAfter(taskNotificationDate, notificationTime) && 
-                       isBefore(taskNotificationDate, upcomingTimeLimit) && 
+                return isBefore(taskNotificationDate, upcomingTimeLimit) && 
                        !data.complete && data.notify;
             })
             .forEach(data => {
@@ -148,18 +147,24 @@ function addNotification(data, fragment) {
     notification.innerHTML = formatNotification(data);
 
     // Add the click functionality
-    notification.addEventListener('click', function () {
+    notification.addEventListener('click', () => {
         editCallTaskQueryWindow(data, data.index, false);
         toggleNotificationWindow();
     });
 
     // Add the delete functionality
     const notificationDelete = notification.querySelector('.notification-delete');
-    notificationDelete.addEventListener('click', function () {
+    notificationDelete.addEventListener('click', function (event) {
+        event.stopPropagation();
+
         let index = notificationDelete.getAttribute('index');
         let notificationData = JSON.parse(getStorageItem('tasks'));
+
+        // Update the notification status
         notificationData[index].notify = false;
         setStorageItem('tasks', JSON.stringify(notificationData));
+
+        // Remove the notification from the window
         notification.remove();
 
         // Recalculate the counter after deletion

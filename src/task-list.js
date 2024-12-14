@@ -207,6 +207,17 @@ function editCallTaskQueryWindow(task,index, editable = true){
         document.getElementById('addTaskBtn').disabled = true;
         document.getElementById('addTaskBtn').style.cursor = "not-allowed";
         document.getElementById('chooseProjectBtn').style.cursor = "not-allowed";
+    }else{
+        document.getElementById('inputTaskName').disabled = false;
+        document.getElementById('inputTaskDescription').disabled = false;
+        document.getElementById('dateInput').disabled = false;
+        document.getElementById('timeInput').disabled = false;
+        document.getElementById('priority').disabled = false;
+        document.getElementById('chooseProjectBtn').disabled = false;
+        document.getElementById('notifyBtn').disabled = false;
+        document.getElementById('addTaskBtn').disabled = false;
+        document.getElementById('addTaskBtn').style.cursor = "pointer";
+        document.getElementById('chooseProjectBtn').style.cursor = "pointer";
     }
 
     document.getElementById("pop-up").setAttribute("data-edit-index", index);

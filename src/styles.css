@@ -606,6 +606,7 @@ header > nav > .settings > #theme:active{
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
+    z-index: 3;
 }
 
 .notification-window > .notifications > .notification > .notification-delete:hover{
