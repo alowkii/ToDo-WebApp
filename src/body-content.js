@@ -93,7 +93,7 @@ function callTaskQueryWindow(){
 
     const projectAddBtn = document.getElementById("chooseProjectBtn");
     const projectList = document.getElementById("task-list");
-    if(projectList.getAttribute("project-list") != "all"){
+    if(projectList && projectList.getAttribute("project-list") != "all"){
         let project_attribute = projectList.getAttribute("project-list");
         if(project_attribute == "Today" && project_attribute != "Default"){
             project_attribute = "Default";

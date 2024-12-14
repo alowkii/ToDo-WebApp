@@ -1,4 +1,4 @@
-import { set } from "date-fns";
+import { editCallTaskQueryWindow } from "./task-list";
 
 export { displaySearchPage };
 
@@ -39,28 +39,33 @@ function createSearchPage(){
 }
 
 function searchTasks(){
-    const searchInput = document.querySelector('.search-input');
-
-    const searchResults = document.querySelector('.search-results');
-    searchResults.innerHTML = "";
-    
-    if(searchInput.value == ""){
-        searchInput.style.position = 'relative';
-        return;
-    }
-
-    const tasks = JSON.parse(localStorage.getItem('tasks'));
-    const searchQuery = searchInput.value.toLowerCase();
-
-    tasks.forEach(task => {
-        if(task.title.toLowerCase().includes(searchQuery)){
-            const taskElement = createTaskElement(task);
-            searchResults.appendChild(taskElement);
+    const inputContainer = document.querySelector('.input-container');
+    inputContainer.style.setProperty('content','');
+    inputContainer.style.top = '0.65rem';
+    inputContainer.style.position = 'sticky';
+    setTimeout(() => {
+        const searchInput = document.querySelector('.search-input');
+        const searchResults = document.querySelector('.search-results');
+        searchResults.innerHTML = "";
+        
+        if(searchInput.value == ""){
+            searchInput.style.position = 'relative';
+            return;
         }
-    });
+
+        const tasks = JSON.parse(localStorage.getItem('tasks'));
+        const searchQuery = searchInput.value.toLowerCase();
+
+        for(let i=0; i<tasks.length; i++){
+            if(tasks[i].title.toLowerCase().includes(searchQuery)){
+                const taskElement = createTaskElement(tasks[i], i);
+                searchResults.appendChild(taskElement);
+            }
+        }
+    }, 150);
 }
 
-function createTaskElement(task){
+function createTaskElement(task, i){
     const taskElement = document.createElement('div');
     taskElement.classList.add('task');
     taskElement.innerHTML = `
@@ -68,6 +73,10 @@ function createTaskElement(task){
         <div class="task-date">${task.date}</div>
         <div class="task-time">${task.time}</div>
     `;
+
+    taskElement.addEventListener('click', () => {
+        editCallTaskQueryWindow(task, i);
+    });
 
     return taskElement;
 }
