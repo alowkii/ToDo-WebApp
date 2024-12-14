@@ -6,4 +6,56 @@ function displaySearchPage(){
     mainContent.classList.remove('progress-page');
     mainContent.classList.remove('shows-task-list')
     mainContent.classList.add('search-content');
+
+    createSearchPage();
+}
+
+function createSearchPage(){
+    const searchPage = document.createElement('div');
+    searchPage.classList.add('search-page');
+    searchPage.innerHTML = ``;
+
+    const searchInput = document.createElement('input');
+    searchInput.classList.add('search-input');
+    searchInput.setAttribute('type', 'text');
+    searchInput.setAttribute('placeholder', 'Search tasks');
+    searchInput.addEventListener('input', searchTasks);
+
+    searchPage.appendChild(searchInput);
+
+    const searchResults = document.createElement('div');
+    searchResults.classList.add('search-results');
+
+    searchPage.appendChild(searchResults);
+
+    const mainContent = document.getElementById('main-content');
+    mainContent.appendChild(searchPage);
+}
+
+function searchTasks(){
+    const searchInput = document.querySelector('.search-input');
+    const searchResults = document.querySelector('.search-results');
+    searchResults.innerHTML = "";
+
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    const searchQuery = searchInput.value.toLowerCase();
+
+    tasks.forEach(task => {
+        if(task.title.toLowerCase().includes(searchQuery)){
+            const taskElement = createTaskElement(task);
+            searchResults.appendChild(taskElement);
+        }
+    });
+}
+
+function createTaskElement(task){
+    const taskElement = document.createElement('div');
+    taskElement.classList.add('task');
+    taskElement.innerHTML = `
+        <div class="task-title">${task.title}</div>
+        <div class="task-date">${task.date}</div>
+        <div class="task-time">${task.time}</div>
+    `;
+
+    return taskElement;
 }
