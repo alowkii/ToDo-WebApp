@@ -29,7 +29,7 @@ function displaySettings(){
                 <p>Custom Theme: </p>
                 <button onclick="setCustomTheme()">Upload</button>
                 <button onclick="setDefaultTheme()">Default</button>
-                <a href="https://github.com/alowkii/ToDo-WebApp/blob/main/help" title="Help">?</a>
+                <a href="https://github.com/alowkii/ToDo-WebApp/blob/main/help.md" title="Help" target="_blank">?</a>
             </div>
             <button class="settings-save" onclick="saveSettings()">Save</button>
         </div>

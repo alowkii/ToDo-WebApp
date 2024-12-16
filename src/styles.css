@@ -1501,7 +1501,7 @@ body > #project-window > #cancelProjectBtn{
 .settings-window > .settings-content > .settings-item > a{
     color: var(--primary-color);
     font-size: 0.9rem;
-    font-weight: 300;
+    font-weight: 500;
     text-decoration: none;
     border: 1px solid var(--primary-color);
     border-radius: 50%;
