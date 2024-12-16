@@ -14,7 +14,7 @@ Light theme:
 
 <a href="https://alowkii.github.io/ToDoAppSlideShow/" target="_blank">View Slideshow</a>
 
-<a href="./help">Tutorial For Custom Theme</a>
+<a href="./help.md">Tutorial For Custom Theme</a>
 
 # More to come!!! Stay Updated
 Trust me, it's feet tickling good! ;)
