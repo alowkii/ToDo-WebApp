@@ -1,5 +1,6 @@
 export { themeChange, setTheme, getTheme};
 import { getStorageItem, setStorageItem } from "./local-storage";
+import { changeToCustomTheme } from "./settings";
 
 function themeChange(){
     const iconBtn = document.querySelector('#theme');
@@ -31,6 +32,12 @@ function setTheme(theme) {
     if(!theme){
         theme = getStorageItem('theme') || 'light';
     }
+
+    if(getStorageItem('custom-theme') !== '[]'){
+        const customTheme = JSON.parse(getStorageItem('custom-theme'));
+        changeToCustomTheme(customTheme);
+    }
+
     const root = document.querySelector(':root');
     
     root.setAttribute('data-theme', theme);

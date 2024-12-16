@@ -6,6 +6,7 @@ import { displayViewPortInfo } from './viewport-info.js';
 import { displayFilteredTasks, displayTasksToday } from './filter-methods.js';
 import { displayProgress } from './progress-page.js';
 import { displaySearchPage } from './search-page.js';
+import { displaySettings } from './settings.js';
 
 function toggleMenu(){
     createMenu();
@@ -165,26 +166,27 @@ function callProjectPrompt(){
 
         //Unblur the background
         const popUp = document.getElementById("pop-up");
-        if(!popUp.classList.contains("showPopUp")){
-            const blurOverlay = document.getElementById("blur-overlay");
-            blurOverlay.style.display = "none";
-        }
+        unblurBg();
     });
 
     document.getElementById('close-project-prompt').addEventListener('click', function(){
         document.getElementById('project-prompt').remove();
         
         //Unblur the background
-        const popUp = document.getElementById("pop-up");
-        if(!popUp.classList.contains("showPopUp")){
-            const blurOverlay = document.getElementById("blur-overlay");
-            blurOverlay.style.display = "none";
-        }
+        unblurBg();
     });
 
     //Blur the background
     const blurOverlay = document.getElementById("blur-overlay");
     blurOverlay.style.display = "block";
+}
+
+function unblurBg(){
+    const popUp = document.getElementById("pop-up");
+    if(!popUp.classList.contains("showPopUp")){
+        const blurOverlay = document.getElementById("blur-overlay");
+        blurOverlay.style.display = "none";
+    }
 }
 
 function updateProjectWindowItems(){
@@ -344,6 +346,8 @@ function addFooterItems(menu){
     settings.id = 'settings';
     settings.innerHTML = '<i class="fas fa-cog"></i>';
     footer.appendChild(settings);
+
+    settings.addEventListener('click', displaySettings);
 }
 
 window.toggleMenu = toggleMenu;

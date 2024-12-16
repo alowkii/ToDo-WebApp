@@ -72,11 +72,6 @@ function createNotificationWindow() {
     if (notificationData) {
         // Cache the current date and time
         let currentDate = new Date();
-        let isoString = currentDate.toISOString();
-        let currentDateString = isoString.split('T')[0];
-        let currentTimeString = isoString.split('T')[1].slice(0, 5);
-        
-        let notificationTime = parse(`${currentDateString} ${currentTimeString}`, 'yyyy-MM-dd HH:mm', new Date());
 
         // Cache the notification limit time
         let limit = getNotificationTime().split(':');
