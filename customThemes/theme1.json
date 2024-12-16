@@ -1,0 +1,21 @@
+{
+  "light": {
+    "primary": "#000000",  
+    "secondary": "#808080", 
+    "tertiary": "#D3D3D3",  
+    "quaternary": "#A9A9A9", 
+    "quinary": "#FFFFFF"
+  },
+  "dark": {
+    "primary": "#2F2F2F",  
+    "secondary": "#696969", 
+    "tertiary": "#BEBEBE",  
+    "quaternary": "#8B8B8B", 
+    "quinary": "#FFFFFF" 
+  },
+  "priority": {
+    "high": "black",
+    "medium": "grey",
+    "low": "white"
+  }
+}
