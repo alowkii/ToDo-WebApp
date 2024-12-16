@@ -93,4 +93,4 @@ If you want a lighter appearance for the light theme and more contrast for the d
 ```
 
 By following this guide, you can effectively create and customize your JSON file to suit your application's needs.
-You can find a set of recommended themes under ./customThemes.
+You can find a set of recommended themes under [customThemes](https://github.com/alowkii/ToDo-WebApp/tree/main/customThemes).
