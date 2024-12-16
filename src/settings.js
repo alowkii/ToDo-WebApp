@@ -22,17 +22,15 @@ function displaySettings(){
         </div>
         <div class="settings-content">
             <div class="settings-item">
-                <p>Notification Time</p>
+                <p>Notification Time:</p>
                 <input type="time" id="notification-time" value="${getNotificationTime()}">
             </div>
             <div class="settings-item">
-                <p>Custom Theme</p>
+                <p>Custom Theme: </p>
                 <button onclick="setCustomTheme()">Upload</button>
                 <button onclick="setDefaultTheme()">Default</button>
             </div>
-            <div class="settings-save">
-                <button onclick="saveSettings()">Save</button>
-            </div>
+            <button class="settings-save" onclick="saveSettings()">Save</button>
         </div>
     `;
 }

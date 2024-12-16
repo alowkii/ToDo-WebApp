@@ -1413,11 +1413,103 @@ body > #project-window > #cancelProjectBtn{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 25rem;
+    width: 30rem;
     height: 15rem;
     background-color: var(--secondary-color);
     color: var(--primary-color);
     border-radius: 1rem;
     box-shadow: 0 2px 10px var(--tertiary-color);
     z-index: 100;
+}
+
+.settings-window > .settings-title{
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 1rem;
+}
+
+.settings-window > .close-settings{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-window > .close-settings:hover{
+    opacity: 0.9;
+    color: var(--secondary-color);
+}
+
+.settings-window > .settings-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-window > .settings-content > .settings-item{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 1rem;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.settings-window > .settings-content > .settings-item > button{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-window > .settings-content > .settings-item > #notification-time{
+    width: 5rem;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    padding: 0.2rem;
+    cursor: text;
+}
+
+.settings-window > .settings-content > .settings-save{
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-window > .settings-content > .settings-save:hover{
+    opacity: 0.9;
+    color: var(--secondary-color);
 }

@@ -33,7 +33,7 @@ function setTheme(theme) {
         theme = getStorageItem('theme') || 'light';
     }
 
-    if(getStorageItem('custom-theme') !== '[]'){
+    if(getStorageItem('custom-theme') !== '[]' && getStorageItem('custom-theme')){
         const customTheme = JSON.parse(getStorageItem('custom-theme'));
         changeToCustomTheme(customTheme);
     }
