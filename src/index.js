@@ -20,7 +20,6 @@ if(!notificationTime || notificationTime == ""){
     addNotification();
 }
 
-displaySearchPage();
 loadNotificationWindow();
 
 //Refresh the page every 1 minute
