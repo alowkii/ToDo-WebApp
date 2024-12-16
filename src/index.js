@@ -9,8 +9,6 @@ import { addContent } from "./body-content.js";
 import { toggleNotificationWindow, addNotification, loadNotificationWindow } from "./notification-window.js";
 import { getStorageItem } from "./local-storage.js";
 import { getNotificationTime, setNotificationTime } from "./settings.js";
-import { displaySettings } from "./settings.js";
-
 setTheme(getStorageItem('theme'));
 addContent();
 
@@ -20,7 +18,6 @@ if(!notificationTime || notificationTime == ""){
     addNotification();
 }
 
-displaySettings();
 loadNotificationWindow();
 
 //Refresh the page every 1 minute
