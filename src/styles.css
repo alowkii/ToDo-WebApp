@@ -1393,3 +1393,9 @@ body > #project-window > #cancelProjectBtn{
     animation-timeline: view();
     animation-range: entry 5% cover 10%;
 }
+
+.search-content > .search-page > .search-results > .task:hover{
+    background-color: var(--quaternary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
