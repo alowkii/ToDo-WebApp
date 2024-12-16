@@ -1485,6 +1485,10 @@ body > #project-window > #cancelProjectBtn{
     align-items: center;
 }
 
+.settings-window > .settings-content > .settings-item > button:hover{
+    opacity: 0.9;
+}
+
 .settings-window > .settings-content > .settings-item > #notification-time{
     width: 5rem;
     border-radius: 5px;
@@ -1492,6 +1496,20 @@ body > #project-window > #cancelProjectBtn{
     border: none;
     padding: 0.2rem;
     cursor: text;
+}
+
+.settings-window > .settings-content > .settings-item > a{
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 300;
+    text-decoration: none;
+    border: 1px solid var(--primary-color);
+    border-radius: 50%;
+    width: 1.1rem;
+    height: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .settings-window > .settings-content > .settings-save{
@@ -1511,5 +1529,4 @@ body > #project-window > #cancelProjectBtn{
 
 .settings-window > .settings-content > .settings-save:hover{
     opacity: 0.9;
-    color: var(--secondary-color);
 }
