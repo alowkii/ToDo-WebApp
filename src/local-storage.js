@@ -1,5 +1,3 @@
-import { set } from "date-fns";
-
 export { getStorageItem, setStorageItem, removeStorageItem };
 
 function getStorageItem(key) {

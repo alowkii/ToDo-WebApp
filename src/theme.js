@@ -54,7 +54,3 @@ function getTheme(){
     const root = document.querySelector(':root');
     return root.getAttribute('data-theme');
 }
-
-window.themeChange = themeChange;
-window.setTheme = setTheme;
-window.getTheme = getTheme;

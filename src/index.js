@@ -1,15 +1,20 @@
 import "./styles.css";
 import "./icon.js";
-import "./theme.js";
-import "./menu.js";
-import "./local-storage.js";
-import "./progress-page.js";
+import { themeChange, getTheme, setTheme } from "./theme.js";
+import { toggleMenu } from "./menu.js";
 import { userSignInPrompt, userInfoPrompt } from "./user.js";
 import { addContent, showEmptyCaseWindow } from "./body-content.js";
 import { toggleNotificationWindow, addNotification, loadNotificationWindow } from "./notification-window.js";
-import { getStorageItem } from "./local-storage.js";
+import { getStorageItem, setStorageItem } from "./local-storage.js";
 import { getNotificationTime, setNotificationTime } from "./settings.js";
-setTheme(getStorageItem('theme'));
+
+if(getStorageItem('theme') == null){
+    setTheme('light');
+    setStorageItem('theme', 'light');
+}else{
+    setTheme(getStorageItem('theme'));
+}
+
 addContent();
 
 let notificationTime = getNotificationTime();
@@ -29,3 +34,7 @@ window.toggleNotificationWindow = toggleNotificationWindow;
 window.addNotification = addNotification;
 window.userSignInPrompt = userSignInPrompt;
 window.userInfoPrompt = userInfoPrompt;
+window.toggleMenu = toggleMenu;
+window.themeChange = themeChange;
+window.setTheme = setTheme;
+window.getTheme = getTheme;

@@ -357,5 +357,3 @@ function addFooterItems(menu){
 
     settings.addEventListener('click', displaySettings);
 }
-
-window.toggleMenu = toggleMenu;
