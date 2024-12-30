@@ -1,4 +1,4 @@
-export { addContent, showEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo };
+export { addContent, showEmptyCaseWindow, hideEmptyCaseWindow, submitTask, callTaskQueryWindow, addToDoIconTo };
 import { getStorageItem, setStorageItem} from './local-storage.js';
 import { displayTasks, editTask } from './task-list.js';
 import { callProjectPrompt, createMenu, updateProjectItems, addProjectWindowItems } from './menu.js';
@@ -43,21 +43,36 @@ function addToDoIconTo(destination, idForIcon){
     });
 }
 
-function showEmptyCaseWindow(){
+function showEmptyCaseWindow() {
     const content = document.getElementById("main-content");
     const taskList = document.querySelector("#task-list");
+    const tasks = getStorageItem("tasks"); // Assuming this returns an array or null.
 
-    if(content.innerHTML != "" || getStorageItem("tasks") != null){
+    // Safely check if content has meaningful content.
+    const isContentEmpty = !content || content.innerHTML.trim() === "";
+
+    // Check if tasks in storage are empty or invalid.
+    const areTasksEmpty = !Array.isArray(tasks) || tasks.length === 0;
+
+    // Safely check if the task list element exists and is empty.
+    const isTaskListEmpty = !taskList || taskList.innerHTML.trim() === "";
+
+    // Show the empty case window if all conditions are met.
+    if (isContentEmpty && areTasksEmpty && isTaskListEmpty) {
+        const emptyCaseWindowContent = document.getElementById("empty-case-window");
+        if (emptyCaseWindowContent) {
+            emptyCaseWindowContent.style.display = "block";
+        }
+    } else {
         hideEmptyCaseWindow();
-        return;
     }
-    const emptyCaseWindowContent = document.getElementById("empty-case-window");  
-    emptyCaseWindowContent.style.display = "block";
 }
 
-function hideEmptyCaseWindow(){
+function hideEmptyCaseWindow() {
     const emptyCaseWindowContent = document.getElementById("empty-case-window");
-    emptyCaseWindowContent.style.display = "none";
+    if (emptyCaseWindowContent) {
+        emptyCaseWindowContent.style.display = "none";
+    }
 }
 
 function callTaskQueryWindow(){

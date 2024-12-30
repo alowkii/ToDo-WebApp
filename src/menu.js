@@ -1,5 +1,5 @@
 export { toggleMenu, addProjectWindow, createMenu, updateProjectItems, addProjectWindowItems, callProjectPrompt };
-import { callTaskQueryWindow, showEmptyCaseWindow } from './body-content.js';
+import { callTaskQueryWindow, showEmptyCaseWindow, hideEmptyCaseWindow } from './body-content.js';
 import { getStorageItem, removeStorageItem, setStorageItem } from './local-storage.js';
 import { displayTasks } from './task-list.js';
 import { displayViewPortInfo } from './viewport-info.js';
@@ -92,6 +92,7 @@ function createMenu() {
         displayViewPortInfo();
         unselectMenuButton();
         document.getElementById("all-task-page").classList.add("selected");
+        showEmptyCaseWindow();
     });
 
     document.getElementById("today-task-page").addEventListener('click', function(){
@@ -99,6 +100,7 @@ function createMenu() {
         unselectProjectButton();
         unselectMenuButton();
         document.getElementById("today-task-page").classList.add("selected");
+        showEmptyCaseWindow();
     });
 
     document.getElementById('add-project-btn').addEventListener('click', function(){
@@ -116,6 +118,9 @@ function createMenu() {
         unselectProjectButton();
         unselectMenuButton();
         document.getElementById("progress-page").classList.add("selected");
+        if(document.getElementById("empty-case-window")){
+            hideEmptyCaseWindow();
+        }
     });
 
     document.getElementById('search-page').addEventListener('click', function(){
@@ -124,6 +129,9 @@ function createMenu() {
         unselectProjectButton();
         unselectMenuButton();
         document.getElementById("search-page").classList.add("selected");
+        if(document.getElementById("empty-case-window")){
+            hideEmptyCaseWindow();
+        }
     });
 }
 
@@ -159,7 +167,7 @@ function callProjectPrompt(){
         updateProjectItems(project);
         updateProjectWindowItems();
         displayFilteredTasks(project);
-        if(document.getElementById("chooseProjectBtn")){
+        if(document.getElementById("chooseProjectBtn") && document.getElementById("chooseProjectBtn").getAttribute("project") == "Default"){
             document.getElementById("chooseProjectBtn").setAttribute("project", project);
         }
         document.getElementById('project-prompt').remove();

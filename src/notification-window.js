@@ -100,6 +100,9 @@ function createNotificationWindow() {
 
 //format the notification
 function formatNotification(data){
+    if(!data.title){
+        data.title = "Null";
+    }
     return `
         <div class="notification-content">
             <h3><b>${data.title}</b></h3>

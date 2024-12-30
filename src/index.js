@@ -5,7 +5,7 @@ import "./menu.js";
 import "./local-storage.js";
 import "./progress-page.js";
 import { userSignInPrompt, userInfoPrompt } from "./user.js";
-import { addContent } from "./body-content.js";
+import { addContent, showEmptyCaseWindow } from "./body-content.js";
 import { toggleNotificationWindow, addNotification, loadNotificationWindow } from "./notification-window.js";
 import { getStorageItem } from "./local-storage.js";
 import { getNotificationTime, setNotificationTime } from "./settings.js";

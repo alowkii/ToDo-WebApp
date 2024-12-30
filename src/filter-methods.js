@@ -20,15 +20,18 @@ function displayTasksToday(){
     count = tasks.length - count;
     
     const taskList = document.querySelector('#task-list');
-    taskList.setAttribute("project-list", "Today");
-    if(count == 0){
-        taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
+    if(taskList){
+        taskList.setAttribute("project-list", "Today");
+        if(count == 0){
+            taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
+        }
+        document.querySelector("#append-icon").addEventListener('click', () => {
+            callTaskQueryWindow();
+        });
+        displayViewPortInfo();
+    }else{
+        displayViewPortInfo();
     }
-
-    document.querySelector("#append-icon").addEventListener('click', () => {
-        callTaskQueryWindow();
-    });
-    displayViewPortInfo();
 }
 
 function displayFilteredTasks(project){
@@ -44,13 +47,17 @@ function displayFilteredTasks(project){
     });
     count = tasks.length - count;
     const taskList = document.querySelector('#task-list');
-    taskList.setAttribute("project-list", project);
-    if(count == 0){
-        taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
+    if(taskList){
+        taskList.setAttribute("project-list", project);
+        if(count == 0){
+            taskList.innerHTML = '<p>No tasks found</p>' + taskList.innerHTML;
+        }   
     }
     
-    document.querySelector("#append-icon").addEventListener('click', () => {
-        callTaskQueryWindow();
-    });
+    if(document.querySelector("#append-icon")){
+        document.querySelector("#append-icon").addEventListener('click', () => {
+            callTaskQueryWindow();
+        });
+    }
     displayViewPortInfo();
 }
