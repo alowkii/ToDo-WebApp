@@ -16,4 +16,4 @@ Light theme:
 <a href="./help.md">Tutorial For Custom Theme</a>
 
 # More to come!!! Stay Updated
-Trust me, it's feet tickling good! ;)
+Trust me, it's feet ticklingly good! ;)
